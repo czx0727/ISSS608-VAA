@@ -5,13 +5,18 @@ website:
   title: "ISSS608 Visual Analytics and Applications"
   navbar:
     left:
+      - text: "Hands-on Exercise"
+        menu:
+          - text: "Hands-on Exercise 1"
+            href: "hands_on_ex/hands_on_ex01/hands_on_ex01.html"
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
 
 format:
   html:
-    theme: cosmo
+    theme: united
     css: styles.css
     toc: true
 

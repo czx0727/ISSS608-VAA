@@ -1,5 +1,5 @@
 ---
-title: "ISSS608-VAA"
+title: "ISSS608 Visual Analytics and Applications"
 ---
 
 Welcome to ISSS608 Visual Analytics and Application. In this website, I will share my learning journey for this course. This website is made with the guidance from [Prof Kam](https://faculty.smu.edu.sg/profile/kam-tin-seong-486).
