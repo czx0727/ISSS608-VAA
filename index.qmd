@@ -2,7 +2,9 @@
 title: "ISSS608 Visual Analytics and Applications"
 ---
 
-Welcome to ISSS608 Visual Analytics and Application. In this website, I will share my learning journey for this course. This website is made with the guidance from [Prof Kam](https://faculty.smu.edu.sg/profile/kam-tin-seong-486).
+Welcome to ISSS608 Visual Analytics and Application. I am Zhixuan!
+
+In this website, I will share my learning journey for this course. This website is made with the guidance from [Prof Kam](https://faculty.smu.edu.sg/profile/kam-tin-seong-486).
 
 Course information is located [here](https://isss608-ay2023-24jan.netlify.app/lesson).
 
