@@ -62,6 +62,10 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - icon: github
+        href: https://github.com/czx0727/ISSS608-VAA
+      - icon: linkedin
+        href: https://www.linkedin.com/in/chai-zhixuan-88767a89/
 
 format:
   html:
