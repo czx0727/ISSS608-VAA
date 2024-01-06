@@ -1,0 +1,48 @@
+---
+title: "Hands-On Ex 1"
+author: "Chai Zhixuan"
+---
+
+# Getting Started
+
+Install and launching R packages.
+
+The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+Importing the data
+
+```{r}
+
+```
+
+::: callout-note
+## To be inserted once the data is in elearn: 
+
+exam_data \<- read_csv("chap01/data/Exam_data.csv")
+:::
+
+## Bar chart
+
+The code chunk below plots a bar chart by using [`geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.html).
+
+ggplot(data = exam_data,
+
+aes (x = RACE)) +
+
+geom_bar()
+
+ggplot(data=exam_data, aes(x = MATHS)) +
+
+geom_histogram(bins=10,
+
+boundary = 100,
+
+color="black",
+
+fill="grey") +
+
+ggtitle("Distribution of Maths scores")

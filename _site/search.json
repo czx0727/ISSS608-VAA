@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "There is nothing here! Please go back to the main website :)"
   },
   {
     "objectID": "index.html",
@@ -12,5 +12,19 @@
     "title": "ISSS608 Visual Analytics and Applications",
     "section": "",
     "text": "Welcome to ISSS608 Visual Analytics and Application. In this website, I will share my learning journey for this course. This website is made with the guidance from Prof Kam.\nCourse information is located here.\n\nImage obtained from here\n\n\n\n\n\n\n\n\n\nDate\nTopic\nHands-on Ex\nIn-class Ex\n\n\n\n\n13 Jan 2024\nIntroduction to Visual Analytics\n\n\n\n\n20 Jan 2024\nDesigning Graphs to Enlighten\n\n\n\n\n27 Jan 2024\nInteractivity in Visual Analytics\n\n\n\n\n3 Feb 2024\nFundamentals of Visual Analytics\n\n\n\n\n17 Feb 2024\nVisual Multivariate Analysis\n\n\n\n\n24 Feb 2024\nVisualising and Analysing Time-Oriented Data\n\n\n\n\n2 Mar 2024\nVisualising and Analysing Geographic Data\n\n\n\n\n9 Mar 2024\nNetwork Data Visualisation and Analysis\n\n\n\n\n16 Mar 2024\nVisualising and Analysing Text Data\n\n\n\n\n23 Mar 2024\nInformation Dashboard Design\n\n\n\n\n30 Mar 2024\nPoster Presentation"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex01/hands_on_ex01.html",
+    "href": "hands_on_ex/hands_on_ex01/hands_on_ex01.html",
+    "title": "Hands-On Ex 1",
+    "section": "",
+    "text": "Install and launching R packages.\nThe code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)\n\nImporting the data\n\n\n\n\n\n\nTo be inserted once the data is in elearn:\n\n\n\nexam_data &lt;- read_csv(“chap01/data/Exam_data.csv”)\n\n\n\n\nThe code chunk below plots a bar chart by using geom_bar().\nggplot(data = exam_data,\naes (x = RACE)) +\ngeom_bar()\nggplot(data=exam_data, aes(x = MATHS)) +\ngeom_histogram(bins=10,\nboundary = 100,\ncolor=“black”,\nfill=“grey”) +\nggtitle(“Distribution of Maths scores”)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex01/hands_on_ex01.html#bar-chart",
+    "href": "hands_on_ex/hands_on_ex01/hands_on_ex01.html#bar-chart",
+    "title": "Hands-On Ex 1",
+    "section": "",
+    "text": "The code chunk below plots a bar chart by using geom_bar().\nggplot(data = exam_data,\naes (x = RACE)) +\ngeom_bar()\nggplot(data=exam_data, aes(x = MATHS)) +\ngeom_histogram(bins=10,\nboundary = 100,\ncolor=“black”,\nfill=“grey”) +\nggtitle(“Distribution of Maths scores”)"
   }
 ]
