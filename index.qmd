@@ -2,10 +2,24 @@
 title: "ISSS608-VAA"
 ---
 
-This is a Quarto website.
+Welcome to ISSS608 Visual Analytics and Application. In this website, I will share my learning journey for this course. This website is made with the guidance from [Prof Kam](https://faculty.smu.edu.sg/profile/kam-tin-seong-486).
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Course information is located [here](https://isss608-ay2023-24jan.netlify.app/lesson).
 
-```{r}
-1 + 1
-```
+![](images/Vaa_logo.jpg)
+
+Image obtained from [here](https://wiki.smu.edu.sg/1920t2isss608/File:Vaa_logo.jpg)
+
+| Date        | Topic                                        | Hands-on Ex | In-class Ex |
+|-------------|----------------------------------------------|-------------|-------------|
+| 13 Jan 2024 | Introduction to Visual Analytics             |             |             |
+| 20 Jan 2024 | Designing Graphs to Enlighten                |             |             |
+| 27 Jan 2024 | Interactivity in Visual Analytics            |             |             |
+| 3 Feb 2024  | Fundamentals of Visual Analytics             |             |             |
+| 17 Feb 2024 | Visual Multivariate Analysis                 |             |             |
+| 24 Feb 2024 | Visualising and Analysing Time-Oriented Data |             |             |
+| 2 Mar 2024  | Visualising and Analysing Geographic Data    |             |             |
+| 9 Mar 2024  | Network Data Visualisation and Analysis      |             |             |
+| 16 Mar 2024 | Visualising and Analysing Text Data          |             |             |
+| 23 Mar 2024 | Information Dashboard Design                 |             |             |
+| 30 Mar 2024 | Poster Presentation                          |             |             |
