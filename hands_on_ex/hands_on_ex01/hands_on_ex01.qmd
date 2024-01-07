@@ -1,9 +1,20 @@
 ---
 title: "Hands-On Ex 1"
 author: "Chai Zhixuan"
+date: 2024-01-06
+date-format: long
+date-modified: "last-modified"
 ---
 
 # Getting Started
+
+::: callout-note
+Personal learning outcomes:
+
+1.  Recap of ggplot 2
+2.  Understand and recap on the various statistical plots
+3.  Link concepts learn to other modules/area of work
+:::
 
 Install and launching R packages.
 
@@ -20,7 +31,7 @@ Importing the data
 ```
 
 ::: callout-note
-## To be inserted once the data is in elearn: 
+## To be inserted once the data is in elearn:
 
 exam_data \<- read_csv("chap01/data/Exam_data.csv")
 :::
