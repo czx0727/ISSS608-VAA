@@ -8,15 +8,17 @@ date-modified: "last-modified"
 
 # Getting Started
 
+This hands-on exercise is on **A Layered Grammar of Graphics: ggplot2 methods.**
+
 ::: callout-note
-Zhixuan's personal learning outcomes:
+## Zhixuan's personal learning outcomes
 
 1.  Recap of ggplot 2 using R
 2.  Understand and recap on the various statistical plots
 3.  Link concepts learn to other modules/area of work
 :::
 
-Please note that this is guidance from [link](https://r4va.netlify.app/chap01)
+Please note that this hands on exercise will not be possible with the help from this [link](https://r4va.netlify.app/chap01)
 
 ## Install and launching R packages
 
@@ -202,6 +204,30 @@ ggplot(data=exam_data,
 This histogram seems to be visually appealing
 :::
 
+I will proceed to try with the other subjects as well:
+
+::: panel-tabset
+## English
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= ENGLISH)) +
+  geom_histogram(bins=20,            
+                 color="darkblue",      
+                 fill="light blue")
+```
+
+## Science
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= SCIENCE)) +
+  geom_histogram(bins=20,            
+                 color="darkblue",      
+                 fill="light blue")
+```
+:::
+
 ## **Modifying a geometric object by changing *aes()***
 
 ```{r}
@@ -211,6 +237,30 @@ ggplot(data=exam_data,
   geom_histogram(bins=20, 
                  color="grey30")
 ```
+
+I will proceed to try with the other subjects as well:
+
+::: panel-tabset
+## English
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= ENGLISH, 
+           fill = GENDER)) +
+  geom_histogram(bins=20, 
+                 color="grey30")
+```
+
+## Science
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= SCIENCE, 
+           fill = GENDER)) +
+  geom_histogram(bins=20, 
+                 color="grey30")
+```
+:::
 
 ## **Geometric Objects: geom-density()**
 
@@ -224,23 +274,30 @@ ggplot(data=exam_data,
   geom_density()           
 ```
 
-::: callout-note
-I decided to try with other subjects (Science and English)
-:::
+I decided to try with other subjects (Science and English) as well:
+
+::: panel-tabset
+## English
 
 ```{r}
 ggplot(data=exam_data, 
        aes(x = ENGLISH)) +
-  geom_density()           
+  geom_density() 
 ```
+
+## Science
 
 ```{r}
 ggplot(data=exam_data, 
        aes(x = SCIENCE)) +
   geom_density() 
 ```
+:::
 
 The code chunk below plots two kernel density lines by using *colour* or *fill* arguments of *aes()*
+
+::: panel-tabset
+## Math
 
 ```{r}
 ggplot(data=exam_data, 
@@ -248,6 +305,25 @@ ggplot(data=exam_data,
            colour = GENDER)) +
   geom_density()
 ```
+
+## English
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x = ENGLISH, 
+           colour = GENDER)) +
+  geom_density()
+```
+
+## Science
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x = SCIENCE, 
+           colour = GENDER)) +
+  geom_density()
+```
+:::
 
 ## **Geometric Objects: geom_boxplot**
 
@@ -273,6 +349,10 @@ ggplot(data=exam_data,
   geom_boxplot(notch=TRUE)
 ```
 
+::: callout-note
+Good to compare between different boxplots. However, it will be more meaningful to have the statistics summary
+:::
+
 ## **Geometric Objects: geom_violin**
 
 The code below plot the distribution of Maths score by gender in violin plot.
@@ -283,6 +363,10 @@ ggplot(data=exam_data,
            x= GENDER)) +
   geom_violin()
 ```
+
+::: callout-note
+Not visually appealing to compare
+:::
 
 ## **Geometric Objects: geom_point()**
 
@@ -372,6 +456,10 @@ ggplot(data=exam_data,
               size=0.5)
 ```
 
+::: callout-note
+Question to ask myself: Why do I need to draw a line to compare? Is the scatterplot sufficient?
+:::
+
 # **Essential Grammatical Elements in ggplot2: Facets**
 
 ## **Working with `facet_wrap()`**
@@ -386,6 +474,10 @@ ggplot(data=exam_data,
   geom_histogram(bins=20) +
     facet_wrap(~ CLASS)
 ```
+
+::: callout-note
+Good for comparison within a same group
+:::
 
 ### **`facet_grid()` function**
 
@@ -404,7 +496,7 @@ ggplot(data=exam_data,
 
 ## **Working with Coordinate**
 
-By the default, the bar chart of ggplot2 is in vertical form.
+By the default, the [Bar chart] of ggplot2 is in vertical form.
 
 ```{r}
 ggplot(data=exam_data, 
@@ -479,5 +571,45 @@ ggplot(data=exam_data,
   coord_flip() +
   theme_minimal()
 ```
+
+I will try with the other themes:
+
+::: panel-tabset
+## theme_bw()
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_bw()
+```
+
+## theme_light()
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_light()
+```
+
+## theme_dark()
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_dark()
+```
+:::
+
+::: callout-note
+Theme_gray() seems to be the best
+:::
+
+The next step will be to compare between the various plots - comparing between math, science and english grades.
 
 [Further reference](https://r4va.netlify.app/chap01#reference)
