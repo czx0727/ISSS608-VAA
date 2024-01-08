@@ -104,7 +104,7 @@ ggplot(data=exam_data,
 ```
 
 ::: callout-note
-ggplot includes the x-axis and the axis\'s label.
+ggplot includes the x-axis and the axis's label.
 :::
 
 # **Essential Grammatical Elements in ggplot2: geom**
@@ -327,7 +327,7 @@ ggplot(data=exam_data,
 
 ## **Geometric Objects: geom_boxplot**
 
-[`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html) displays continuous value list. It visualises five summary statistics (the median, two hinges and two whiskers), and all \"outlying\" points individually.
+[`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html) displays continuous value list. It visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
 
 This is a boxplot.
 
@@ -406,7 +406,7 @@ ggplot(data=exam_data,
   geom_boxplot()
 ```
 
-###  **Working with stat - the *stat_summary()* method**
+### **Working with stat - the *stat_summary()* method**
 
 The code chunk below adds mean values by using [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) function and overriding the default geom.
 

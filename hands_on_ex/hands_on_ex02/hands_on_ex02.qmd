@@ -1,0 +1,257 @@
+---
+title: "Hands-On Ex 2"
+author: "Chai Zhixuan"
+date: 2024-01-08
+date-format: long
+date-modified: "last-modified"
+---
+
+# **Getting Started**
+
+This hands-on exercise is on **Beyond ggplot2 Fundamentals.**
+
+::: callout-note
+## Zhixuan's personal learning outcomes
+
+1.  Learn ggplot2 extensions
+2.  Understanding how it can be linked to work
+:::
+
+## **Installing and loading the required libraries**
+
+In this exercise, beside tidyverse, four R packages will be used. They are:
+
+-   [ggrepel](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html): an R package provides geoms for ggplot2 to repel overlapping text labels.
+
+-   [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/): an R package provides some extra themes, geoms, and scales for 'ggplot2'.
+
+-   [hrbrthemes](https://cran.r-project.org/web/packages/hrbrthemes/index.html): an R package provides typography-centric themes and theme components for ggplot2.
+
+-   [patchwork](https://cran.r-project.org/web/packages/patchwork/vignettes/patchwork.html): an R package for preparing composite figure created using ggplot2.
+
+Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
+
+```{r}
+pacman::p_load(ggrepel, patchwork, 
+               ggthemes, hrbrthemes,
+               tidyverse) 
+```
+
+## **Importing data**
+
+The code chunk below imports *exam_data.csv* into R environment by using [*read_csv()*](https://readr.tidyverse.org/reference/read_delim.html) function of [**readr**](https://readr.tidyverse.org/) package. **readr** is one of the tidyverse package.
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+## **Beyond ggplot2 Annotation: ggrepel**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, message=FALSE}
+#| eval: true
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label(aes(label = ID), 
+             hjust = .5, 
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+## The code
+
+```{r}
+#| eval: false
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label(aes(label = ID), 
+             hjust = .5, 
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+:::
+
+## **Working with ggrepel**
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label_repel(aes(label = ID), 
+                   fontface = "bold") +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+## **Beyond ggplot2 Themes**
+
+```{r}
+ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  theme_gray() +
+  ggtitle("Distribution of Maths scores") 
+```
+
+## **Working with ggtheme package**
+
+```{r}
+ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  ggtitle("Distribution of Maths scores") +
+  theme_economist()
+```
+
+## **Working with hrbthems package**
+
+```{r, warning=FALSE}
+ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  ggtitle("Distribution of Maths scores") +
+  theme_ipsum()
+```
+
+```{r, warning=FALSE}
+ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  ggtitle("Distribution of Maths scores") +
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
+```
+
+## **Beyond Single Graph**
+
+```{r}
+p1 <- ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") + 
+  coord_cartesian(xlim=c(0,100)) +
+  ggtitle("Distribution of Maths scores")
+```
+
+```{r}
+p2 <- ggplot(data=exam_data, 
+             aes(x = ENGLISH)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  coord_cartesian(xlim=c(0,100)) +
+  ggtitle("Distribution of English scores")
+```
+
+I draw a scatterplot for English score versus Maths score by as shown below
+
+```{r}
+p3 <- ggplot(data=exam_data, 
+             aes(x= MATHS, 
+                 y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+## **Combining two ggplot2 graphs**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE}
+#| eval: true
+
+p1 + p2
+```
+
+## The code
+
+```{r}
+#| eval: false
+
+p1 + p2
+
+```
+:::
+
+## **Combining three ggplot2 graphs**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE}
+#| eval: true
+
+(p1 / p2) | p3
+```
+
+## The code
+
+```{r}
+#| eval: false
+
+(p1 / p2) | p3
+```
+:::
+
+## **Creating a composite figure with tag**
+
+```{r}
+((p1 / p2) | p3) + 
+  plot_annotation(tag_levels = 'I')
+```
+
+## **Creating figure with insert**
+
+```{r}
+p3 + inset_element(p2, 
+                   left = 0.02, 
+                   bottom = 0.7, 
+                   right = 0.5, 
+                   top = 1)
+```
+
+## **Creating a composite figure by using patchwork and ggtheme**
+
+```{r}
+patchwork <- (p1 / p2) | p3
+patchwork & theme_economist()
+```
