@@ -50,7 +50,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 ::: panel-tabset
 ## The plot
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 #| eval: true
 ggplot(data=exam_data, 
        aes(x= MATHS, 
@@ -87,7 +87,12 @@ ggplot(data=exam_data,
 
 ## **Working with ggrepel**
 
-```{r}
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#| eval: true
+
 ggplot(data=exam_data, 
        aes(x= MATHS, 
            y=ENGLISH)) +
@@ -101,9 +106,46 @@ ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
-## **Beyond ggplot2 Themes**
+## The code
 
 ```{r}
+#| eval: false
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label_repel(aes(label = ID), 
+                   fontface = "bold") +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+:::
+
+## **Beyond ggplot2 Themes**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, , warning=FALSE}
+#| eval: true
+ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  theme_gray() +
+  ggtitle("Distribution of Maths scores") 
+
+```
+
+## The code
+
+```{r}
+#| eval: false
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
   geom_histogram(bins=20, 
@@ -113,10 +155,30 @@ ggplot(data=exam_data,
   theme_gray() +
   ggtitle("Distribution of Maths scores") 
 ```
+:::
 
 ## **Working with ggtheme package**
 
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, , warning=FALSE}
+#| eval: true
+ggplot(data=exam_data, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  ggtitle("Distribution of Maths scores") +
+  theme_economist()
+
+```
+
+## The code
+
 ```{r}
+#| eval: false
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
   geom_histogram(bins=20, 
@@ -126,6 +188,7 @@ ggplot(data=exam_data,
   ggtitle("Distribution of Maths scores") +
   theme_economist()
 ```
+:::
 
 ## **Working with hrbthems package**
 
@@ -196,7 +259,7 @@ p3 <- ggplot(data=exam_data,
 ::: panel-tabset
 ## The plot
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 #| eval: true
 
 p1 + p2
@@ -234,14 +297,34 @@ p1 + p2
 
 ## **Creating a composite figure with tag**
 
-```{r}
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, , message=FALSE}
+#| eval: true
+
 ((p1 / p2) | p3) + 
   plot_annotation(tag_levels = 'I')
 ```
 
-## **Creating figure with insert**
+## The code
 
 ```{r}
+#| eval: false
+
+((p1 / p2) | p3) + 
+  plot_annotation(tag_levels = 'I')
+```
+:::
+
+## **Creating figure with insert**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, , message=FALSE}
+#| eval: true
+
 p3 + inset_element(p2, 
                    left = 0.02, 
                    bottom = 0.7, 
@@ -249,9 +332,40 @@ p3 + inset_element(p2,
                    top = 1)
 ```
 
-## **Creating a composite figure by using patchwork and ggtheme**
+## The code
 
 ```{r}
+#| eval: false
+
+p3 + inset_element(p2, 
+                   left = 0.02, 
+                   bottom = 0.7, 
+                   right = 0.5, 
+                   top = 1)
+
+```
+:::
+
+## **Creating a composite figure by using patchwork and ggtheme**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, , message=FALSE}
+#| eval: true
+
 patchwork <- (p1 / p2) | p3
 patchwork & theme_economist()
+
 ```
+
+## The code
+
+```{r}
+#| eval: false
+
+patchwork <- (p1 / p2) | p3
+patchwork & theme_economist()
+
+```
+:::
