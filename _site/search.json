@@ -7,25 +7,11 @@
     "text": "There is nothing here! Please go back to the main website :)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "ISSS608 Visual Analytics and Applications",
-    "section": "",
-    "text": "Welcome to ISSS608 Visual Analytics and Application. I am Zhixuan! 😀\nIn this website, I will share my learning journey for this course. This website is made with the guidance from Prof Kam.\nCourse information is located here.\n\n\nImage obtained from here\n\n\n\nDate\nTopic\nHands-on Ex\nIn-class Ex\n\n\n\n\n13 Jan 2024\nIntroduction to Visual Analytics\nUnderstanding ggplot\n\n\n\n20 Jan 2024\nDesigning Graphs to Enlighten\n\n\n\n\n27 Jan 2024\nInteractivity in Visual Analytics\n\n\n\n\n3 Feb 2024\nFundamentals of Visual Analytics\n\n\n\n\n17 Feb 2024\nVisual Multivariate Analysis\n\n\n\n\n24 Feb 2024\nVisualising and Analysing Time-Oriented Data\n\n\n\n\n2 Mar 2024\nVisualising and Analysing Geographic Data\n\n\n\n\n9 Mar 2024\nNetwork Data Visualisation and Analysis\n\n\n\n\n16 Mar 2024\nVisualising and Analysing Text Data\n\n\n\n\n23 Mar 2024\nInformation Dashboard Design\n\n\n\n\n30 Mar 2024\nPoster Presentation"
-  },
-  {
     "objectID": "hands_on_ex/hands_on_ex01/hands_on_ex01.html",
     "href": "hands_on_ex/hands_on_ex01/hands_on_ex01.html",
     "title": "Hands-On Ex 1",
     "section": "",
     "text": "This hands-on exercise is on A Layered Grammar of Graphics: ggplot2 methods.\n\n\n\n\n\n\nZhixuan’s personal learning outcomes\n\n\n\n\nRecap of ggplot 2 using R\nUnderstand and recap on the various statistical plots\nLink concepts learn to other modules/area of work\n\n\n\nPlease note that this hands on exercise will not be possible with the help from this link\n\n\nThe code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)\n\n\n\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
-  },
-  {
-    "objectID": "hands_on_ex/hands_on_ex01/hands_on_ex01.html#bar-chart",
-    "href": "hands_on_ex/hands_on_ex01/hands_on_ex01.html#bar-chart",
-    "title": "Hands-On Ex 1",
-    "section": "",
-    "text": "The code chunk below plots a bar chart by using geom_bar().\nggplot(data = exam_data,\naes (x = RACE)) +\ngeom_bar()\nggplot(data=exam_data, aes(x = MATHS)) +\ngeom_histogram(bins=10,\nboundary = 100,\ncolor=“black”,\nfill=“grey”) +\nggtitle(“Distribution of Maths scores”)"
   },
   {
     "objectID": "hands_on_ex/hands_on_ex01/hands_on_ex01.html#install-and-launching-r-packages",
@@ -196,11 +182,25 @@
     "text": "The plotThe code\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()"
   },
   {
-    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#beyond-single-graph",
-    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#beyond-single-graph",
+    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#working-with-hrbthems-package",
+    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#working-with-hrbthems-package",
     "title": "Hands-On Ex 2",
     "section": "",
-    "text": "The plotThe code\n\n\n\np1 &lt;- ggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") + \n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\np1 &lt;- ggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") + \n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\nThe plotThe code\n\n\n\np2 &lt;- ggplot(data=exam_data, \n             aes(x = ENGLISH)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of English scores\")\n\n\n\n\np2 &lt;- ggplot(data=exam_data, \n             aes(x = ENGLISH)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of English scores\")\n\n\n\n\nI draw a scatterplot for English score versus Maths score by as shown below\n\nThe plotThe code\n\n\n\np3 &lt;- ggplot(data=exam_data, \n             aes(x= MATHS, \n                 y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\n\n\n\np3 &lt;- ggplot(data=exam_data, \n             aes(x= MATHS, \n                 y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")"
+    "text": "The plotThe code\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum()\n\n\n\n\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum(axis_title_size = 18,\n              base_size = 15,\n              grid = \"Y\")"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section",
+    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section",
+    "title": "Hands-On Ex 2",
+    "section": "",
+    "text": "The code\n\n\n\np1 &lt;- ggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") + \n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of Maths scores\")"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section-1",
+    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section-1",
+    "title": "Hands-On Ex 2",
+    "section": "",
+    "text": "The code\n\n\n\np2 &lt;- ggplot(data=exam_data, \n             aes(x = ENGLISH)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of English scores\")\n\n\n\n\nI draw a scatterplot for English score versus Maths score by as shown below\n\nThe code\n\n\n\np3 &lt;- ggplot(data=exam_data, \n             aes(x= MATHS, \n                 y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")"
   },
   {
     "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#combining-two-ggplot2-graphs",
@@ -231,32 +231,11 @@
     "text": "The plotThe code\n\n\n\n\n\n\n\n\n\n\np3 + inset_element(p2, \n                   left = 0.02, \n                   bottom = 0.7, \n                   right = 0.5, \n                   top = 1)"
   },
   {
-    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#working-with-hrbthems-package",
-    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#working-with-hrbthems-package",
-    "title": "Hands-On Ex 2",
-    "section": "",
-    "text": "The plotThe code\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum()\n\n\n\n\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum(axis_title_size = 18,\n              base_size = 15,\n              grid = \"Y\")"
-  },
-  {
     "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#creating-a-composite-figure-by-using-patchwork-and-ggtheme",
     "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#creating-a-composite-figure-by-using-patchwork-and-ggtheme",
     "title": "Hands-On Ex 2",
     "section": "",
     "text": "The plotThe code\n\n\n\n\n\n\n\n\n\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()"
-  },
-  {
-    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section",
-    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section",
-    "title": "Hands-On Ex 2",
-    "section": "",
-    "text": "The code\n\n\n\np1 &lt;- ggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") + \n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of Maths scores\")"
-  },
-  {
-    "objectID": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section-1",
-    "href": "hands_on_ex/hands_on_ex02/hands_on_ex02.html#section-1",
-    "title": "Hands-On Ex 2",
-    "section": "",
-    "text": "The code\n\n\n\np2 &lt;- ggplot(data=exam_data, \n             aes(x = ENGLISH)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of English scores\")\n\n\n\n\nI draw a scatterplot for English score versus Maths score by as shown below\n\nThe code\n\n\n\np3 &lt;- ggplot(data=exam_data, \n             aes(x= MATHS, \n                 y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")"
   },
   {
     "objectID": "hands_on_ex/hands_on_ex03/hands_on_ex03.1.html",
@@ -271,5 +250,12 @@
     "title": "Hands-On Ex 3.1",
     "section": "Interactive Data Visualisation - crosstalk methods!",
     "text": "Interactive Data Visualisation - crosstalk methods!\n\nInteractive Data Table: DT package\n\nDT::datatable(exam_data, class= \"compact\")\n\n\n\n\n\n\n\n\nLinked brushing: crosstalk method\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nd &lt;- highlight_key(exam_data) \np &lt;- ggplot(d, \n            aes(ENGLISH, \n                MATHS)) + \n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),        \n                \"plotly_selected\")  \n\ncrosstalk::bscols(gg,               \n                  DT::datatable(d), \n                  widths = 5)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ISSS608 Visual Analytics and Applications",
+    "section": "",
+    "text": "Welcome to ISSS608 Visual Analytics and Application. I am Zhixuan! 😀\nIn this website, I will share my learning journey for this course. This website is made with the guidance from Prof Kam.\nCourse information is located here.\n\n\nImage obtained from here\n\n\n\nDate\nTopic\nHands-on Ex\nIn-class Ex\n\n\n\n\n13 Jan 2024\nIntroduction to Visual Analytics\nUnderstanding ggplot\n\n\n\n20 Jan 2024\nDesigning Graphs to Enlighten\n\n\n\n\n27 Jan 2024\nInteractivity in Visual Analytics\n\n\n\n\n3 Feb 2024\nFundamentals of Visual Analytics\n\n\n\n\n17 Feb 2024\nVisual Multivariate Analysis\n\n\n\n\n24 Feb 2024\nVisualising and Analysing Time-Oriented Data\n\n\n\n\n2 Mar 2024\nVisualising and Analysing Geographic Data\n\n\n\n\n9 Mar 2024\nNetwork Data Visualisation and Analysis\n\n\n\n\n16 Mar 2024\nVisualising and Analysing Text Data\n\n\n\n\n23 Mar 2024\nInformation Dashboard Design\n\n\n\n\n30 Mar 2024\nPoster Presentation"
   }
 ]
