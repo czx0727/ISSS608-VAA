@@ -34,8 +34,10 @@ website:
             href: in_class_ex/in_class_ex01/in_class_ex01.html
           - text: In-Class Exercise 2
             href: in_class_ex/in_class_ex02/in_class_ex02.html
-          - text: In-Class Exercise 3
-            href: in_class_ex/in_class_ex03/in_class_ex03.html
+          - text: In-Class Exercise 3.1
+            href: in_class_ex/in_class_ex03/in_class_ex03.1.html
+          - text: In-Class Exercise 3.2
+            href: in_class_ex/in_class_ex03/in_class_ex03.2.html 
           - text: In-Class Exercise 4
             href: in_class_ex/in_class_ex04/in_class_ex04.html
           - text: In-Class Exercise 5
