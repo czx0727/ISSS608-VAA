@@ -277,7 +277,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics"><strong>3.1 Summary Statistics</strong></a></li>
   <li><a href="#extracting-the-study-data" id="toc-extracting-the-study-data" class="nav-link" data-scroll-target="#extracting-the-study-data"><strong>3.2 Extracting the study data</strong></a></li>
   </ul></li>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">4 Data Wrangling</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">4 Data Wrangling</a>
+  <ul class="collapse">
+  <li><a href="#average-of-plausible-values-from-subjects" id="toc-average-of-plausible-values-from-subjects" class="nav-link" data-scroll-target="#average-of-plausible-values-from-subjects">4.1 Average of plausible values from subjects</a>
+  <ul class="collapse">
+  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math">4.1.1 Math</a></li>
+  <li><a href="#science" id="toc-science" class="nav-link" data-scroll-target="#science">4.1.2 Science</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">4.1.3 Reading</a></li>
+  </ul></li>
+  <li><a href="#rename-of-column-headings" id="toc-rename-of-column-headings" class="nav-link" data-scroll-target="#rename-of-column-headings">4.2 Rename of column headings</a></li>
+  </ul></li>
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">5 Exploratory Data Analysis</a>
   <ul class="collapse">
   <li><a href="#histograms---subjects" id="toc-histograms---subjects" class="nav-link" data-scroll-target="#histograms---subjects">5.1 Histograms - subjects</a></li>
@@ -604,13 +613,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>I will extract the following:</p>
 <ol type="1">
 <li><p>Gender: <strong>ST004D01T</strong></p>
-<p><img src="images/Male or Females.PNG" class="img-fluid" width="248"></p></li>
+<p><img src="images/Male or Females.PNG" class="img-fluid" width="340"></p></li>
 <li><p>Socioeconomic Aspect</p>
 <p>a. Having a room of their own (Refer to image below): <strong>ST250Q01JA</strong></p>
 <p>b. A computer: <strong>ST250Q02JA</strong></p>
-<p><img src="images/Sociaeconomic.PNG" class="img-fluid" width="364"></p></li>
+<p><img src="images/Sociaeconomic.PNG" class="img-fluid" width="487"></p></li>
 <li><p>Expected Education Level: <strong>EXPECEDU</strong></p>
-<p><img src="images/edu.PNG" class="img-fluid" width="425"></p></li>
+<p><img src="images/edu.PNG" class="img-fluid" width="536"></p></li>
 <li><p>Math score - <strong>PV1MATH</strong> to <strong>PV10MATH</strong></p></li>
 <li><p>Science score - <strong>PV1SCIE</strong> to <strong>PV10SCIE</strong></p></li>
 <li><p>Reading score - <strong>PV1READ</strong> to <strong>PV10READ</strong></p></li>
@@ -673,8 +682,71 @@ $ PV10READ   &lt;dbl&gt; 657.387, 571.261, 590.758, 342.956, 478.578, 410.846, 7
 </section>
 <section id="data-wrangling" class="level1">
 <h1>4 Data Wrangling</h1>
-<p>Change to numercial values</p>
-<p>Average of <a href="https://nces.ed.gov/nationsreportcard/tdw/analysis/est_pv_individual.aspx">plausible values</a></p>
+<section id="average-of-plausible-values-from-subjects" class="level2">
+<h2 class="anchored" data-anchor-id="average-of-plausible-values-from-subjects">4.1 Average of plausible values from subjects</h2>
+<p>10 different values are given for the different subjects. I will need to find the average of <a href="https://nces.ed.gov/nationsreportcard/tdw/analysis/est_pv_individual.aspx">plausible values</a>.</p>
+<section id="math" class="level3">
+<h3 class="anchored" data-anchor-id="math">4.1.1 Math</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_1 <span class="ot">&lt;-</span> stu_qqq_SG_1 <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">math_average =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">c</span>(PV1MATH, PV2MATH, PV3MATH,PV4MATH,PV5MATH,PV6MATH,PV7MATH,PV8MATH,PV9MATH,PV10MATH))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="science" class="level3">
+<h3 class="anchored" data-anchor-id="science">4.1.2 Science</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_1 <span class="ot">&lt;-</span> stu_qqq_SG_1 <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sci_average =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">c</span>(PV1SCIE, PV2SCIE, PV3SCIE,PV4SCIE,PV5SCIE,PV6SCIE,PV7SCIE,PV8SCIE,PV9SCIE,PV10SCIE))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reading" class="level3">
+<h3 class="anchored" data-anchor-id="reading">4.1.3 Reading</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_1 <span class="ot">&lt;-</span> stu_qqq_SG_1 <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">read_average =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">c</span>(PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="rename-of-column-headings" class="level2">
+<h2 class="anchored" data-anchor-id="rename-of-column-headings">4.2 Rename of column headings</h2>
+<p>I will rename some column for better reference</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_1 <span class="ot">&lt;-</span> stu_qqq_SG_1 <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gender =</span> ST004D01T, <span class="at">having_a_room =</span> ST250Q01JA, <span class="at">having_a_laptop =</span> ST250Q02JA, <span class="at">expected_edu =</span> EXPECEDU)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I will now filter to the columns I want</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_2 <span class="ot">&lt;-</span> stu_qqq_SG_1 <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(gender, having_a_room, having_a_laptop, expected_edu, math_average, sci_average, read_average)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I will save it do rds format as well</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(stu_qqq_SG_2,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"data/stu_qqq_SG_2.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I will import back the rds file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_2 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/stu_qqq_SG_2.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(stu_qqq_SG_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,606
+Columns: 7
+$ gender          &lt;dbl&gt; 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2, …
+$ having_a_room   &lt;dbl&gt; 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, …
+$ having_a_laptop &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ expected_edu    &lt;dbl&gt; 7, 7, 6, NA, 6, 7, 9, 9, 7, 6, 7, 8, 9, 9, 9, 9, 7, 7,…
+$ math_average    &lt;dbl&gt; 605.2533, 689.9528, 676.7768, 401.0528, 436.1151, 518.…
+$ sci_average     &lt;dbl&gt; 639.7873, 672.0703, 660.0384, 343.6425, 479.2390, 476.…
+$ read_average    &lt;dbl&gt; 667.4296, 627.6078, 582.9252, 361.3969, 475.6763, 431.…</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="exploratory-data-analysis" class="level1">
 <h1>5 Exploratory Data Analysis</h1>

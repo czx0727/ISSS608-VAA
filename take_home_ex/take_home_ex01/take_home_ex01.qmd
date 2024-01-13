@@ -103,7 +103,7 @@ I will extract the following:
 
 1.  Gender: **ST004D01T**
 
-    ![](images/Male or Females.PNG){width="248"}
+    ![](images/Male or Females.PNG){width="340"}
 
 2.  Socioeconomic Aspect
 
@@ -111,11 +111,11 @@ I will extract the following:
 
     b\. A computer: **ST250Q02JA**
 
-    ![](images/Sociaeconomic.PNG){width="364"}
+    ![](images/Sociaeconomic.PNG){width="487"}
 
 3.  Expected Education Level: **EXPECEDU**
 
-    ![](images/edu.PNG){width="425"}
+    ![](images/edu.PNG){width="536"}
 
 4.  Math score - **PV1MATH** to **PV10MATH**
 
@@ -150,9 +150,78 @@ glimpse(stu_qqq_SG_1)
 
 # 4 Data Wrangling
 
-Change to numercial values
+## 4.1 Average of plausible values from subjects
 
-Average of [plausible values](https://nces.ed.gov/nationsreportcard/tdw/analysis/est_pv_individual.aspx)
+10 different values are given for the different subjects. I will need to find the average of [plausible values](https://nces.ed.gov/nationsreportcard/tdw/analysis/est_pv_individual.aspx).
+
+### 4.1.1 Math
+
+```{r}
+
+#| eval: false
+
+stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
+  mutate(math_average = rowMeans(across(c(PV1MATH, PV2MATH, PV3MATH,PV4MATH,PV5MATH,PV6MATH,PV7MATH,PV8MATH,PV9MATH,PV10MATH))))
+```
+
+### 4.1.2 Science
+
+```{r}
+
+#| eval: false
+
+stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
+  mutate(sci_average = rowMeans(across(c(PV1SCIE, PV2SCIE, PV3SCIE,PV4SCIE,PV5SCIE,PV6SCIE,PV7SCIE,PV8SCIE,PV9SCIE,PV10SCIE))))
+```
+
+### 4.1.3 Reading
+
+```{r}
+#| eval: false
+
+stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
+  mutate(read_average = rowMeans(across(c(PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ))))
+```
+
+## 4.2 Rename of column headings
+
+I will rename some column for better reference
+
+```{r}
+#| eval: false
+
+stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
+  rename(gender = ST004D01T, having_a_room = ST250Q01JA, having_a_laptop = ST250Q02JA, expected_edu = EXPECEDU)
+```
+
+I will now filter to the columns I want
+
+```{r}
+#| eval: false
+
+stu_qqq_SG_2 <- stu_qqq_SG_1 %>%
+select(gender, having_a_room, having_a_laptop, expected_edu, math_average, sci_average, read_average)
+```
+
+I will save it do rds format as well
+
+```{r}
+#| eval: false
+
+write_rds(stu_qqq_SG_2,
+          "data/stu_qqq_SG_2.rds")
+
+```
+
+I will import back the rds file
+
+```{r}
+stu_qqq_SG_2 <- read_rds("data/stu_qqq_SG_2.rds")
+```
+
+```{r}
+glimpse(stu_qqq_SG_2)
+```
 
 # 5 Exploratory Data Analysis
 
