@@ -14,19 +14,24 @@ Social capital is a crucial element in the educational landscape, intertwining w
 
 ## 2.1 Objectives
 
-The 2022 Programme for International Student Assessment (PISA) data was released on December 5, 2022. PISA global education survey every three years to assess the education systems worldwide through testing 15 year old students in the subjects of mathematics, reading, and science.
+[PISA](https://www.oecd.org/pisa/) is the OECD's Programme for International Student Assessment. PISA measures 15-year-olds\' ability to use their reading, mathematics and science knowledge and skills to meet real-life challenges.
 
-In this take-home exercise, I will demonstrate appropriate **Exploratory Data Analysis (EDA)** methods and **ggplot2** functions to reveal:
+Initial results of PISA 2022 were released on 5 December 2023. 81 countries and economies took part in PISA 2022.
 
--   the distribution of Singapore students\' performance in mathematics, reading, and science, and
+[PISA 2022](https://www.oecd-ilibrary.org/docserver/18f73e4f-en.pdf?expires=1705144524&id=id&accname=guest&checksum=56D745B64C41665A554C01DDD7827E1A) shows that Singapore scored significantly higher than all other participating
+countries/economies in mathematics (575 points), reading (543 points) and science (561 points).
+
+In this take-home exercise, I will demonstrate on how to deploy appropriate **Exploratory Data Analysis (EDA)** methods and **ggplot2** functions to reveal:
+
+-   the distribution of Singapore students' performance in mathematics, reading, and science, and
 
 -   the relationship between these performances with schools, gender and socioeconomic status of the students.
 
-A total of not more than 5 EDA will be created
+A total of not more than 5 EDA will be created in this take-home exercise. This study will use the results from PISA 2022.
 
 ## 2.2 The study area
 
-This will be in the context of Singapore.
+This will be in the context of Singapore. Survey questions are found in this [link](https://www.oecd.org/pisa/data/2022database/CY8_202111_QST_MS_STQ_CBA_NoNotes.pdf).
 
 ## **2.3 Setting the Analytical Tools**
 
@@ -35,49 +40,126 @@ I will use the following package:
 1.  [haven](https://cran.r-project.org/web/packages/haven/index.html): Import and Export 'SPSS', 'Stata' and 'SAS' Files
 
 ```{r}
-pacman::p_load(haven, knitr, dplyr, kableExtra) 
+pacman::p_load(ggrepel, patchwork, 
+               ggthemes, hrbrthemes,
+               tidyverse, haven) 
 ```
 
 # **3 Data Preparation**
 
-I will import the data from [here](here "https://www.oecd.org/pisa/data/2022database/")
+I will import the data from [here](https://www.oecd.org/pisa/data/2022database/)
 
-Step by Step as shown below:
+Step by Step on how to obtain the data is as shown below:
 
-1.  Go to https://www.oecd.org/pisa/data/2022database/
-2.  Scroll down and download the **Student questionnaire data file** only
+1.  Go to <https://www.oecd.org/pisa/data/2022database/>
+2.  Scroll down and download the **Student questionnaire data file** only. Please ensure that the file downloaded is from the SAS (TM) Data Files (compressed) section.
 
 ![](images/1-01.PNG)
 
-```{r}
-#| eval: false
-data <- read_sas("data/cy08msp_stu_qqq.sas7bdat")
-View(data)
-```
-
-## **Summary Statistics**
-
-::: panel-tabset
-## First 5 rows
-
-```{r}
-head(data,5) %>%
-  kbl() %>%
-  kable_material()
-```
-
-## Dataset Structure
-
-```{r}
-str(data)
-```
-
-## Data Health
+I will first import the file downloaded from PICA.
 
 ```{r}
 #| eval: false
-data[duplicated(dataset),]
-
-sum(is.na(data))
+stu.qqq <- read_sas("data/cy08msp_stu_qqq.sas7bdat")
 ```
-:::
+
+I will filter the data to Singapore.
+
+```{r}
+#| eval: false
+stu_qqq_SG <- stu.qqq %>%
+  filter(CNT == "SGP")
+```
+
+I will save the data to rds format.
+
+```{r}
+#| eval: false
+write_rds(stu_qqq_SG,
+          "data/stu_qqq_SG.rds")
+```
+
+I will read back the rds file.
+
+```{r}
+stu_qqq_SG <- read_rds("data/stu_qqq_SG.rds")
+```
+
+## **3.1 Summary Statistics**
+
+I will first have a look at the data structure
+
+```{r}
+str(stu_qqq_SG)
+```
+
+There are are total of 6606 rows and 1279 columns.
+
+Further filter of data is needed.
+
+## **3.2 Extracting the study data**
+
+I will extract the following:
+
+1.  Gender: **ST004D01T**
+
+    ![](images/Male or Females.PNG){width="248"}
+
+2.  Socioeconomic Aspect
+
+    a\. Having a room of their own (Refer to image below): **ST250Q01JA**
+
+    b\. A computer: **ST250Q02JA**
+
+    ![](images/Sociaeconomic.PNG){width="364"}
+
+3.  Expected Education Level: **EXPECEDU**
+
+    ![](images/edu.PNG){width="425"}
+
+4.  Math score - **PV1MATH** to **PV10MATH**
+
+5.  Science score - **PV1SCIE** to **PV10SCIE**
+
+6.  Reading score - **PV1READ** to **PV10READ**
+
+```{r}
+
+stu_qqq_SG_1 <- stu_qqq_SG %>%
+select(ST004D01T,ST250Q01JA, ST250Q02JA,EXPECEDU, PV1MATH, PV2MATH,PV3MATH,PV4MATH,PV5MATH,PV6MATH,PV7MATH ,PV8MATH,PV9MATH,PV10MATH,PV1SCIE,PV2SCIE,PV3SCIE,PV4SCIE,PV5SCIE,PV6SCIE,PV7SCIE,PV8SCIE,PV9SCIE,PV10SCIE,PV1READ,PV2READ,PV3READ,PV4READ,PV5READ,PV6READ,PV7READ,PV8READ,PV9READ,PV10READ)
+
+```
+
+I will save the data to rds format as well:
+
+```{r}
+#| eval: false
+write_rds(stu_qqq_SG_1,
+          "data/stu_qqq_SG_1.rds")
+```
+
+I will read back the rds file.
+
+```{r}
+stu_qqq_SG_1 <- read_rds("data/stu_qqq_SG_1.rds")
+```
+
+```{r}
+glimpse(stu_qqq_SG_1)
+```
+
+# 4 Data Wrangling
+
+Change to numercial values
+
+Average of [plausible values](https://nces.ed.gov/nationsreportcard/tdw/analysis/est_pv_individual.aspx)
+
+# 5 Exploratory Data Analysis
+
+## 5.1 Histograms - subjects
+
+## 5.2 Boxplots - Subjects
+
+## 5.3 Mosaic plot - Gender and Room, Gender and Laptop, Gender and School
+
+## 5.4 Bar graph - Gender and Subjects, Room and Subjects, School and Subjects, Laptop and Subjects
