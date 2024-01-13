@@ -257,5 +257,47 @@
     "title": "ISSS608 Visual Analytics and Applications",
     "section": "",
     "text": "Welcome to ISSS608 Visual Analytics and Application. I am Zhixuan! 😀\nIn this website, I will share my learning journey for this course. This website is made with the guidance from Prof Kam.\nCourse information is located here.\n\n\nImage obtained from here\n\n\n\nDate\nTopic\nHands-on Ex\nIn-class Ex\n\n\n\n\n13 Jan 2024\nIntroduction to Visual Analytics\nUnderstanding ggplot\n\n\n\n20 Jan 2024\nDesigning Graphs to Enlighten\n\n\n\n\n27 Jan 2024\nInteractivity in Visual Analytics\n\n\n\n\n3 Feb 2024\nFundamentals of Visual Analytics\n\n\n\n\n17 Feb 2024\nVisual Multivariate Analysis\n\n\n\n\n24 Feb 2024\nVisualising and Analysing Time-Oriented Data\n\n\n\n\n2 Mar 2024\nVisualising and Analysing Geographic Data\n\n\n\n\n9 Mar 2024\nNetwork Data Visualisation and Analysis\n\n\n\n\n16 Mar 2024\nVisualising and Analysing Text Data\n\n\n\n\n23 Mar 2024\nInformation Dashboard Design\n\n\n\n\n30 Mar 2024\nPoster Presentation"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html",
+    "href": "take_home_ex/take_home_ex01/take_home_ex01.html",
+    "title": "Take-Home Exercise 1",
+    "section": "",
+    "text": "Social capital is a crucial element in the educational landscape, intertwining with the functioning and success of schools. Defined as the networks, relationships, and social bonds that individuals and communities build, social capital plays a pivotal role in shaping the educational experiences of students. In the context of schools, it manifests through the connections between students, teachers, parents, and the wider community."
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html#objectives",
+    "href": "take_home_ex/take_home_ex01/take_home_ex01.html#objectives",
+    "title": "Take-Home Exercise 1",
+    "section": "2.1 Objectives",
+    "text": "2.1 Objectives\nThe 2022 Programme for International Student Assessment (PISA) data was released on December 5, 2022. PISA global education survey every three years to assess the education systems worldwide through testing 15 year old students in the subjects of mathematics, reading, and science.\nIn this take-home exercise, I will demonstrate appropriate Exploratory Data Analysis (EDA) methods and ggplot2 functions to reveal:\n\nthe distribution of Singapore students' performance in mathematics, reading, and science, and\nthe relationship between these performances with schools, gender and socioeconomic status of the students.\n\nA total of not more than 5 EDA will be created"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html#the-study-area",
+    "href": "take_home_ex/take_home_ex01/take_home_ex01.html#the-study-area",
+    "title": "Take-Home Exercise 1",
+    "section": "2.2 The study area",
+    "text": "2.2 The study area\nThis will be in the context of Singapore."
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html#setting-the-analytical-tools",
+    "href": "take_home_ex/take_home_ex01/take_home_ex01.html#setting-the-analytical-tools",
+    "title": "Take-Home Exercise 1",
+    "section": "2.3 Setting the Analytical Tools",
+    "text": "2.3 Setting the Analytical Tools\nI will use the following package:\n\nhaven: Import and Export ‘SPSS’, ‘Stata’ and ‘SAS’ Files\n\n\npacman::p_load(haven, knitr, dplyr, kableExtra)"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html#summary-statistics",
+    "href": "take_home_ex/take_home_ex01/take_home_ex01.html#summary-statistics",
+    "title": "Take-Home Exercise 1",
+    "section": "Summary Statistics",
+    "text": "Summary Statistics\n\nFirst 5 rowsDataset StructureData Health\n\n\n\nhead(data,5) %&gt;%\n  kbl() %&gt;%\n  kable_material()\n\n\n\n\n\n\n\n\n\nfunction (..., list = character(), package = NULL, lib.loc = NULL,\n\n\nverbose = getOption(\"verbose\"), envir = .GlobalEnv, overwrite = TRUE)\n\n\n{\n\n\nfileExt &lt;- function(x) {\n\n\ndb &lt;- grepl(\"\\\\.[^.]+\\\\.(gz|bz2|xz)$\", x)\n\n\n\n\n\n\n\n\n\n\nstr(data)\n\nfunction (..., list = character(), package = NULL, lib.loc = NULL, verbose = getOption(\"verbose\"), \n    envir = .GlobalEnv, overwrite = TRUE)  \n\n\n\n\n\ndata[duplicated(dataset),]\n\nsum(is.na(data))"
+  },
+  {
+    "objectID": "in_class_ex/in_class_ex01/in_class_ex01.html",
+    "href": "in_class_ex/in_class_ex01/in_class_ex01.html",
+    "title": "In-Class Ex 1: Now You See It",
+    "section": "",
+    "text": "Loading R packages\nIn this in-class exercise, two R packages will be used. They are:\n\ntidyverse\nhaven\n\n\npacman::p_load(tidyverse, haven)\n\n\n\nImporting PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment\n\nstu.qqq &lt;- read_sas(\"data/cy08msp_stu_qqq.sas7bdat\")\n\n\nstu_qqq_SG &lt;- stu.qqq %&gt;%\n  filter(CNT == \"SGP\")\n\n\nwrite_rds(stu_qqq_SG,\n          \"data/stu_qqq_SG.rds\") \n\n\nstu_qqq_SG &lt;- read_rds(\"data/stu_qqq_SG.rds\")"
   }
 ]

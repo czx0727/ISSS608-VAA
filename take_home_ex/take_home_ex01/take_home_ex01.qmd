@@ -1,0 +1,83 @@
+---
+title: "Take-Home Exercise 1"
+author: "Chai Zhixuan"
+date: 2024-01-13
+date-format: long
+date-modified: "last-modified"
+---
+
+# 1 Overview
+
+Social capital is a crucial element in the educational landscape, intertwining with the functioning and success of schools. Defined as the networks, relationships, and social bonds that individuals and communities build, social capital plays a pivotal role in shaping the educational experiences of students. In the context of schools, it manifests through the connections between students, teachers, parents, and the wider community.
+
+# 2 Getting Started
+
+## 2.1 Objectives
+
+The 2022 Programme for International Student Assessment (PISA) data was released on December 5, 2022. PISA global education survey every three years to assess the education systems worldwide through testing 15 year old students in the subjects of mathematics, reading, and science.
+
+In this take-home exercise, I will demonstrate appropriate **Exploratory Data Analysis (EDA)** methods and **ggplot2** functions to reveal:
+
+-   the distribution of Singapore students\' performance in mathematics, reading, and science, and
+
+-   the relationship between these performances with schools, gender and socioeconomic status of the students.
+
+A total of not more than 5 EDA will be created
+
+## 2.2 The study area
+
+This will be in the context of Singapore.
+
+## **2.3 Setting the Analytical Tools**
+
+I will use the following package:
+
+1.  [haven](https://cran.r-project.org/web/packages/haven/index.html): Import and Export 'SPSS', 'Stata' and 'SAS' Files
+
+```{r}
+pacman::p_load(haven, knitr, dplyr, kableExtra) 
+```
+
+# **3 Data Preparation**
+
+I will import the data from [here](here "https://www.oecd.org/pisa/data/2022database/")
+
+Step by Step as shown below:
+
+1.  Go to https://www.oecd.org/pisa/data/2022database/
+2.  Scroll down and download the **Student questionnaire data file** only
+
+![](images/1-01.PNG)
+
+```{r}
+#| eval: false
+data <- read_sas("data/cy08msp_stu_qqq.sas7bdat")
+View(data)
+```
+
+## **Summary Statistics**
+
+::: panel-tabset
+## First 5 rows
+
+```{r}
+head(data,5) %>%
+  kbl() %>%
+  kable_material()
+```
+
+## Dataset Structure
+
+```{r}
+str(data)
+```
+
+## Data Health
+
+```{r}
+#| eval: false
+data[duplicated(dataset),]
+
+sum(is.na(data))
+```
+:::
