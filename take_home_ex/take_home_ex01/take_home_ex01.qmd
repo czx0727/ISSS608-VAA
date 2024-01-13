@@ -157,7 +157,6 @@ glimpse(stu_qqq_SG_1)
 ### 4.1.1 Math
 
 ```{r}
-
 #| eval: false
 
 stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
@@ -167,7 +166,6 @@ stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
 ### 4.1.2 Science
 
 ```{r}
-
 #| eval: false
 
 stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
