@@ -14,12 +14,11 @@ Social capital is a crucial element in the educational landscape, intertwining w
 
 ## 2.1 Objectives
 
-[PISA](https://www.oecd.org/pisa/) is the OECD's Programme for International Student Assessment. PISA measures 15-year-olds\' ability to use their reading, mathematics and science knowledge and skills to meet real-life challenges.
+[PISA](https://www.oecd.org/pisa/) is the OECD's Programme for International Student Assessment. PISA measures 15-year-olds' ability to use their reading, mathematics and science knowledge and skills to meet real-life challenges.
 
 Initial results of PISA 2022 were released on 5 December 2023. 81 countries and economies took part in PISA 2022.
 
-[PISA 2022](https://www.oecd-ilibrary.org/docserver/18f73e4f-en.pdf?expires=1705144524&id=id&accname=guest&checksum=56D745B64C41665A554C01DDD7827E1A) shows that Singapore scored significantly higher than all other participating
-countries/economies in mathematics (575 points), reading (543 points) and science (561 points).
+[PISA 2022](https://www.oecd-ilibrary.org/docserver/18f73e4f-en.pdf?expires=1705144524&id=id&accname=guest&checksum=56D745B64C41665A554C01DDD7827E1A) shows that Singapore scored significantly higher than all other participating countries/economies in mathematics (575 points), reading (543 points) and science (561 points).
 
 In this take-home exercise, I will demonstrate on how to deploy appropriate **Exploratory Data Analysis (EDA)** methods and **ggplot2** functions to reveal:
 
@@ -42,7 +41,7 @@ I will use the following package:
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
-               tidyverse, haven) 
+               tidyverse, haven, ggiraphExtra) 
 ```
 
 # **3 Data Preparation**
@@ -103,7 +102,7 @@ I will extract the following:
 
 1.  Gender: **ST004D01T**
 
-    ![](images/Male or Females.PNG){width="340"}
+    ![](images/Male%20or%20Females.PNG){width="340"}
 
 2.  Socioeconomic Aspect
 
@@ -221,12 +220,411 @@ stu_qqq_SG_2 <- read_rds("data/stu_qqq_SG_2.rds")
 glimpse(stu_qqq_SG_2)
 ```
 
+## 4.3 Recode column information
+
+A closer look at the expected education reveals some confusion.
+
+![](images/questions.PNG)
+
+From the [link](https://gpseducation.oecd.org/Content/MapOfEducationSystem/GBR/GBR_2011_EN.pdf), I would need to map to the correct education level in Singapore
+
+![](images/level-01.PNG)
+
+| ISCED | Singapore         |
+|-------|-------------------|
+| 2     | Lower Secondary   |
+| 3     | Upper Secondary   |
+| 5     | Post Secondary    |
+| 6     | Diploma           |
+| 7     | Bachelor's Degree |
+| 8     | Master's Degree   |
+| 9     | PhD               |
+
+Now, I will recode the column information
+
+For gender:
+
+```{r}
+#| eval: false
+stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+  mutate(gender = case_when(
+    gender == "1" ~ "Female",
+    gender == "2" ~ "Male"))
+```
+
+For room:
+
+```{r}
+#| eval: false
+stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+  mutate(having_a_room = case_when(
+    having_a_room == "1" ~ "Yes",
+    having_a_room == "2" ~ "No"))
+```
+
+For laptop:
+
+```{r}
+#| eval: false
+stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+  mutate(having_a_laptop = case_when(
+    having_a_laptop == "1" ~ "Yes",
+    having_a_laptop == "2" ~ "No"))
+```
+
+```{r}
+#| eval: false
+summary(stu_qqq_SG_2)
+```
+
+For expected education
+
+```{r}
+#| eval: false
+stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+  mutate(expected_edu = case_when(
+    expected_edu == "2" ~ "Lower Sec",
+    expected_edu == "3" ~ "Upper Sec",
+    expected_edu == "5" ~ "Post Sec",
+    expected_edu == "6" ~ "Diploma",
+    expected_edu == "7" ~ "Degree",
+    expected_edu == "8" ~ "Masters",
+    expected_edu == "9" ~ "PhD",
+    TRUE ~ as.character(expected_edu)
+  ))
+```
+
+::: callout-note
+Note that for expected education there is NA. I will need to retain those NA
+:::
+
+I will save the file to rds
+
+```{r}
+write_rds(stu_qqq_SG_2,
+          "data/stu_qqq_SG_3.rds")
+
+```
+
+I will import back the rds file
+
+```{r}
+stu_qqq_SG_3 <- read_rds("data/stu_qqq_SG_3.rds")
+```
+
 # 5 Exploratory Data Analysis
 
-## 5.1 Histograms - subjects
+Before I begin, I will the summary function to have a look at the results for the various subjects:
 
-## 5.2 Boxplots - Subjects
+```{r}
+summary(stu_qqq_SG_3)
+```
 
-## 5.3 Mosaic plot - Gender and Room, Gender and Laptop, Gender and School
+I will make gender, having a laptop, having a room as factors, and expected education:
 
-## 5.4 Bar graph - Gender and Subjects, Room and Subjects, School and Subjects, Laptop and Subjects
+```{r}
+stu_qqq_SG_3$gender <- as.factor(stu_qqq_SG_3$gender )
+
+stu_qqq_SG_3$having_a_room <- as.factor(stu_qqq_SG_3$having_a_room)
+
+stu_qqq_SG_3$having_a_laptop <- as.factor(stu_qqq_SG_3$having_a_laptop)
+
+stu_qqq_SG_3$expected_edu <- as.factor(stu_qqq_SG_3$expected_edu)
+```
+
+## 5.1 Histograms - Subjects
+
+Now I will plot the individual histograms for each subjects:
+
+**Math**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, warning=FALSE}
+#| eval: true
+p1 <- ggplot(data=stu_qqq_SG_3, 
+             aes(x = math_average)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="darkblue",      
+                 fill="light blue") + 
+  coord_cartesian(xlim=c(0,900)) +
+  ggtitle("Distribution of Maths scores") +
+  labs(x = "Math Score")
+
+p1
+```
+
+## The code
+
+```{r}
+#| eval: false
+p1 <- ggplot(data=stu_qqq_SG_3, 
+             aes(x = math_average)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="darkblue",      
+                 fill="light blue") + 
+  coord_cartesian(xlim=c(0,900)) +
+  ggtitle("Distribution of Maths scores")+
+  labs(x = "Math Score")
+```
+:::
+
+**Reading**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, warning=FALSE}
+#| eval: true
+p2 <- ggplot(data=stu_qqq_SG_3, 
+             aes(x = read_average)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="darkblue",      
+                 fill="light blue") + 
+  coord_cartesian(xlim=c(0,900)) +
+  ggtitle("Distribution of Reading scores")+
+  labs(x = "Reading Score")
+
+p2
+
+```
+
+## The code
+
+```{r}
+#| eval: false
+p2 <- ggplot(data=stu_qqq_SG_3, 
+             aes(x = read_average)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="darkblue",      
+                 fill="light blue") + 
+  coord_cartesian(xlim=c(0,900)) +
+  ggtitle("Distribution of Reading scores")+
+  labs(x = "Reading Score")
+
+```
+:::
+
+**Science**
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, warning=FALSE}
+#| eval: true
+p3 <- ggplot(data=stu_qqq_SG_3, 
+             aes(x = sci_average)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="darkblue",      
+                 fill="light blue") + 
+  coord_cartesian(xlim=c(0,900)) +
+  ggtitle("Distribution of Science scores")+
+  labs(x = "Science Score")
+
+p3
+
+```
+
+## The code
+
+```{r}
+#| eval: false
+p3 <- ggplot(data=stu_qqq_SG_3, 
+             aes(x = sci_average)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="darkblue",      
+                 fill="light blue") + 
+  coord_cartesian(xlim=c(0,900)) +
+  ggtitle("Distribution of Science scores")+
+  labs(x = "Math Score")
+
+```
+:::
+
+Let me put all the plots together to compare
+
+::: panel-tabset
+## The plot
+
+```{r, echo=FALSE, warning=FALSE}
+#| eval: true
+
+(p1 / p2 / p3)
+```
+
+## The code
+
+```{r}
+#| eval: false
+
+(p1 / p2 / p3)
+
+```
+:::
+
+::: callout-note
+## Findings
+
+Comparing the 3 histograms, Math score is comparatively better as compared to Science and Reading score. Math score has an mean of 574, while Science has mean of 561 and Reading has a mean of 542.5.
+
+In addition, Math score seems to be normally distributed. Science and Reading score seems to be left skewed normally distributed.
+:::
+
+## 5.2 Boxplot - Gender and Subjects
+
+Now I will compare each subjects by the genders:
+
+**Math**
+
+```{r, warning=FALSE,message=FALSE}
+ggplot(data=stu_qqq_SG_3, 
+       aes(y = math_average,x= gender)) +    
+  geom_boxplot()+
+  geom_point(stat="summary",        
+             fun.y="mean",           
+             colour ="red",          
+             size=4) +
+  ggtitle("Boxplot of Math Score (by Gender)")+
+  labs(y = "Math Score")
+```
+
+::: callout-note
+## Findings
+
+From the boxplots above, Male's math score has a higher middle and mean as compared to Female's math score, However, Male's math score has a lower minimum value as compared to Female's math score.
+:::
+
+**Reading**
+
+```{r, warning=FALSE,message=FALSE}
+ggplot(data=stu_qqq_SG_3, 
+       aes(y = read_average,       
+           x= gender)) +    
+  geom_boxplot()+
+  geom_point(stat="summary",        
+             fun.y="mean",           
+             colour ="red",          
+             size=4) +
+  ggtitle("Boxplot of Reading Score (by Gender)")+
+  labs(y = "Reading Score")
+```
+
+::: callout-note
+## Findings
+
+From the boxplots above, Male's reading score has a lower middle and mean as compared to Female's reading score. In addition, Male's reading score has a lower minimum value as compared to Female's reading score
+:::
+
+**Science**
+
+```{r, warning=FALSE,message=FALSE}
+ggplot(data=stu_qqq_SG_3, 
+       aes(y = sci_average,       
+           x= gender)) +    
+  geom_boxplot()+
+  geom_point(stat="summary",        
+             fun.y="mean",           
+             colour ="red",          
+             size=4) +
+  ggtitle("Boxplot of Science Score (by Gender)")+
+  labs(y = "Science Score")
+```
+
+::: callout-note
+## Findings
+
+From the boxplots above, Male's science score has a slightly higher middle and mean as compared to Female's science score, However, Male's science score has a lower minimum value as compared to Female's science score
+:::
+
+## 5.3 Bar graph - Expected Education and Subjects
+
+## 5.4 Mosaic Plot
+
+### 5.4.1 Gender and Having a Laptop
+
+```{r, warning=FALSE}
+ggSpine(
+    stu_qqq_SG_3,
+    aes(x = gender, 
+    fill = having_a_laptop),
+    addlabel = TRUE,
+    interactive = FALSE
+  )
+```
+
+::: callout-note
+## Findings
+
+Female has a higher percentage who owns a laptop as compared to male. Further analysis will need to be conducted via Chi-Square Test.
+:::
+
+### 5.4.2 Gender and Having a room
+
+```{r, warning=FALSE}
+ggSpine(
+    stu_qqq_SG_3,
+    aes(x = gender, 
+    fill = having_a_room),
+    addlabel = TRUE,
+    interactive = FALSE
+  )
+```
+
+::: callout-note
+## Findings
+
+Male has a higher percentage of having their own room as compare to female. Further analysis will need to be conducted via Chi-Square test.
+:::
+
+## 5.5 Histograms - Having a room and Subjects
+
+I will further examine a potential socioeconomic factor of having a room which may be relate to the subject scores.
+
+**Math**
+
+```{r}
+ggplot(data=stu_qqq_SG_3, 
+       aes(x= math_average, 
+           fill = having_a_room)) +
+  geom_histogram(bins=20, 
+                 color="grey30")+
+  ggtitle("Distribution of Maths scores (by having a room)")+
+  labs(x = "Math Score")
+```
+
+**Reading**
+
+```{r}
+ggplot(data=stu_qqq_SG_3, 
+       aes(x= read_average, 
+           fill = having_a_room)) +
+  geom_histogram(bins=20, 
+                 color="grey30")+
+  ggtitle("Distribution of Reading scores (by having a room)")+
+  labs(x = "Reading Score")
+```
+
+**Science**
+
+```{r}
+ggplot(data=stu_qqq_SG_3, 
+       aes(x= sci_average, 
+           fill = having_a_room)) +
+  geom_histogram(bins=20, 
+                 color="grey30")+
+  ggtitle("Distribution of Science scores (by having a room)")+
+  labs(x = "Science Score")
+```
+
+::: callout-note
+## Findings
+
+Based on all the histograms, It seems that it is difficult to establish some relationships. The reason is that those having their own room contributed to a higher percentage in all subjects and the score
+:::
