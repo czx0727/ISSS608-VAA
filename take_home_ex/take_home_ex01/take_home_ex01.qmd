@@ -250,8 +250,8 @@ Now, I will recode the column information
 For gender:
 
 ```{r}
-#| eval: false
-stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+
+stu_qqq_SG_3 <- stu_qqq_SG_2 %>%
   mutate(gender = case_when(
     gender == "1" ~ "Female",
     gender == "2" ~ "Male"))
@@ -260,8 +260,8 @@ stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
 For room:
 
 ```{r}
-#| eval: false
-stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+
+stu_qqq_SG_3 <- stu_qqq_SG_3 %>%
   mutate(having_a_room = case_when(
     having_a_room == "1" ~ "Yes",
     having_a_room == "2" ~ "No"))
@@ -270,8 +270,8 @@ stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
 For laptop:
 
 ```{r}
-#| eval: false
-stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+
+stu_qqq_SG_3 <- stu_qqq_SG_3 %>%
   mutate(having_a_laptop = case_when(
     having_a_laptop == "1" ~ "Yes",
     having_a_laptop == "2" ~ "No"))
@@ -279,14 +279,14 @@ stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
 
 ```{r}
 #| eval: false
-summary(stu_qqq_SG_2)
+summary(stu_qqq_SG_3)
 ```
 
 For expected education
 
 ```{r}
-#| eval: false
-stu_qqq_SG_2 <- stu_qqq_SG_2 %>%
+
+stu_qqq_SG_3 <- stu_qqq_SG_3 %>%
   mutate(expected_edu = case_when(
     expected_edu == "2" ~ "Lower Sec",
     expected_edu == "3" ~ "Upper Sec",
@@ -306,7 +306,7 @@ Note that for expected education there is NA. I will need to retain those NA
 I will save the file to rds
 
 ```{r}
-write_rds(stu_qqq_SG_2,
+write_rds(stu_qqq_SG_3,
           "data/stu_qqq_SG_3.rds")
 
 ```
