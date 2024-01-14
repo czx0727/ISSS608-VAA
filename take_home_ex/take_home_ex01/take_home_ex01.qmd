@@ -36,7 +36,12 @@ This will be in the context of Singapore. Survey questions are found in this [li
 
 I will use the following package:
 
-1.  [haven](https://cran.r-project.org/web/packages/haven/index.html): Import and Export 'SPSS', 'Stata' and 'SAS' Files
+1.  haven: Import and Export 'SPSS', 'Stata' and 'SAS' Files
+2.  ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
+3.  ggthemes: an R package provides some extra themes, geoms, and scales for \'ggplot2\'.
+4.  hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
+5.  patchwork: an R package for preparing composite figure created using ggplot2.
+6.  ggiraphExtra: For mosaic plot
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
@@ -320,7 +325,7 @@ Before I begin, I will the summary function to have a look at the results for th
 summary(stu_qqq_SG_3)
 ```
 
-I will make gender, having a laptop, having a room as factors, and expected education:
+I will make gender, having a laptop, having a room and expected education as factors:
 
 ```{r}
 stu_qqq_SG_3$gender <- as.factor(stu_qqq_SG_3$gender )
@@ -544,6 +549,48 @@ From the boxplots above, Male's science score has a slightly higher middle and m
 :::
 
 ## 5.3 Bar graph - Expected Education and Subjects
+
+**Math**
+
+```{r}
+ggplot(data=stu_qqq_SG_3, 
+       aes(x= math_average, 
+           fill = expected_edu)) +
+  geom_histogram(bins=20, 
+                 color="grey30")+
+  ggtitle("Distribution of Maths scores (by Expected Education)")+
+  labs(x = "Math Score")
+```
+
+**Reading**
+
+```{r}
+ggplot(data=stu_qqq_SG_3, 
+       aes(x= read_average, 
+           fill = expected_edu)) +
+  geom_histogram(bins=20, 
+                 color="grey30")+
+  ggtitle("Distribution of Reading scores (by Expected Education)")+
+  labs(x = "Reading Score")
+```
+
+**Science**
+
+```{r}
+ggplot(data=stu_qqq_SG_3, 
+       aes(x= sci_average, 
+           fill = expected_edu)) +
+  geom_histogram(bins=20, 
+                 color="grey30")+
+  ggtitle("Distribution of Science scores (by Expected Education)")+
+  labs(x = "Science Score")
+```
+
+::: callout-note
+## Findings
+
+In all the histogram plots, all subjects show that the expected education chosen by students is degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: [link](https://www.singstat.gov.sg/publications/reference/ebook/population/education-and-literacy).
+:::
 
 ## 5.4 Mosaic Plot
 
