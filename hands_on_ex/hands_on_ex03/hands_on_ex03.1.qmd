@@ -17,9 +17,9 @@ This hands-on exercise is on **Programming Interactive Data Visualisation with R
 2.  Link it back to work
 :::
 
-irst, write a code chunk to check, install and launch the following R packages:
+First, write a code chunk to check, install and launch the following R packages:
 
--   [**ggiraph**](https://davidgohel.github.io/ggiraph/) for making \'ggplot\' graphics interactive.
+-   [**ggiraph**](https://davidgohel.github.io/ggiraph/) for making 'ggplot' graphics interactive.
 
 -   [**plotly**](https://plotly.com/r/), R library for plotting interactive statistical graphs.
 
@@ -86,7 +86,7 @@ girafe(
 )
 ```
 
-###  **Customising Tooltip style**
+### **Customising Tooltip style**
 
 ```{r}
 tooltip_css <- "background-color:white; #<<
@@ -159,7 +159,7 @@ girafe(
 )                                        
 ```
 
-###  **Styling hover effect**
+### **Styling hover effect**
 
 ```{r}
 p <- ggplot(data=exam_data, 
