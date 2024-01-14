@@ -284,7 +284,7 @@
     "href": "take_home_ex/take_home_ex01/take_home_ex01.html#setting-the-analytical-tools",
     "title": "Take-Home Exercise 1",
     "section": "2.3 Setting the Analytical Tools",
-    "text": "2.3 Setting the Analytical Tools\nI will use the following package:\n\nhaven: Import and Export ‘SPSS’, ‘Stata’ and ‘SAS’ Files\n\n\npacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse, haven, ggiraphExtra)"
+    "text": "2.3 Setting the Analytical Tools\nI will use the following package:\n\nhaven: Import and Export ‘SPSS’, ‘Stata’ and ‘SAS’ Files\nggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.\nggthemes: an R package provides some extra themes, geoms, and scales for 'ggplot2'.\nhrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.\npatchwork: an R package for preparing composite figure created using ggplot2.\nggiraphExtra: For mosaic plot\n\n\npacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse, haven, ggiraphExtra)"
   },
   {
     "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html#summary-statistics",
@@ -368,7 +368,7 @@
     "href": "take_home_ex/take_home_ex01/take_home_ex01.html#bar-graph---expected-education-and-subjects",
     "title": "Take-Home Exercise 1",
     "section": "5.3 Bar graph - Expected Education and Subjects",
-    "text": "5.3 Bar graph - Expected Education and Subjects"
+    "text": "5.3 Bar graph - Expected Education and Subjects\nMath\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= math_average, \n           fill = expected_edu)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")+\n  ggtitle(\"Distribution of Maths scores (by Expected Education)\")+\n  labs(x = \"Math Score\")\n\n\n\n\nReading\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= read_average, \n           fill = expected_edu)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")+\n  ggtitle(\"Distribution of Reading scores (by Expected Education)\")+\n  labs(x = \"Reading Score\")\n\n\n\n\nScience\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= sci_average, \n           fill = expected_edu)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")+\n  ggtitle(\"Distribution of Science scores (by Expected Education)\")+\n  labs(x = \"Science Score\")\n\n\n\n\n\n\n\n\n\n\nFindings\n\n\n\nIn all the histogram plots, all subjects show that the expected education chosen by students is degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: link."
   },
   {
     "objectID": "take_home_ex/take_home_ex01/take_home_ex01.html#mosaic-plot",
