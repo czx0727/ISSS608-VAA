@@ -38,7 +38,7 @@ I will use the following package:
 
 1.  haven: Import and Export 'SPSS', 'Stata' and 'SAS' Files
 2.  ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
-3.  ggthemes: an R package provides some extra themes, geoms, and scales for \'ggplot2\'.
+3.  ggthemes: an R package provides some extra themes, geoms, and scales for 'ggplot2'.
 4.  hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
 5.  patchwork: an R package for preparing composite figure created using ggplot2.
 6.  ggiraphExtra: For mosaic plot

@@ -378,7 +378,7 @@ pacman::p_load(ungeviz, plotly, crosstalk,
 ## **Visualizing the uncertainty of point estimates: ggplot2 methods**
 
 ```{r}
-#| eval: false
+
 my_sum <- exam %>%
   group_by(RACE) %>%
   summarise(
@@ -392,7 +392,7 @@ my_sum <- exam %>%
 Next, the code chunk below will be used to display *my_sum* tibble data frame in an html table format.
 
 ```{r}
-#| eval: false
+
 knitr::kable(head(my_sum), format = 'html')
 ```
 
@@ -401,7 +401,6 @@ knitr::kable(head(my_sum), format = 'html')
 Now I will plot the standard error bars of mean maths score by race as shown below.
 
 ```{r}
-#| eval: false
 ggplot(my_sum) +
   geom_errorbar(
     aes(x=RACE, 
@@ -424,7 +423,7 @@ ggplot(my_sum) +
 ### **Plotting confidence interval of point estimates**
 
 ```{r}
-#| eval: false
+
 ggplot(my_sum) +
   geom_errorbar(
     aes(x=reorder(RACE, -mean), 
@@ -448,7 +447,7 @@ ggplot(my_sum) +
 ### **Visualizing the uncertainty of point estimates with interactive error bars**
 
 ```{r}
-#| eval: false
+
 shared_df = SharedData$new(my_sum)
 
 bscols(widths = c(4,8),
@@ -500,7 +499,7 @@ bscols(widths = c(4,8),
 ### **Visualizing the uncertainty of point estimates: ggdist methods**
 
 ```{r}
-#| eval: false
+
 exam %>%
   ggplot(aes(x = RACE, 
              y = MATHS)) +
@@ -511,7 +510,7 @@ exam %>%
 ```
 
 ```{r}
-#| eval: false
+
 exam %>%
   ggplot(aes(x = RACE, y = MATHS)) +
   stat_pointinterval(.width = 0.95,
@@ -525,7 +524,7 @@ exam %>%
 ### **Visualizing the uncertainty of point estimates: ggdist methods**
 
 ```{r}
-#| eval: false
+
 exam %>%
   ggplot(aes(x = RACE, 
              y = MATHS)) +
@@ -539,7 +538,7 @@ exam %>%
 ### **Visualizing the uncertainty of point estimates: ggdist methods**
 
 ```{r}
-#| eval: false
+
 exam %>%
   ggplot(aes(x = RACE, 
              y = MATHS)) +
@@ -555,17 +554,17 @@ exam %>%
 ## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
-#| eval: false
+
 devtools::install_github("wilkelab/ungeviz")
 ```
 
 ```{r}
-#| eval: false
+
 library(ungeviz)
 ```
 
 ```{r}
-#| eval: false
+
 ggplot(data = exam, 
        (aes(x = factor(RACE), y = MATHS))) +
   geom_point(position = position_jitter(
@@ -580,7 +579,7 @@ ggplot(data = exam,
 ## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
-#| eval: false
+
 ggplot(data = exam, 
        (aes(x = factor(RACE), 
             y = MATHS))) +
