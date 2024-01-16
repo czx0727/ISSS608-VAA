@@ -351,7 +351,7 @@ pacman::p_load(ggstatsplot, tidyverse)
 In the code chunk below, [*gghistostats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) is used to to build an visual of one-sample test on English scores.
 
 ```{r}
-#| eval: false
+
 set.seed(1234)
 
 gghistostats(
@@ -363,10 +363,73 @@ gghistostats(
 )
 ```
 
+### **How to interpret Bayes Factor**
+
+### **Two-sample mean test: *ggbetweenstats()***
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = GENDER, 
+  y = MATHS,
+  type = "np",
+  messages = FALSE
+)
+```
+
+###  **Oneway ANOVA Test: *ggbetweenstats()* method**
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = RACE, 
+  y = ENGLISH,
+  type = "p",
+  mean.ci = TRUE, 
+  pairwise.comparisons = TRUE, 
+  pairwise.display = "s",
+  p.adjust.method = "fdr",
+  messages = FALSE
+)
+```
+
+### **Significant Test of Correlation: *ggscatterstats()***
+
+```{r}
+ggscatterstats(
+  data = exam,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = FALSE,
+  )
+```
+
+### **Significant Test of Association (Depedence) : *ggbarstats()* methods**
+
+```{r}
+exam1 <- exam %>% 
+  mutate(MATHS_bins = 
+           cut(MATHS, 
+               breaks = c(0,60,75,85,100))
+)
+```
+
+```{r}
+ggbarstats(exam1, 
+           x = MATHS_bins, 
+           y = GENDER)
+```
+
+## **Visualising Models**
+
+```{r}
+pacman::p_load(readxl, performance, parameters, see)
+```
+
 # 3 **Visualising Uncertainty**
 
 ```{r}
-devtools::install_github("wilkelab/ungeviz")
+devtools::install_github("wilkelab/ungeviz",force = TRUE)
 ```
 
 ```{r}
@@ -559,7 +622,6 @@ devtools::install_github("wilkelab/ungeviz")
 ```
 
 ```{r}
-
 library(ungeviz)
 ```
 
