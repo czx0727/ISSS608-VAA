@@ -41,12 +41,11 @@ I will use the following package:
 3.  ggthemes: an R package provides some extra themes, geoms, and scales for 'ggplot2'.
 4.  hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
 5.  patchwork: an R package for preparing composite figure created using ggplot2.
-6.  ggiraphExtra: For mosaic plot
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
-               tidyverse, haven, ggiraphExtra) 
+               tidyverse, haven) 
 ```
 
 # **3 Data Preparation**
@@ -109,15 +108,11 @@ I will extract the following:
 
     ![](images/Male%20or%20Females.PNG){width="340"}
 
-2.  Socioeconomic Aspect
+2.  Socioeconomic Status: [ESCS](https://www.oecd-ilibrary.org/sites/1e412e2e-en/index.html?itemId=/content/component/1e412e2e-en#section-d1e19206-71ac67bf62)
 
-    a\. Having a room of their own (Refer to image below): **ST250Q01JA**
+    ![](images/ESCS.PNG)
 
-    b\. A computer: **ST250Q02JA**
-
-    ![](images/Sociaeconomic.PNG){width="487"}
-
-3.  Expected Education Level: **EXPECEDU**
+3.  School: I will use **Expected Education Level** as the school. The reason is that in the PISA data, it is not meaningful to use the [current school level](https://www.oecd.org/pisa/pisafaq/#:~:text=PISA%20assesses%20students%20between%20the,at%20grade%207%20or%20higher.) (most of age 15 years old) and no information on the school name: **EXPECEDU**
 
     ![](images/edu.PNG){width="536"}
 
@@ -130,14 +125,14 @@ I will extract the following:
 ```{r}
 
 stu_qqq_SG_1 <- stu_qqq_SG %>%
-select(ST004D01T,ST250Q01JA, ST250Q02JA,EXPECEDU, PV1MATH, PV2MATH,PV3MATH,PV4MATH,PV5MATH,PV6MATH,PV7MATH ,PV8MATH,PV9MATH,PV10MATH,PV1SCIE,PV2SCIE,PV3SCIE,PV4SCIE,PV5SCIE,PV6SCIE,PV7SCIE,PV8SCIE,PV9SCIE,PV10SCIE,PV1READ,PV2READ,PV3READ,PV4READ,PV5READ,PV6READ,PV7READ,PV8READ,PV9READ,PV10READ)
+select(ST004D01T,EXPECEDU, PV1MATH, PV2MATH,PV3MATH,PV4MATH,PV5MATH,PV6MATH,PV7MATH ,PV8MATH,PV9MATH,PV10MATH,PV1SCIE,PV2SCIE,PV3SCIE,PV4SCIE,PV5SCIE,PV6SCIE,PV7SCIE,PV8SCIE,PV9SCIE,PV10SCIE,PV1READ,PV2READ,PV3READ,PV4READ,PV5READ,PV6READ,PV7READ,PV8READ,PV9READ,PV10READ,ESCS)
 
 ```
 
 I will save the data to rds format as well:
 
 ```{r}
-#| eval: false
+
 write_rds(stu_qqq_SG_1,
           "data/stu_qqq_SG_1.rds")
 ```
@@ -161,7 +156,7 @@ glimpse(stu_qqq_SG_1)
 ### 4.1.1 Math
 
 ```{r}
-#| eval: false
+
 
 stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
   mutate(math_average = rowMeans(across(c(PV1MATH, PV2MATH, PV3MATH,PV4MATH,PV5MATH,PV6MATH,PV7MATH,PV8MATH,PV9MATH,PV10MATH))))
@@ -170,7 +165,7 @@ stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
 ### 4.1.2 Science
 
 ```{r}
-#| eval: false
+
 
 stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
   mutate(sci_average = rowMeans(across(c(PV1SCIE, PV2SCIE, PV3SCIE,PV4SCIE,PV5SCIE,PV6SCIE,PV7SCIE,PV8SCIE,PV9SCIE,PV10SCIE))))
@@ -179,7 +174,6 @@ stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
 ### 4.1.3 Reading
 
 ```{r}
-#| eval: false
 
 stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
   mutate(read_average = rowMeans(across(c(PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ))))
@@ -190,25 +184,22 @@ stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
 I will rename some column for better reference
 
 ```{r}
-#| eval: false
 
 stu_qqq_SG_1 <- stu_qqq_SG_1 %>%
-  rename(gender = ST004D01T, having_a_room = ST250Q01JA, having_a_laptop = ST250Q02JA, expected_edu = EXPECEDU)
+  rename(gender = ST004D01T, socioeconomic_status = ESCS, school = EXPECEDU)
 ```
 
 I will now filter to the columns I want
 
 ```{r}
-#| eval: false
 
 stu_qqq_SG_2 <- stu_qqq_SG_1 %>%
-select(gender, having_a_room, having_a_laptop, expected_edu, math_average, sci_average, read_average)
+select(gender, socioeconomic_status , school , math_average, sci_average, read_average)
 ```
 
 I will save it do rds format as well
 
 ```{r}
-#| eval: false
 
 write_rds(stu_qqq_SG_2,
           "data/stu_qqq_SG_2.rds")
@@ -257,28 +248,8 @@ stu_qqq_SG_3 <- stu_qqq_SG_2 %>%
     gender == "2" ~ "Male"))
 ```
 
-For room:
-
 ```{r}
 
-stu_qqq_SG_3 <- stu_qqq_SG_3 %>%
-  mutate(having_a_room = case_when(
-    having_a_room == "1" ~ "Yes",
-    having_a_room == "2" ~ "No"))
-```
-
-For laptop:
-
-```{r}
-
-stu_qqq_SG_3 <- stu_qqq_SG_3 %>%
-  mutate(having_a_laptop = case_when(
-    having_a_laptop == "1" ~ "Yes",
-    having_a_laptop == "2" ~ "No"))
-```
-
-```{r}
-#| eval: false
 summary(stu_qqq_SG_3)
 ```
 
@@ -287,21 +258,16 @@ For expected education
 ```{r}
 
 stu_qqq_SG_3 <- stu_qqq_SG_3 %>%
-  mutate(expected_edu = case_when(
-    expected_edu == "2" ~ "Lower Sec",
-    expected_edu == "3" ~ "Upper Sec",
-    expected_edu == "5" ~ "Post Sec",
-    expected_edu == "6" ~ "Diploma",
-    expected_edu == "7" ~ "Degree",
-    expected_edu == "8" ~ "Masters",
-    expected_edu == "9" ~ "PhD",
-    TRUE ~ as.character(expected_edu)
+  mutate(school = case_when(
+    school == "2" ~ "Lower Sec",
+    school == "3" ~ "Upper Sec",
+    school == "5" ~ "Post Sec",
+    school == "6" ~ "Diploma",
+    school == "7" ~ "Degree",
+    school == "8" ~ "Masters",
+    school == "9" ~ "PhD"
   ))
 ```
-
-::: callout-note
-Note that for expected education there is NA. I will need to retain those NA
-:::
 
 I will save the file to rds
 
@@ -330,11 +296,7 @@ I will make gender, having a laptop, having a room and expected education as fac
 ```{r}
 stu_qqq_SG_3$gender <- as.factor(stu_qqq_SG_3$gender )
 
-stu_qqq_SG_3$having_a_room <- as.factor(stu_qqq_SG_3$having_a_room)
-
-stu_qqq_SG_3$having_a_laptop <- as.factor(stu_qqq_SG_3$having_a_laptop)
-
-stu_qqq_SG_3$expected_edu <- as.factor(stu_qqq_SG_3$expected_edu)
+stu_qqq_SG_3$school <- as.factor(stu_qqq_SG_3$school)
 ```
 
 ## 5.1 Histograms - Subjects
@@ -555,10 +517,10 @@ From the boxplots above, Male's science score has a slightly higher middle and m
 ```{r}
 ggplot(data=stu_qqq_SG_3, 
        aes(x= math_average, 
-           fill = expected_edu)) +
+           fill = school)) +
   geom_histogram(bins=20, 
                  color="grey30")+
-  ggtitle("Distribution of Maths scores (by Expected Education)")+
+  ggtitle("Distribution of Maths scores (by School)")+
   labs(x = "Math Score")
 ```
 
@@ -567,10 +529,10 @@ ggplot(data=stu_qqq_SG_3,
 ```{r}
 ggplot(data=stu_qqq_SG_3, 
        aes(x= read_average, 
-           fill = expected_edu)) +
+           fill = school)) +
   geom_histogram(bins=20, 
                  color="grey30")+
-  ggtitle("Distribution of Reading scores (by Expected Education)")+
+  ggtitle("Distribution of Reading scores (by School)")+
   labs(x = "Reading Score")
 ```
 
@@ -579,10 +541,10 @@ ggplot(data=stu_qqq_SG_3,
 ```{r}
 ggplot(data=stu_qqq_SG_3, 
        aes(x= sci_average, 
-           fill = expected_edu)) +
+           fill = school)) +
   geom_histogram(bins=20, 
                  color="grey30")+
-  ggtitle("Distribution of Science scores (by Expected Education)")+
+  ggtitle("Distribution of Science scores (by School)")+
   labs(x = "Science Score")
 ```
 
@@ -592,86 +554,67 @@ ggplot(data=stu_qqq_SG_3,
 In all the histogram plots, all subjects show that the expected education chosen by students is degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: [link](https://www.singstat.gov.sg/publications/reference/ebook/population/education-and-literacy).
 :::
 
-## 5.4 Mosaic Plot
-
-### 5.4.1 Gender and Having a Laptop
+## 5.4 **Kernel density estimate plot (**Gender and Socioeconomic Status)
 
 ```{r, warning=FALSE}
-ggSpine(
-    stu_qqq_SG_3,
-    aes(x = gender, 
-    fill = having_a_laptop),
-    addlabel = TRUE,
-    interactive = FALSE
-  )
+
+ggplot(data=stu_qqq_SG_3, 
+       aes(x = socioeconomic_status, 
+           colour = gender)) +
+  geom_density()+
+  ggtitle("Distribution of Socioeconomic Status (by Gender)")+
+  labs(x = "Socioeconomic Status")
 ```
 
 ::: callout-note
 ## Findings
 
-Female has a higher percentage who owns a laptop as compared to male. Further analysis will need to be conducted via Chi-Square Test.
+Male has a higher socioeconomic status as compared to female.
 :::
 
-### 5.4.2 Gender and Having a room
+## 5.5 Scatterplot (Socioeconomic Status and Subjects Score)
 
-```{r, warning=FALSE}
-ggSpine(
-    stu_qqq_SG_3,
-    aes(x = gender, 
-    fill = having_a_room),
-    addlabel = TRUE,
-    interactive = FALSE
-  )
-```
-
-::: callout-note
-## Findings
-
-Male has a higher percentage of having their own room as compare to female. Further analysis will need to be conducted via Chi-Square test.
-:::
-
-## 5.5 Histograms - Having a room and Subjects
-
-I will further examine a potential socioeconomic factor of having a room which may be relate to the subject scores.
+I will further examine a potential socioeconomic status with the subjects score
 
 **Math**
 
-```{r}
+```{r, warning=FALSE}
 ggplot(data=stu_qqq_SG_3, 
        aes(x= math_average, 
-           fill = having_a_room)) +
-  geom_histogram(bins=20, 
-                 color="grey30")+
-  ggtitle("Distribution of Maths scores (by having a room)")+
-  labs(x = "Math Score")
+           y= socioeconomic_status)) +
+  geom_point()+
+  ggtitle("Distribution of Maths scores") +
+  labs(x = "Math Score")+
+  labs(y = "Socioeconomic Status")
+
 ```
 
 **Reading**
 
-```{r}
+```{r, warning=FALSE}
 ggplot(data=stu_qqq_SG_3, 
        aes(x= read_average, 
-           fill = having_a_room)) +
-  geom_histogram(bins=20, 
-                 color="grey30")+
-  ggtitle("Distribution of Reading scores (by having a room)")+
-  labs(x = "Reading Score")
+           y= socioeconomic_status)) +
+  geom_point()+
+  ggtitle("Distribution of Reading scores") +
+  labs(x = "Reading Score")+
+  labs(y = "Socioeconomic Status")
 ```
 
 **Science**
 
-```{r}
+```{r, warning=FALSE}
 ggplot(data=stu_qqq_SG_3, 
        aes(x= sci_average, 
-           fill = having_a_room)) +
-  geom_histogram(bins=20, 
-                 color="grey30")+
-  ggtitle("Distribution of Science scores (by having a room)")+
-  labs(x = "Science Score")
+           y= socioeconomic_status)) +
+  geom_point()+
+  ggtitle("Distribution of Science scores") +
+  labs(x = "Science Score")+
+  labs(y = "Socioeconomic Status")
 ```
 
 ::: callout-note
 ## Findings
 
-Based on all the histograms, It seems that it is difficult to establish some relationships. The reason is that those having their own room contributed to a higher percentage in all subjects and the score
+Based on all the scatterplots, It seems to suggest that there is some relationships between the subjects and socioeconomic status.
 :::

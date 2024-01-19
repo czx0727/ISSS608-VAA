@@ -429,6 +429,7 @@ pacman::p_load(readxl, performance, parameters, see)
 # 3 **Visualising Uncertainty**
 
 ```{r}
+#| eval: false
 devtools::install_github("wilkelab/ungeviz",force = TRUE)
 ```
 
@@ -617,7 +618,7 @@ exam %>%
 ## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
-
+#| eval: false
 devtools::install_github("wilkelab/ungeviz")
 ```
 
