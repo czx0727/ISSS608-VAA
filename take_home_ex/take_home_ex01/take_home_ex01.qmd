@@ -317,7 +317,7 @@ p1 <- ggplot(data=stu_qqq_SG_3,
                  color="darkblue",      
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
-  ggtitle("Distribution of Maths scores") +
+  ggtitle("Histogram of Maths scores") +
   labs(x = "Math Score")
 
 p1
@@ -334,7 +334,7 @@ p1 <- ggplot(data=stu_qqq_SG_3,
                  color="darkblue",      
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
-  ggtitle("Distribution of Maths scores")+
+  ggtitle("Histogram of Maths scores")+
   labs(x = "Math Score")
 ```
 :::
@@ -353,7 +353,7 @@ p2 <- ggplot(data=stu_qqq_SG_3,
                  color="darkblue",      
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
-  ggtitle("Distribution of Reading scores")+
+  ggtitle("Histogram of Reading scores")+
   labs(x = "Reading Score")
 
 p2
@@ -371,7 +371,7 @@ p2 <- ggplot(data=stu_qqq_SG_3,
                  color="darkblue",      
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
-  ggtitle("Distribution of Reading scores")+
+  ggtitle("Histogram of Reading scores")+
   labs(x = "Reading Score")
 
 ```
@@ -391,7 +391,7 @@ p3 <- ggplot(data=stu_qqq_SG_3,
                  color="darkblue",      
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
-  ggtitle("Distribution of Science scores")+
+  ggtitle("Histogram of Science scores")+
   labs(x = "Science Score")
 
 p3
@@ -409,7 +409,7 @@ p3 <- ggplot(data=stu_qqq_SG_3,
                  color="darkblue",      
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
-  ggtitle("Distribution of Science scores")+
+  ggtitle("Histogram of Science scores")+
   labs(x = "Math Score")
 
 ```
@@ -583,7 +583,7 @@ ggplot(data=stu_qqq_SG_3,
        aes(x= math_average, 
            y= socioeconomic_status)) +
   geom_point()+
-  ggtitle("Distribution of Maths scores") +
+  ggtitle("Socioeconomic Status and Maths scores") +
   labs(x = "Math Score")+
   labs(y = "Socioeconomic Status")
 
@@ -596,7 +596,7 @@ ggplot(data=stu_qqq_SG_3,
        aes(x= read_average, 
            y= socioeconomic_status)) +
   geom_point()+
-  ggtitle("Distribution of Reading scores") +
+  ggtitle("Socioeconomic Status and Reading scores") +
   labs(x = "Reading Score")+
   labs(y = "Socioeconomic Status")
 ```
@@ -608,7 +608,7 @@ ggplot(data=stu_qqq_SG_3,
        aes(x= sci_average, 
            y= socioeconomic_status)) +
   geom_point()+
-  ggtitle("Distribution of Science scores") +
+  ggtitle("Socioeconomic Status and Science scores") +
   labs(x = "Science Score")+
   labs(y = "Socioeconomic Status")
 ```
