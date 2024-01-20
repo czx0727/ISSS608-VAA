@@ -467,5 +467,12 @@
     "title": "Take-Home Exercise 1",
     "section": "5.5 Scatterplot (Socioeconomic Status and Subjects Score)",
     "text": "5.5 Scatterplot (Socioeconomic Status and Subjects Score)\nI will further examine a potential socioeconomic status with the subjects score\nMath\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= math_average, \n           y= socioeconomic_status)) +\n  geom_point()+\n  ggtitle(\"Socioeconomic Status and Maths scores\") +\n  labs(x = \"Math Score\")+\n  labs(y = \"Socioeconomic Status\")\n\n\n\n\nReading\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= read_average, \n           y= socioeconomic_status)) +\n  geom_point()+\n  ggtitle(\"Socioeconomic Status and Reading scores\") +\n  labs(x = \"Reading Score\")+\n  labs(y = \"Socioeconomic Status\")\n\n\n\n\nScience\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= sci_average, \n           y= socioeconomic_status)) +\n  geom_point()+\n  ggtitle(\"Socioeconomic Status and Science scores\") +\n  labs(x = \"Science Score\")+\n  labs(y = \"Socioeconomic Status\")\n\n\n\n\n\n\n\n\n\n\nFindings\n\n\n\nBased on all the scatterplots, It seems to suggest that there is some relationships between the subjects and socioeconomic status."
+  },
+  {
+    "objectID": "in_class_ex/in_class_ex02/in_class_ex02.html",
+    "href": "in_class_ex/in_class_ex02/in_class_ex02.html",
+    "title": "In-Class Ex 2",
+    "section": "",
+    "text": "Please refer to the link for in class ex 2"
   }
 ]

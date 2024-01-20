@@ -9,3 +9,7 @@ execute:
   warning: false
 editor: visual
 ---
+
+Please refer to the [link](https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise01/Monthlysalesandprofitbyregion2016-2019?publish=yes) for in class ex 2
+
+![](images/In_class_ex2.png)
