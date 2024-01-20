@@ -14,10 +14,10 @@ This hands-on exercise is on **Programming Interactive Data Visualisation with R
 ## Zhixuan's personal learning outcomes
 
 1.  Learn and create interactive data visualisation
-2.  Link it back to work
+2.  Link it back to work and potential project?
 :::
 
-First, write a code chunk to check, install and launch the following R packages:
+The following R packages will be used:
 
 -   [**ggiraph**](https://davidgohel.github.io/ggiraph/) for making 'ggplot' graphics interactive.
 
@@ -38,13 +38,21 @@ pacman::p_load(ggiraph, plotly,
 
 # Importing data
 
+Let's use the exam data again 😂
+
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
 # **Interactive Data Visualisation - ggiraph methods**
 
+I have read this [subsection](https://r4va.netlify.app/chap03#interactive-data-visualisation---ggiraph-methods) before proceeding.
+
 ### **Tooltip effect with *tooltip* aesthetic**
+
+::: callout-note
+First, an ggplot object will be created. Next, [`girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html) of **ggiraph** will be used to create an interactive svg object.
+:::
 
 ```{r}
 p <- ggplot(data=exam_data, 
@@ -63,7 +71,30 @@ girafe(
 )
 ```
 
+I will try with English score
+
+```{r}
+p <- ggplot(data=exam_data, 
+       aes(x = ENGLISH)) +
+  geom_dotplot_interactive(
+    aes(tooltip = ID),
+    stackgroups = TRUE, 
+    binwidth = 1, 
+    method = "histodot") +
+  scale_y_continuous(NULL, 
+                     breaks = NULL)
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6*0.618
+)
+```
+
 ### **Displaying multiple information on tooltip**
+
+::: callout-note
+The first three lines of codes in the code chunk create a new field called *tooltip*. At the same time, it populates text in ID and CLASS fields into the newly created field. Next, this newly created field is used as tooltip field as shown in the code of line 7.
+:::
 
 ```{r}
 exam_data$tooltip <- c(paste0(     
@@ -86,7 +117,36 @@ girafe(
 )
 ```
 
+I will try with Science data this time 😃
+
+```{r}
+exam_data$tooltip <- c(paste0(     
+  "Name = ", exam_data$ID,         
+  "\n Class = ", exam_data$CLASS)) 
+
+p <- ggplot(data=exam_data, 
+       aes(x = SCIENCE)) +
+  geom_dotplot_interactive(
+    aes(tooltip = exam_data$tooltip), 
+    stackgroups = TRUE,
+    binwidth = 1,
+    method = "histodot") +
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(
+  ggobj = p,
+  width_svg = 8,
+  height_svg = 8*0.618
+)
+```
+
+::: callout-tip
+The student\'s ID and Class will be displayed now! 😊
+:::
+
 ### **Customising Tooltip style**
+
+[`opts_tooltip()`](https://davidgohel.github.io/ggiraph/reference/opts_tooltip.html) of **ggiraph** to customize tooltip rendering by add css declarations.
 
 ```{r}
 tooltip_css <- "background-color:white; #<<
@@ -111,7 +171,15 @@ girafe(
 )                                        
 ```
 
+::: callout-note
+Background colour of the tooltip is black and the font colour is white and bold.
+:::
+
 ### **Displaying statistics on tooltip**
+
+::: callout-note
+A function will be used to compute 90% confident interval of the mean. The derived statistics are then displayed in the tooltip. This is good!
+:::
 
 ```{r}
 tooltip <- function(y, ymax, accuracy = .01) {
@@ -140,7 +208,40 @@ girafe(ggobj = gg_point,
        height_svg = 8*0.618)
 ```
 
+I proceed to try with English score
+
+```{r}
+tooltip <- function(y, ymax, accuracy = .01) {
+  mean <- scales::number(y, accuracy = accuracy)
+  sem <- scales::number(ymax - y, accuracy = accuracy)
+  paste("Mean english scores:", mean, "+/-", sem)
+}
+
+gg_point <- ggplot(data=exam_data, 
+                   aes(x = RACE),
+) +
+  stat_summary(aes(y = ENGLISH, 
+                   tooltip = after_stat(  
+                     tooltip(y, ymax))),  
+    fun.data = "mean_se", 
+    geom = GeomInteractiveCol,  
+    fill = "light blue"
+  ) +
+  stat_summary(aes(y = ENGLISH),
+    fun.data = mean_se,
+    geom = "errorbar", width = 0.2, size = 0.2
+  )
+
+girafe(ggobj = gg_point,
+       width_svg = 8,
+       height_svg = 8*0.618)
+```
+
 ### **Hover effect with *data_id* aesthetic**
+
+::: callout-note
+The second interactive feature of ggiraph, namely: `data_id`
+:::
 
 ```{r}
 p <- ggplot(data=exam_data, 
@@ -158,6 +259,12 @@ girafe(
   height_svg = 6*0.618                      
 )                                        
 ```
+
+::: callout-note
+Interactivity: Elements associated with a *data_id* (i.e CLASS) will be highlighted upon mouse over. 😱
+
+The default value of the hover css is *hover_css = \"fill:orange;\"*.
+:::
 
 ### **Styling hover effect**
 
@@ -181,6 +288,10 @@ girafe(
   )                                        
 )                                        
 ```
+
+::: callout-note
+The example above , the ccs customisation request are encoded directly.
+:::
 
 ### **Combining tooltip and hover effect**
 
@@ -206,6 +317,10 @@ girafe(
 )                                        
 ```
 
+::: callout-note
+Elements associated with a *data_id* (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show the CLASS.
+:::
+
 ### **Click effect with onclick**
 
 ```{r}
@@ -227,6 +342,10 @@ girafe(
   width_svg = 6,                         
   height_svg = 6*0.618)                                        
 ```
+
+::: callout-note
+Web document link with a data object will be displayed on the web browser upon mouse click.
+:::
 
 ### **Coordinated Multiple Views with ggiraph**
 
@@ -262,6 +381,10 @@ girafe(code = print(p1 + p2),
          )
        ) 
 ```
+
+::: callout-note
+Nice! This is good to compare two plots!
+:::
 
 # **Interactive Data Visualisation - plotly methods!**
 
@@ -350,6 +473,16 @@ ggplotly(p)
 
 ### **Coordinated Multiple Views with plotly**
 
+::: callout-note
+The creation of a coordinated linked plot by using plotly involves three steps:
+
+-   [`highlight_key()`](https://www.rdocumentation.org/packages/plotly/versions/4.9.2/topics/highlight_key) of **plotly** package is used as shared data.
+
+-   two scatterplots will be created by using ggplot2 functions.
+
+-   lastly, [*subplot()*](https://plotly.com/r/subplots/) of **plotly** package is used to place them next to each other side-by-side.
+:::
+
 ::: panel-tabset
 ## The plot
 
@@ -403,11 +536,15 @@ subplot(ggplotly(p1),
 
 ### **Interactive Data Table: DT package**
 
+😱
+
 ```{r}
 DT::datatable(exam_data, class= "compact")
 ```
 
 ### **Linked brushing: crosstalk method**
+
+😱
 
 ::: panel-tabset
 ## The plot
