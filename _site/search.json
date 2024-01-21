@@ -530,5 +530,124 @@
     "title": "Hands-on Ex 4",
     "section": "Funnel Plot for Fair Visual Comparison: ggplot2 methods",
     "text": "Funnel Plot for Fair Visual Comparison: ggplot2 methods\n\nComputing the basic derived fields\n\ndf &lt;- covid19 %&gt;%\n  mutate(rate = Death / Positive) %&gt;%\n  mutate(rate.se = sqrt((rate*(1-rate)) / (Positive))) %&gt;%\n  filter(rate &gt; 0)\n\n\nfit.mean &lt;- weighted.mean(df$rate, 1/df$rate.se^2)\n\n\n\nCalculate lower and upper limits for 95% and 99.9% CI\n\nnumber.seq &lt;- seq(1, max(df$Positive), 1)\nnumber.ll95 &lt;- fit.mean - 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \nnumber.ul95 &lt;- fit.mean + 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \nnumber.ll999 &lt;- fit.mean - 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \nnumber.ul999 &lt;- fit.mean + 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \ndfCI &lt;- data.frame(number.ll95, number.ul95, number.ll999, \n                   number.ul999, number.seq, fit.mean)\n\n\n\nPlotting a static funnel plot\n\np &lt;- ggplot(df, aes(x = Positive, y = rate)) +\n  geom_point(aes(label=`Sub-district`), \n             alpha=0.4) +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ll95), \n            size = 0.4, \n            colour = \"grey40\", \n            linetype = \"dashed\") +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ul95), \n            size = 0.4, \n            colour = \"grey40\", \n            linetype = \"dashed\") +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ll999), \n            size = 0.4, \n            colour = \"grey40\") +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ul999), \n            size = 0.4, \n            colour = \"grey40\") +\n  geom_hline(data = dfCI, \n             aes(yintercept = fit.mean), \n             size = 0.4, \n             colour = \"grey40\") +\n  coord_cartesian(ylim=c(0,0.05)) +\n  annotate(\"text\", x = 1, y = -0.13, label = \"95%\", size = 3, colour = \"grey40\") + \n  annotate(\"text\", x = 4.5, y = -0.18, label = \"99%\", size = 3, colour = \"grey40\") + \n  ggtitle(\"Cumulative Fatality Rate by Cumulative Number of COVID-19 Cases\") +\n  xlab(\"Cumulative Number of COVID-19 Cases\") + \n  ylab(\"Cumulative Fatality Rate\") +\n  theme_light() +\n  theme(plot.title = element_text(size=12),\n        legend.position = c(0.91,0.85), \n        legend.title = element_text(size=7),\n        legend.text = element_text(size=7),\n        legend.background = element_rect(colour = \"grey60\", linetype = \"dotted\"),\n        legend.key.height = unit(0.3, \"cm\"))\n\nWarning in geom_point(aes(label = `Sub-district`), alpha = 0.4): Ignoring\nunknown aesthetics: label\n\np\n\n\n\n\n\n\nInteractive Funnel Plot: plotly + ggplot2\n\nfp_ggplotly &lt;- ggplotly(p,\n  tooltip = c(\"label\", \n              \"x\", \n              \"y\"))\nfp_ggplotly"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html",
+    "title": "Hands-on Ex 5",
+    "section": "",
+    "text": "This hands-on exercise covers all of the information from this link.\n\nBuilding Ternary Plot with R.\nVisual Correlation Analysis.\nVisual Multivariate Analysis with Heatmap.\nVisual Multivariate Analysis with Parallel Coordinates Plot.\nTreemap Visualisation with R\n\n😱 So many exercises in one hands-on!"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages",
+    "title": "Hands-on Ex 5",
+    "section": "Installing and launching R packages",
+    "text": "Installing and launching R packages\n2 main R packages will be used in this hands-on exercise, they are:\n\nggtern, a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.\nPlotly R, an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js . The plotly R libary contains the ggplotly function, which will convert ggplot2 figures into a Plotly object.\n\n\npacman::p_load('plotly', 'tidyverse')\n\n\nrequire(devtools)\ninstall_version(\"ggtern\", version = \"3.4.1\", repos = \"http://cran.us.r-project.org\")\n\n\nlibrary(ggtern)\n\n\nImporting Data\n\npop_data &lt;- read_csv(\"data/respopagsex2000to2018_tidy.csv\") \n\n\n\nPreparing the Data\n\nagpop_mutated &lt;- pop_data %&gt;%\n  mutate(`Year` = as.character(Year))%&gt;%\n  spread(AG, Population) %&gt;%\n  mutate(YOUNG = rowSums(.[4:8]))%&gt;%\n  mutate(ACTIVE = rowSums(.[9:16]))  %&gt;%\n  mutate(OLD = rowSums(.[17:21])) %&gt;%\n  mutate(TOTAL = rowSums(.[22:24])) %&gt;%\n  filter(Year == 2018)%&gt;%\n  filter(TOTAL &gt; 0)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#plotting-ternary-diagram-with-r",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#plotting-ternary-diagram-with-r",
+    "title": "Hands-on Ex 5",
+    "section": "Plotting Ternary Diagram with R",
+    "text": "Plotting Ternary Diagram with R\n\nggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +\n  geom_point()\n\n\nggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +\n  geom_point() +\n  labs(title=\"Population structure, 2015\") +\n  theme_rgbw()\n\n\nPlotting an interative ternary diagram\n\n# reusable function for creating annotation object\nlabel &lt;- function(txt) {\n  list(\n    text = txt, \n    x = 0.1, y = 1,\n    ax = 0, ay = 0,\n    xref = \"paper\", yref = \"paper\", \n    align = \"center\",\n    font = list(family = \"serif\", size = 15, color = \"white\"),\n    bgcolor = \"#b3b3b3\", bordercolor = \"black\", borderwidth = 2\n  )\n}\n\n# reusable function for axis formatting\naxis &lt;- function(txt) {\n  list(\n    title = txt, tickformat = \".0%\", tickfont = list(size = 10)\n  )\n}\n\nternaryAxes &lt;- list(\n  aaxis = axis(\"Young\"), \n  baxis = axis(\"Active\"), \n  caxis = axis(\"Old\")\n)\n\n# Initiating a plotly visualization \nplot_ly(\n  agpop_mutated, \n  a = ~YOUNG, \n  b = ~ACTIVE, \n  c = ~OLD, \n  color = I(\"black\"), \n  type = \"scatterternary\"\n) %&gt;%\n  layout(\n    annotations = label(\"Ternary Markers\"), \n    ternary = ternaryAxes\n  )"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-1",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-1",
+    "title": "Hands-on Ex 5",
+    "section": "Installing and Launching R Packages",
+    "text": "Installing and Launching R Packages\n\npacman::p_load(corrplot, ggstatsplot, tidyverse)\n\n\nImporting Data\n\nwine &lt;- read_csv(\"data/wine_quality.csv\")"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#building-correlation-matrix-pairs-method",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#building-correlation-matrix-pairs-method",
+    "title": "Hands-on Ex 5",
+    "section": "Building Correlation Matrix: pairs() method",
+    "text": "Building Correlation Matrix: pairs() method\n\nBuilding a basic correlation matrix\n\npairs(wine[,1:11])\n\n\npairs(wine[,2:12])\n\n\n\nDrawing the lower corner\n\npairs(wine[,2:12], upper.panel = NULL)\n\n\npairs(wine[,2:12], lower.panel = NULL)\n\n\n\nIncluding with correlation coefficients\n\npanel.cor &lt;- function(x, y, digits=2, prefix=\"\", cex.cor, ...) {\nusr &lt;- par(\"usr\")\non.exit(par(usr))\npar(usr = c(0, 1, 0, 1))\nr &lt;- abs(cor(x, y, use=\"complete.obs\"))\ntxt &lt;- format(c(r, 0.123456789), digits=digits)[1]\ntxt &lt;- paste(prefix, txt, sep=\"\")\nif(missing(cex.cor)) cex.cor &lt;- 0.8/strwidth(txt)\ntext(0.5, 0.5, txt, cex = cex.cor * (1 + r) / 2)\n}\n\npairs(wine[,2:12], \n      upper.panel = panel.cor)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#visualising-correlation-matrix-ggcormat",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#visualising-correlation-matrix-ggcormat",
+    "title": "Hands-on Ex 5",
+    "section": "Visualising Correlation Matrix: ggcormat()",
+    "text": "Visualising Correlation Matrix: ggcormat()\n\nggstatsplot::ggcorrmat(\n  data = wine, \n  cor.vars = 1:11)\n\n\nggstatsplot::ggcorrmat(\n  data = wine, \n  cor.vars = 1:11,\n  ggcorrplot.args = list(outline.color = \"black\", \n                         hc.order = TRUE,\n                         tl.cex = 10),\n  title    = \"Correlogram for wine dataset\",\n  subtitle = \"Four pairs are no significant at p &lt; 0.05\"\n)\n\n\nggplot.component = list(\n    theme(text=element_text(size=5),\n      axis.text.x = element_text(size = 8),\n      axis.text.y = element_text(size = 8)))"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#building-multiple-plots",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#building-multiple-plots",
+    "title": "Hands-on Ex 5",
+    "section": "Building multiple plots",
+    "text": "Building multiple plots\n\ngrouped_ggcorrmat(\n  data = wine,\n  cor.vars = 1:11,\n  grouping.var = type,\n  type = \"robust\",\n  p.adjust.method = \"holm\",\n  plotgrid.args = list(ncol = 2),\n  ggcorrplot.args = list(outline.color = \"black\", \n                         hc.order = TRUE,\n                         tl.cex = 10),\n  annotation.args = list(\n    tag_levels = \"a\",\n    title = \"Correlogram for wine dataset\",\n    subtitle = \"The measures are: alcohol, sulphates, fixed acidity, citric acid, chlorides, residual sugar, density, free sulfur dioxide and volatile acidity\",\n    caption = \"Dataset: UCI Machine Learning Repository\"\n  )\n)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#visualising-correlation-matrix-using-corrplot-package",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#visualising-correlation-matrix-using-corrplot-package",
+    "title": "Hands-on Ex 5",
+    "section": "Visualising Correlation Matrix using corrplot Package",
+    "text": "Visualising Correlation Matrix using corrplot Package\n\nGetting started with corrplot\n\nwine.cor &lt;- cor(wine[, 1:11])\n\n\ncorrplot(wine.cor)\n\n\n\nWorking with visual geometrics\n\ncorrplot(wine.cor, \n         method = \"ellipse\") \n\n\n\nWorking with layout\n\ncorrplot(wine.cor, \n         method = \"ellipse\", \n         type=\"lower\")\n\n\ncorrplot(wine.cor, \n         method = \"ellipse\", \n         type=\"lower\",\n         diag = FALSE,\n         tl.col = \"black\")\n\n\n\nWorking with mixed layout\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               tl.col = \"black\")\n\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               tl.col = \"black\")\n\n\n\nCombining corrgram with the significant test\n\nwine.sig = cor.mtest(wine.cor, conf.level= .95)\n\n\ncorrplot(wine.cor,\n         method = \"number\",\n         type = \"lower\",\n         diag = FALSE,\n         tl.col = \"black\",\n         tl.srt = 45,\n         p.mat = wine.sig$p,\n         sig.level = .05)\n\n\n\nReorder a corrgram\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               order=\"AOE\",\n               tl.col = \"black\")\n\n\n\nReordering a correlation matrix using hclust\n\ncorrplot(wine.cor, \n         method = \"ellipse\", \n         tl.pos = \"lt\",\n         tl.col = \"black\",\n         order=\"hclust\",\n         hclust.method = \"ward.D\",\n         addrect = 3)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-2",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-2",
+    "title": "Hands-on Ex 5",
+    "section": "Installing and Launching R Packages",
+    "text": "Installing and Launching R Packages\n\npacman::p_load(GGally, parallelPlot, tidyverse)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#data-preparation",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#data-preparation",
+    "title": "Hands-on Ex 5",
+    "section": "Data Preparation",
+    "text": "Data Preparation\n\nwh &lt;- read_csv(\"data/WHData-2018.csv\")"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#plotting-static-parallel-coordinates-plot",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#plotting-static-parallel-coordinates-plot",
+    "title": "Hands-on Ex 5",
+    "section": "Plotting Static Parallel Coordinates Plot",
+    "text": "Plotting Static Parallel Coordinates Plot\n\nggparcoord(data = wh, \n           columns = c(7:12))\n\n\nPlotting a parallel coordinates with boxplot\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Parallel Coordinates Plot of World Happines Variables\")\n\n\n\nParallel coordinates with facet\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Multiple Parallel Coordinates Plots of World Happines Variables by Region\") +\n  facet_wrap(~ Region)\n\n\n\nRotating x-axis text label\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Multiple Parallel Coordinates Plots of World Happines Variables by Region\") +\n  facet_wrap(~ Region) + \n  theme(axis.text.x = element_text(angle = 30))\n\n\n\nAdjusting the rotated x-axis text label\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Multiple Parallel Coordinates Plots of World Happines Variables by Region\") +\n  facet_wrap(~ Region) + \n  theme(axis.text.x = element_text(angle = 30, hjust=1))"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#plotting-interactive-parallel-coordinates-plot-parallelplot-methods",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#plotting-interactive-parallel-coordinates-plot-parallelplot-methods",
+    "title": "Hands-on Ex 5",
+    "section": "Plotting Interactive Parallel Coordinates Plot: parallelPlot methods",
+    "text": "Plotting Interactive Parallel Coordinates Plot: parallelPlot methods\n\nwh &lt;- wh %&gt;%\n  select(\"Happiness score\", c(7:12))\nparallelPlot(wh,\n             width = 320,\n             height = 250)\n\n\nRotate axis label\n\nparallelPlot(wh,\n             rotateTitle = TRUE)\n\n\n\nChanging the colour scheme\n\nparallelPlot(wh,\n             continuousCS = \"YlOrRd\",\n             rotateTitle = TRUE)\n\n\n\nParallel coordinates plot with histogram\n\nhistoVisibility &lt;- rep(TRUE, ncol(wh))\nparallelPlot(wh,\n             rotateTitle = TRUE,\n             histoVisibility = histoVisibility)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-3",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-3",
+    "title": "Hands-on Ex 5",
+    "section": "Installing and Launching R Packages",
+    "text": "Installing and Launching R Packages\n\npacman::p_load(treemap, treemapify, tidyverse)"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#data-wrangling",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#data-wrangling",
+    "title": "Hands-on Ex 5",
+    "section": "Data Wrangling",
+    "text": "Data Wrangling\n\nImporting the data set\n\nrealis2018 &lt;- read_csv(\"data/realis2018.csv\")\n\n\n\nData Wrangling and Manipulation\n\n\nGrouped summaries without the Pipe\n\nrealis2018_grouped &lt;- group_by(realis2018, `Project Name`,\n                               `Planning Region`, `Planning Area`, \n                               `Property Type`, `Type of Sale`)\nrealis2018_summarised &lt;- summarise(realis2018_grouped, \n                          `Total Unit Sold` = sum(`No. of Units`, na.rm = TRUE),\n                          `Total Area` = sum(`Area (sqm)`, na.rm = TRUE),\n                          `Median Unit Price ($ psm)` = median(`Unit Price ($ psm)`, na.rm = TRUE), \n                          `Median Transacted Price` = median(`Transacted Price ($)`, na.rm = TRUE))\n\n\n\nGrouped summaries with the pipe\n\nrealis2018_summarised &lt;- realis2018 %&gt;% \n  group_by(`Project Name`,`Planning Region`, \n           `Planning Area`, `Property Type`, \n           `Type of Sale`) %&gt;%\n  summarise(`Total Unit Sold` = sum(`No. of Units`, na.rm = TRUE), \n            `Total Area` = sum(`Area (sqm)`, na.rm = TRUE),\n            `Median Unit Price ($ psm)` = median(`Unit Price ($ psm)`, na.rm = TRUE),\n            `Median Transacted Price` = median(`Transacted Price ($)`, na.rm = TRUE))"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#designing-treemap-with-treemap-package",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#designing-treemap-with-treemap-package",
+    "title": "Hands-on Ex 5",
+    "section": "Designing Treemap with treemap Package",
+    "text": "Designing Treemap with treemap Package\n\nDesigning a static treemap\n\nrealis2018_selected &lt;- realis2018_summarised %&gt;%\n  filter(`Property Type` == \"Condominium\", `Type of Sale` == \"Resale\")\n\n\n\nUsing the basic arguments\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\n\nWorking with vColor and type arguments\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type = \"value\",\n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\n\nColours in treemap package\n\n\nThe \"value\" type treemap\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"value\",\n        palette=\"RdYlBu\", \n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\n\nThe \"manual\" type treemap\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"manual\",\n        palette=\"RdYlBu\", \n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"manual\",\n        palette=\"Blues\", \n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\n\nTreemap Layout\n\n\nWorking with algorithm argument\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"manual\",\n        palette=\"Blues\", \n        algorithm = \"squarified\",\n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\n\nUsing sortID\n\ntreemap(realis2018_selected,\n        index=c(\"Planning Region\", \"Planning Area\", \"Project Name\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"manual\",\n        palette=\"Blues\", \n        algorithm = \"pivotSize\",\n        sortID = \"Median Transacted Price\",\n        title=\"Resale Condominium by Planning Region and Area, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#designing-treemap-using-treemapify-package",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#designing-treemap-using-treemapify-package",
+    "title": "Hands-on Ex 5",
+    "section": "Designing Treemap using treemapify Package",
+    "text": "Designing Treemap using treemapify Package\n\nDesigning a basic treemap\n\nggplot(data=realis2018_selected, \n       aes(area = `Total Unit Sold`,\n           fill = `Median Unit Price ($ psm)`),\n       layout = \"scol\",\n       start = \"bottomleft\") + \n  geom_treemap() +\n  scale_fill_gradient(low = \"light blue\", high = \"blue\")\n\n\n\nDefining hierarchy\n\nggplot(data=realis2018_selected, \n       aes(area = `Total Unit Sold`,\n           fill = `Median Unit Price ($ psm)`,\n           subgroup = `Planning Region`),\n       start = \"topleft\") + \n  geom_treemap()\n\n\nggplot(data=realis2018_selected, \n       aes(area = `Total Unit Sold`,\n           fill = `Median Unit Price ($ psm)`,\n           subgroup = `Planning Region`,\n           subgroup2 = `Planning Area`)) + \n  geom_treemap()\n\n\nggplot(data=realis2018_selected, \n       aes(area = `Total Unit Sold`,\n           fill = `Median Unit Price ($ psm)`,\n           subgroup = `Planning Region`,\n           subgroup2 = `Planning Area`)) + \n  geom_treemap() +\n  geom_treemap_subgroup2_border(colour = \"gray40\",\n                                size = 2) +\n  geom_treemap_subgroup_border(colour = \"gray20\")"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#designing-interactive-treemap-using-d3treer",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#designing-interactive-treemap-using-d3treer",
+    "title": "Hands-on Ex 5",
+    "section": "Designing Interactive Treemap using d3treeR",
+    "text": "Designing Interactive Treemap using d3treeR\n\nInstalling d3treeR package\n\ninstall.packages(\"devtools\")\n\n\nlibrary(devtools)\ninstall_github(\"timelyportfolio/d3treeR\")\n\n\nlibrary(d3treeR)\n\n\n\nDesigning An Interactive Treemap\n\ntm &lt;- treemap(realis2018_summarised,\n        index=c(\"Planning Region\", \"Planning Area\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"value\",\n        title=\"Private Residential Property Sold, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\nd3tree(tm,rootname = \"Singapore\" )"
   }
 ]
