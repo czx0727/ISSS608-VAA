@@ -30,7 +30,7 @@ This hands-on exercise covers all of the information from this [link](https://is
 
 -   [**ggtern**](http://www.ggtern.com/), a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.
 
--   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly\'s JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
+-   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
 
 ```{r}
 #| eval: false
@@ -86,7 +86,7 @@ ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   theme_rgbw()
 ```
 
-###  **Plotting an interative ternary diagram**
+### **Plotting an interative ternary diagram**
 
 ```{r}
 #| eval: false
@@ -141,7 +141,7 @@ plot_ly(
 pacman::p_load(corrplot, ggstatsplot, tidyverse)
 ```
 
-###  **Importing Data**
+### **Importing Data**
 
 ```{r}
 #| eval: false
@@ -533,7 +533,7 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 
 # **4. Visual Multivariate Analysis with Parallel Coordinates Plot**
 
-##  **Installing and Launching R Packages**
+## **Installing and Launching R Packages**
 
 ```{r}
 #| eval: false
@@ -708,7 +708,7 @@ realis2018_selected <- realis2018_summarised %>%
   filter(`Property Type` == "Condominium", `Type of Sale` == "Resale")
 ```
 
-###  **Using the basic arguments**
+### **Using the basic arguments**
 
 ```{r}
 #| eval: false
@@ -721,7 +721,7 @@ treemap(realis2018_selected,
         )
 ```
 
-###  **Working with *vColor* and *type* arguments**
+### **Working with *vColor* and *type* arguments**
 
 ```{r}
 #| eval: false
@@ -737,7 +737,7 @@ treemap(realis2018_selected,
 
 ### **Colours in treemap package**
 
-### **The \"value\" type treemap**
+### **The "value" type treemap**
 
 ```{r}
 #| eval: false
@@ -752,7 +752,7 @@ treemap(realis2018_selected,
         )
 ```
 
-### **The \"manual\" type treemap**
+### **The "manual" type treemap**
 
 ```{r}
 #| eval: false

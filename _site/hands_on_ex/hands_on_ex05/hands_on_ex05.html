@@ -158,8 +158,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Hands-on Exercise 8</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../hands_on_ex/hands_on_ex08/hands_on_ex09.html" rel="" target="">
+    <a class="dropdown-item" href="../../hands_on_ex/hands_on_ex09/hands_on_ex09.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands_on_ex/hands_on_ex010/hands_on_ex10.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 10</span></a>
   </li>  
     </ul>
   </li>
@@ -203,6 +207,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../in_class_ex/in_class_ex09/in_class_ex09.html" rel="" target="">
  <span class="dropdown-text">In-Class Exercise 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../in_class_ex/in_class_ex10/in_class_ex10.html" rel="" target="">
+ <span class="dropdown-text">In-Class Exercise 10</span></a>
   </li>  
     </ul>
   </li>
@@ -359,8 +367,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#using-the-basic-arguments" id="toc-using-the-basic-arguments" class="nav-link" data-scroll-target="#using-the-basic-arguments"><strong>Using the basic arguments</strong></a></li>
   <li><a href="#working-with-vcolor-and-type-arguments" id="toc-working-with-vcolor-and-type-arguments" class="nav-link" data-scroll-target="#working-with-vcolor-and-type-arguments"><strong>Working with <em>vColor</em> and <em>type</em> arguments</strong></a></li>
   <li><a href="#colours-in-treemap-package" id="toc-colours-in-treemap-package" class="nav-link" data-scroll-target="#colours-in-treemap-package"><strong>Colours in treemap package</strong></a></li>
-  <li><a href="#the-value-type-treemap" id="toc-the-value-type-treemap" class="nav-link" data-scroll-target="#the-value-type-treemap"><strong>The "value" type treemap</strong></a></li>
-  <li><a href="#the-manual-type-treemap" id="toc-the-manual-type-treemap" class="nav-link" data-scroll-target="#the-manual-type-treemap"><strong>The "manual" type treemap</strong></a></li>
+  <li><a href="#the-value-type-treemap" id="toc-the-value-type-treemap" class="nav-link" data-scroll-target="#the-value-type-treemap"><strong>The “value” type treemap</strong></a></li>
+  <li><a href="#the-manual-type-treemap" id="toc-the-manual-type-treemap" class="nav-link" data-scroll-target="#the-manual-type-treemap"><strong>The “manual” type treemap</strong></a></li>
   <li><a href="#treemap-layout" id="toc-treemap-layout" class="nav-link" data-scroll-target="#treemap-layout"><strong>Treemap Layout</strong></a></li>
   <li><a href="#working-with-algorithm-argument" id="toc-working-with-algorithm-argument" class="nav-link" data-scroll-target="#working-with-algorithm-argument"><strong>Working with <em>algorithm</em> argument</strong></a></li>
   <li><a href="#using-sortid" id="toc-using-sortid" class="nav-link" data-scroll-target="#using-sortid"><strong>Using <em>sortID</em></strong></a></li>
@@ -436,7 +444,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>2 main R packages will be used in this hands-on exercise, they are:</p>
 <ul>
 <li><p><a href="http://www.ggtern.com/"><strong>ggtern</strong></a>, a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.</p></li>
-<li><p><a href="https://plot.ly/r/"><strong>Plotly R</strong></a>, an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js . The <strong>plotly R</strong> libary contains the <em>ggplotly</em> function, which will convert <strong>ggplot2</strong> figures into a Plotly object.</p></li>
+<li><p><a href="https://plot.ly/r/"><strong>Plotly R</strong></a>, an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js . The <strong>plotly R</strong> libary contains the <em>ggplotly</em> function, which will convert <strong>ggplot2</strong> figures into a Plotly object.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">'plotly'</span>, <span class="st">'tidyverse'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1066,7 +1074,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="colours-in-treemap-package"><strong>Colours in treemap package</strong></h3>
 </section>
 <section id="the-value-type-treemap" class="level3">
-<h3 class="anchored" data-anchor-id="the-value-type-treemap"><strong>The "value" type treemap</strong></h3>
+<h3 class="anchored" data-anchor-id="the-value-type-treemap"><strong>The “value” type treemap</strong></h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
@@ -1080,7 +1088,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="the-manual-type-treemap" class="level3">
-<h3 class="anchored" data-anchor-id="the-manual-type-treemap"><strong>The "manual" type treemap</strong></h3>
+<h3 class="anchored" data-anchor-id="the-manual-type-treemap"><strong>The “manual” type treemap</strong></h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">treemap</span>(realis2018_selected,</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="fu">c</span>(<span class="st">"Planning Region"</span>, <span class="st">"Planning Area"</span>, <span class="st">"Project Name"</span>),</span>
