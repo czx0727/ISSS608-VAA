@@ -301,7 +301,7 @@ stu_qqq_SG_3$school <- as.factor(stu_qqq_SG_3$school)
 
 ## 5.1 Histograms - Subjects
 
-Now I will plot the individual histograms for each subjects:
+Now I will plot the individual histograms for each subjects with the counts. After which, I will combine the histograms together to do a comparison across the subjects.
 
 **Math**
 
@@ -415,7 +415,7 @@ p3 <- ggplot(data=stu_qqq_SG_3,
 ```
 :::
 
-Let me put all the plots together to compare
+Let me put all the plots together to compare now:
 
 ::: panel-tabset
 ## The plot
@@ -441,14 +441,15 @@ Let me put all the plots together to compare
 
 Comparing the 3 histograms, Math score is comparatively better as compared to Science and Reading score. Math score has an mean of 574, while Science has mean of 561 and Reading has a mean of 542.5.
 
-In addition, Math score seems to be normally distributed. Science and Reading score seems to be left skewed normally distributed.
+In addition, Math score seems to be symmetrically normally distributed. Science and Reading score seems to be left skewed normally distributed.
 :::
 
 ## 5.2 Boxplot - Gender and Subjects
 
 Now I will compare each subjects by the genders:
 
-**Math**
+::: panel-tabset
+## Math
 
 ```{r, warning=FALSE,message=FALSE}
 ggplot(data=stu_qqq_SG_3, 
@@ -462,13 +463,7 @@ ggplot(data=stu_qqq_SG_3,
   labs(y = "Math Score")
 ```
 
-::: callout-note
-## Findings
-
-From the boxplots above, Male's math score has a higher middle and mean as compared to Female's math score, However, Male's math score has a lower minimum value as compared to Female's math score.
-:::
-
-**Reading**
+## Reading
 
 ```{r, warning=FALSE,message=FALSE}
 ggplot(data=stu_qqq_SG_3, 
@@ -483,13 +478,7 @@ ggplot(data=stu_qqq_SG_3,
   labs(y = "Reading Score")
 ```
 
-::: callout-note
-## Findings
-
-From the boxplots above, Male's reading score has a lower middle and mean as compared to Female's reading score. In addition, Male's reading score has a lower minimum value as compared to Female's reading score
-:::
-
-**Science**
+## Science
 
 ```{r, warning=FALSE,message=FALSE}
 ggplot(data=stu_qqq_SG_3, 
@@ -503,16 +492,22 @@ ggplot(data=stu_qqq_SG_3,
   ggtitle("Boxplot of Science Score (by Gender)")+
   labs(y = "Science Score")
 ```
+:::
 
 ::: callout-note
 ## Findings
 
-From the boxplots above, Male's science score has a slightly higher middle and mean as compared to Female's science score, However, Male's science score has a lower minimum value as compared to Female's science score
+From the boxplots above, Male's **math score** has a higher middle and mean as compared to Female's math score, However, Male's math score has a lower minimum value as compared to Female's math score.
+
+From the boxplots above, Male's **reading score** has a lower middle and mean as compared to Female's reading score. In addition, Male's reading score has a lower minimum value as compared to Female's reading score.
+
+From the boxplots above, Male's **science score** has a slightly higher middle and mean as compared to Female's science score, However, Male's science score has a lower minimum value as compared to Female's science score.
 :::
 
 ## 5.3 Bar graph - Expected Education and Subjects
 
-**Math**
+::: panel-tabset
+## Math
 
 ```{r}
 ggplot(data=stu_qqq_SG_3, 
@@ -524,7 +519,7 @@ ggplot(data=stu_qqq_SG_3,
   labs(x = "Math Score")
 ```
 
-**Reading**
+## Reading
 
 ```{r}
 ggplot(data=stu_qqq_SG_3, 
@@ -536,7 +531,7 @@ ggplot(data=stu_qqq_SG_3,
   labs(x = "Reading Score")
 ```
 
-**Science**
+## Science
 
 ```{r}
 ggplot(data=stu_qqq_SG_3, 
@@ -547,14 +542,17 @@ ggplot(data=stu_qqq_SG_3,
   ggtitle("Distribution of Science scores (by School)")+
   labs(x = "Science Score")
 ```
+:::
 
 ::: callout-note
 ## Findings
 
-In all the histogram plots, all subjects show that the expected education chosen by students is degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: [link](https://www.singstat.gov.sg/publications/reference/ebook/population/education-and-literacy).
+In all the histogram plots, all subjects show that the expected education chosen by students is mainly degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: [link](https://www.singstat.gov.sg/publications/reference/ebook/population/education-and-literacy). Students who are taking PISA has expectation of going to a university with the current scores they obtained from the various subjects.
 :::
 
 ## 5.4 **Kernel density estimate plot (**Gender and Socioeconomic Status)
+
+I will examine the relationship between gender and socioeconomic status.
 
 ```{r, warning=FALSE}
 
@@ -569,14 +567,17 @@ ggplot(data=stu_qqq_SG_3,
 ::: callout-note
 ## Findings
 
-Male has a higher socioeconomic status as compared to female.
+The density curve for both gender seems to be left-skewed, this suggests that the mean of the socioecomomic status index is less than the median of the socioeconomic status index.
+
+Female students has a higher socioeconomic status as compared to male students with the peak more to the right compared to male students. However, male students' socioeconomic status has a higher peak compared to female students.
 :::
 
 ## 5.5 Scatterplot (Socioeconomic Status and Subjects Score)
 
-I will further examine a potential socioeconomic status with the subjects score
+I will further examine a potential socioeconomic status with the various subjects score
 
-**Math**
+::: panel-tabset
+## Math
 
 ```{r, warning=FALSE}
 ggplot(data=stu_qqq_SG_3, 
@@ -589,7 +590,7 @@ ggplot(data=stu_qqq_SG_3,
 
 ```
 
-**Reading**
+## Reading
 
 ```{r, warning=FALSE}
 ggplot(data=stu_qqq_SG_3, 
@@ -601,7 +602,7 @@ ggplot(data=stu_qqq_SG_3,
   labs(y = "Socioeconomic Status")
 ```
 
-**Science**
+## Science
 
 ```{r, warning=FALSE}
 ggplot(data=stu_qqq_SG_3, 
@@ -612,9 +613,10 @@ ggplot(data=stu_qqq_SG_3,
   labs(x = "Science Score")+
   labs(y = "Socioeconomic Status")
 ```
+:::
 
 ::: callout-note
 ## Findings
 
-Based on all the scatterplots, It seems to suggest that there is some relationships between the subjects and socioeconomic status.
+Based on all the scatterplots, It seems to suggest that there is no relationship between the subjects and socioeconomic status as the points seems to be randomly scattered. Further tests are needed to examine this.
 :::

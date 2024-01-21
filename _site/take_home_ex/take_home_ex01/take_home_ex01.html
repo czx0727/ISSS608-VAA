@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 20, 2024</p>
+      <p class="date-modified">January 21, 2024</p>
     </div>
   </div>
     
@@ -874,7 +874,7 @@ $ read_average         &lt;dbl&gt; 667.4296, 627.6078, 582.9252, 361.3969, 475.6
 </div>
 <section id="histograms---subjects" class="level2">
 <h2 class="anchored" data-anchor-id="histograms---subjects">5.1 Histograms - Subjects</h2>
-<p>Now I will plot the individual histograms for each subjects:</p>
+<p>Now I will plot the individual histograms for each subjects with the counts. After which, I will combine the histograms together to do a comparison across the subjects.</p>
 <p><strong>Math</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">The code</a></li></ul>
@@ -953,7 +953,7 @@ $ read_average         &lt;dbl&gt; 667.4296, 627.6078, 582.9252, 361.3969, 475.6
 </div>
 </div>
 </div>
-<p>Let me put all the plots together to compare</p>
+<p>Let me put all the plots together to compare now:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">The code</a></li></ul>
 <div class="tab-content">
@@ -982,14 +982,17 @@ Findings
 </div>
 <div class="callout-body-container callout-body">
 <p>Comparing the 3 histograms, Math score is comparatively better as compared to Science and Reading score. Math score has an mean of 574, while Science has mean of 561 and Reading has a mean of 542.5.</p>
-<p>In addition, Math score seems to be normally distributed. Science and Reading score seems to be left skewed normally distributed.</p>
+<p>In addition, Math score seems to be symmetrically normally distributed. Science and Reading score seems to be left skewed normally distributed.</p>
 </div>
 </div>
 </section>
 <section id="boxplot---gender-and-subjects" class="level2">
 <h2 class="anchored" data-anchor-id="boxplot---gender-and-subjects">5.2 Boxplot - Gender and Subjects</h2>
 <p>Now I will compare each subjects by the genders:</p>
-<p><strong>Math</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Math</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Reading</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Science</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> math_average,<span class="at">x=</span> gender)) <span class="sc">+</span>    </span>
@@ -1004,20 +1007,8 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Findings
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>From the boxplots above, Male’s math score has a higher middle and mean as compared to Female’s math score, However, Male’s math score has a lower minimum value as compared to Female’s math score.</p>
-</div>
-</div>
-<p><strong>Reading</strong></p>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> read_average,       </span>
@@ -1033,20 +1024,8 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Findings
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>From the boxplots above, Male’s reading score has a lower middle and mean as compared to Female’s reading score. In addition, Male’s reading score has a lower minimum value as compared to Female’s reading score</p>
-</div>
-</div>
-<p><strong>Science</strong></p>
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> sci_average,       </span>
@@ -1062,6 +1041,9 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1072,13 +1054,18 @@ Findings
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>From the boxplots above, Male’s science score has a slightly higher middle and mean as compared to Female’s science score, However, Male’s science score has a lower minimum value as compared to Female’s science score</p>
+<p>From the boxplots above, Male’s <strong>math score</strong> has a higher middle and mean as compared to Female’s math score, However, Male’s math score has a lower minimum value as compared to Female’s math score.</p>
+<p>From the boxplots above, Male’s <strong>reading score</strong> has a lower middle and mean as compared to Female’s reading score. In addition, Male’s reading score has a lower minimum value as compared to Female’s reading score.</p>
+<p>From the boxplots above, Male’s <strong>science score</strong> has a slightly higher middle and mean as compared to Female’s science score, However, Male’s science score has a lower minimum value as compared to Female’s science score.</p>
 </div>
 </div>
 </section>
 <section id="bar-graph---expected-education-and-subjects" class="level2">
 <h2 class="anchored" data-anchor-id="bar-graph---expected-education-and-subjects">5.3 Bar graph - Expected Education and Subjects</h2>
-<p><strong>Math</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Math</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Reading</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Science</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> math_average, </span>
@@ -1091,7 +1078,8 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Reading</strong></p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> read_average, </span>
@@ -1104,7 +1092,8 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Science</strong></p>
+</div>
+<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> sci_average, </span>
@@ -1117,6 +1106,9 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1127,12 +1119,13 @@ Findings
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In all the histogram plots, all subjects show that the expected education chosen by students is degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: <a href="https://www.singstat.gov.sg/publications/reference/ebook/population/education-and-literacy">link</a>.</p>
+<p>In all the histogram plots, all subjects show that the expected education chosen by students is mainly degree, followed by masters/diploma. This is no surprisingly as due to higher number of singapore residents aged 25 years and above having diploma/degree: <a href="https://www.singstat.gov.sg/publications/reference/ebook/population/education-and-literacy">link</a>. Students who are taking PISA has expectation of going to a university with the current scores they obtained from the various subjects.</p>
 </div>
 </div>
 </section>
 <section id="kernel-density-estimate-plot-gender-and-socioeconomic-status" class="level2">
 <h2 class="anchored" data-anchor-id="kernel-density-estimate-plot-gender-and-socioeconomic-status">5.4 <strong>Kernel density estimate plot (</strong>Gender and Socioeconomic Status)</h2>
+<p>I will examine the relationship between gender and socioeconomic status.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> socioeconomic_status, </span>
@@ -1154,14 +1147,18 @@ Findings
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Male has a higher socioeconomic status as compared to female.</p>
+<p>The density curve for both gender seems to be left-skewed, this suggests that the mean of the socioecomomic status index is less than the median of the socioeconomic status index.</p>
+<p>Female students has a higher socioeconomic status as compared to male students with the peak more to the right compared to male students. However, male students’ socioeconomic status has a higher peak compared to female students.</p>
 </div>
 </div>
 </section>
 <section id="scatterplot-socioeconomic-status-and-subjects-score" class="level2">
 <h2 class="anchored" data-anchor-id="scatterplot-socioeconomic-status-and-subjects-score">5.5 Scatterplot (Socioeconomic Status and Subjects Score)</h2>
-<p>I will further examine a potential socioeconomic status with the subjects score</p>
-<p><strong>Math</strong></p>
+<p>I will further examine a potential socioeconomic status with the various subjects score</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Math</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Reading</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Science</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> math_average, </span>
@@ -1174,7 +1171,8 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Reading</strong></p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> read_average, </span>
@@ -1187,7 +1185,8 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Science</strong></p>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>stu_qqq_SG_3, </span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> sci_average, </span>
@@ -1200,6 +1199,9 @@ Findings
 <p><img src="take_home_ex01_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1210,7 +1212,7 @@ Findings
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Based on all the scatterplots, It seems to suggest that there is some relationships between the subjects and socioeconomic status.</p>
+<p>Based on all the scatterplots, It seems to suggest that there is no relationship between the subjects and socioeconomic status as the points seems to be randomly scattered. Further tests are needed to examine this.</p>
 </div>
 </div>
 
