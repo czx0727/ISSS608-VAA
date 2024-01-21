@@ -318,7 +318,8 @@ p1 <- ggplot(data=stu_qqq_SG_3,
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
   ggtitle("Histogram of Maths scores") +
-  labs(x = "Math Score")
+  labs(x = "Math Score")+
+  labs(y= "Number of students")
 
 p1
 ```
@@ -335,7 +336,8 @@ p1 <- ggplot(data=stu_qqq_SG_3,
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
   ggtitle("Histogram of Maths scores")+
-  labs(x = "Math Score")
+  labs(x = "Math Score")+
+  labs(y= "Number of students")
 ```
 :::
 
@@ -354,7 +356,8 @@ p2 <- ggplot(data=stu_qqq_SG_3,
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
   ggtitle("Histogram of Reading scores")+
-  labs(x = "Reading Score")
+  labs(x = "Reading Score")+
+  labs(y= "Number of students")
 
 p2
 
@@ -372,7 +375,8 @@ p2 <- ggplot(data=stu_qqq_SG_3,
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
   ggtitle("Histogram of Reading scores")+
-  labs(x = "Reading Score")
+  labs(x = "Reading Score")+
+  labs(y= "Number of students")
 
 ```
 :::
@@ -392,7 +396,8 @@ p3 <- ggplot(data=stu_qqq_SG_3,
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
   ggtitle("Histogram of Science scores")+
-  labs(x = "Science Score")
+  labs(x = "Science Score")+
+  labs(y= "Number of students")
 
 p3
 
@@ -410,7 +415,8 @@ p3 <- ggplot(data=stu_qqq_SG_3,
                  fill="light blue") + 
   coord_cartesian(xlim=c(0,900)) +
   ggtitle("Histogram of Science scores")+
-  labs(x = "Math Score")
+  labs(x = "Math Score")+
+  labs(y= "Number of students")
 
 ```
 :::
@@ -515,8 +521,9 @@ ggplot(data=stu_qqq_SG_3,
            fill = school)) +
   geom_histogram(bins=20, 
                  color="grey30")+
-  ggtitle("Distribution of Maths scores (by School)")+
-  labs(x = "Math Score")
+  ggtitle("Distribution of Maths scores (by Expected School)")+
+  labs(x = "Math Score")+
+  labs(y= "Number of students")
 ```
 
 ## Reading
@@ -527,8 +534,9 @@ ggplot(data=stu_qqq_SG_3,
            fill = school)) +
   geom_histogram(bins=20, 
                  color="grey30")+
-  ggtitle("Distribution of Reading scores (by School)")+
-  labs(x = "Reading Score")
+  ggtitle("Distribution of Reading scores (by Expected School)")+
+  labs(x = "Reading Score")+
+  labs(y= "Number of students")
 ```
 
 ## Science
@@ -539,8 +547,9 @@ ggplot(data=stu_qqq_SG_3,
            fill = school)) +
   geom_histogram(bins=20, 
                  color="grey30")+
-  ggtitle("Distribution of Science scores (by School)")+
-  labs(x = "Science Score")
+  ggtitle("Distribution of Science scores (by Expected School)")+
+  labs(x = "Science Score")+
+  labs(y= "Number of students")
 ```
 :::
 
@@ -561,7 +570,7 @@ ggplot(data=stu_qqq_SG_3,
            colour = gender)) +
   geom_density()+
   ggtitle("Distribution of Socioeconomic Status (by Gender)")+
-  labs(x = "Socioeconomic Status")
+  labs(x = "Socioeconomic Status - PISA Index")
 ```
 
 ::: callout-note
@@ -584,9 +593,9 @@ ggplot(data=stu_qqq_SG_3,
        aes(x= math_average, 
            y= socioeconomic_status)) +
   geom_point()+
-  ggtitle("Socioeconomic Status and Maths scores") +
+  ggtitle("Socioeconomic Status - PISA Index and Maths scores") +
   labs(x = "Math Score")+
-  labs(y = "Socioeconomic Status")
+  labs(y = "Socioeconomic Status - PISA Index")
 
 ```
 
@@ -597,9 +606,9 @@ ggplot(data=stu_qqq_SG_3,
        aes(x= read_average, 
            y= socioeconomic_status)) +
   geom_point()+
-  ggtitle("Socioeconomic Status and Reading scores") +
+  ggtitle("Socioeconomic Status - PISA Index and Reading scores") +
   labs(x = "Reading Score")+
-  labs(y = "Socioeconomic Status")
+  labs(y = "Socioeconomic Status - PISA Index")
 ```
 
 ## Science
@@ -609,9 +618,9 @@ ggplot(data=stu_qqq_SG_3,
        aes(x= sci_average, 
            y= socioeconomic_status)) +
   geom_point()+
-  ggtitle("Socioeconomic Status and Science scores") +
+  ggtitle("Socioeconomic Status - PISA Index and Science scores") +
   labs(x = "Science Score")+
-  labs(y = "Socioeconomic Status")
+  labs(y = "Socioeconomic Status - PISA Index")
 ```
 :::
 
