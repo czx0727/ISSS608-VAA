@@ -592,7 +592,7 @@
     "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-2",
     "title": "Hands-on Ex 5",
     "section": "Installing and Launching R Packages",
-    "text": "Installing and Launching R Packages\n\npacman::p_load(GGally, parallelPlot, tidyverse)"
+    "text": "Installing and Launching R Packages\n\npacman::p_load(seriation, dendextend, heatmaply, tidyverse)"
   },
   {
     "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#data-preparation",
@@ -620,7 +620,7 @@
     "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-3",
     "title": "Hands-on Ex 5",
     "section": "Installing and Launching R Packages",
-    "text": "Installing and Launching R Packages\n\npacman::p_load(treemap, treemapify, tidyverse)"
+    "text": "Installing and Launching R Packages\n\npacman::p_load(GGally, parallelPlot, tidyverse)"
   },
   {
     "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#data-wrangling",
@@ -649,5 +649,26 @@
     "title": "Hands-on Ex 5",
     "section": "Designing Interactive Treemap using d3treeR",
     "text": "Designing Interactive Treemap using d3treeR\n\nInstalling d3treeR package\n\ninstall.packages(\"devtools\")\n\n\nlibrary(devtools)\ninstall_github(\"timelyportfolio/d3treeR\")\n\n\nlibrary(d3treeR)\n\n\n\nDesigning An Interactive Treemap\n\ntm &lt;- treemap(realis2018_summarised,\n        index=c(\"Planning Region\", \"Planning Area\"),\n        vSize=\"Total Unit Sold\",\n        vColor=\"Median Unit Price ($ psm)\",\n        type=\"value\",\n        title=\"Private Residential Property Sold, 2017\",\n        title.legend = \"Median Unit Price (S$ per sq. m)\"\n        )\n\n\nd3tree(tm,rootname = \"Singapore\" )"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#importing-and-preparing-the-data-set",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#importing-and-preparing-the-data-set",
+    "title": "Hands-on Ex 5",
+    "section": "Importing and Preparing The Data Set",
+    "text": "Importing and Preparing The Data Set\n\nImporting the data set\n\nwh &lt;- read_csv(\"data/WHData-2018.csv\")\n\n\n\nPreparing the data\n\nrow.names(wh) &lt;- wh$Country\n\n\n\nTransforming the data frame into a matrix\n\nwh1 &lt;- dplyr::select(wh, c(3, 7:12))\nwh_matrix &lt;- data.matrix(wh)\n\n\n\nheatmap() of R Stats\n\nwh_heatmap &lt;- heatmap(wh_matrix,\n                      Rowv=NA, Colv=NA)\n\n\nwh_heatmap &lt;- heatmap(wh_matrix)\n\n\nwh_heatmap &lt;- heatmap(wh_matrix,\n                      scale=\"column\",\n                      cexRow = 0.6, \n                      cexCol = 0.8,\n                      margins = c(10, 4))"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#creating-interactive-heatmap",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#creating-interactive-heatmap",
+    "title": "Hands-on Ex 5",
+    "section": "Creating Interactive Heatmap",
+    "text": "Creating Interactive Heatmap\n\nWorking with heatmaply\n\nheatmaply(mtcars)\n\n\nheatmaply(wh_matrix[, -c(1, 2, 4, 5)])\n\n\n\nData trasformation\n\nheatmaply(wh_matrix[, -c(1, 2, 4, 5)],\n          scale = \"column\")\n\n\nNormalising method\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))\n\n\n\nPercentising method\n\nheatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))\n\n\n\n\nClustering algorithm\n\n\nManual approach\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          dist_method = \"euclidean\",\n          hclust_method = \"ward.D\")\n\n\n\nStatistical approach\n\nwh_d &lt;- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = \"euclidean\")\ndend_expend(wh_d)[[3]]\n\n\nwh_clust &lt;- hclust(wh_d, method = \"average\")\nnum_k &lt;- find_k(wh_clust)\nplot(num_k)\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          dist_method = \"euclidean\",\n          hclust_method = \"average\",\n          k_row = 3)\n\n\n\nSeriation\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"OLO\")\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"GW\")\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"mean\")\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"none\")\n\n\n\nWorking with colour palettes\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"none\",\n          colors = Blues)\n\n\n\nThe finishing touch\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          Colv=NA,\n          seriate = \"none\",\n          colors = Blues,\n          k_row = 5,\n          margins = c(NA,200,60,NA),\n          fontsize_row = 4,\n          fontsize_col = 5,\n          main=\"World Happiness Score and Variables by Country, 2018 \\nDataTransformation using Normalise Method\",\n          xlab = \"World Happiness Indicators\",\n          ylab = \"World Countries\"\n          )"
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-4",
+    "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#installing-and-launching-r-packages-4",
+    "title": "Hands-on Ex 5",
+    "section": "Installing and Launching R Packages",
+    "text": "Installing and Launching R Packages\n\npacman::p_load(treemap, treemapify, tidyverse)"
   }
 ]

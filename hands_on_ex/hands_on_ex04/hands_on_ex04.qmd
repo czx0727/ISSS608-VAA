@@ -506,7 +506,7 @@ check_model(model1)
 plot(parameters(model1))
 ```
 
-###  **Visualising Regression Parameters: *ggcoefstats()* methods**
+### **Visualising Regression Parameters: *ggcoefstats()* methods**
 
 ```{r}
 ggcoefstats(model1, 
