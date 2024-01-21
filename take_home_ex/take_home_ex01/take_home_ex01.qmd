@@ -291,7 +291,7 @@ Before I begin, I will the summary function to have a look at the results for th
 summary(stu_qqq_SG_3)
 ```
 
-I will make gender, having a laptop, having a room and expected education as factors:
+I will make gender, and school as factors:
 
 ```{r}
 stu_qqq_SG_3$gender <- as.factor(stu_qqq_SG_3$gender )
