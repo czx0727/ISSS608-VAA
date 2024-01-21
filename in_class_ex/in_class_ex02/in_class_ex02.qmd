@@ -10,6 +10,14 @@ execute:
 editor: visual
 ---
 
-Please refer to the [link](https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise01/Monthlysalesandprofitbyregion2016-2019?publish=yes) for in class ex 2
+Please refer to the [link](https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise01/Monthlysalesandprofitbyregion2016-2019?publish=yes) for in class ex 2. This is done by Tableau 😀
 
 ![](images/In_class_ex2.png)
+
+Sample dashboard I found online 😱
+
+<https://www.tableau.com/data-insights/dashboard-showcase/superstore>
+
+<https://www.tableau.com/solutions/gallery/superstore>
+
+<https://public.tableau.com/app/profile/pradeepkumar.g/viz/SampleSuperstore-SalesPerformance/viz_>
