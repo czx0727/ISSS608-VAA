@@ -656,5 +656,54 @@
     "title": "Take-Home Exercise 1",
     "section": "5.5 Scatterplot (Socioeconomic Status and Subjects Score)",
     "text": "5.5 Scatterplot (Socioeconomic Status and Subjects Score)\nI will further examine a potential socioeconomic status with the various subjects score\n\nMathReadingScience\n\n\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= math_average, \n           y= socioeconomic_status)) +\n  geom_point()+\n  ggtitle(\"Socioeconomic Status - PISA Index and Maths scores\") +\n  labs(x = \"Math Score\")+\n  labs(y = \"Socioeconomic Status - PISA Index\")\n\n\n\n\n\n\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= read_average, \n           y= socioeconomic_status)) +\n  geom_point()+\n  ggtitle(\"Socioeconomic Status - PISA Index and Reading scores\") +\n  labs(x = \"Reading Score\")+\n  labs(y = \"Socioeconomic Status - PISA Index\")\n\n\n\n\n\n\n\nggplot(data=stu_qqq_SG_3, \n       aes(x= sci_average, \n           y= socioeconomic_status)) +\n  geom_point()+\n  ggtitle(\"Socioeconomic Status - PISA Index and Science scores\") +\n  labs(x = \"Science Score\")+\n  labs(y = \"Socioeconomic Status - PISA Index\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nFindings\n\n\n\nBased on all the scatterplots, It seems to suggest that there is no relationship between the subjects and socioeconomic status as the points seems to be randomly scattered. Further tests are needed to examine this."
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html",
+    "title": "Take-Home Exercise 2",
+    "section": "",
+    "text": "In this take-home exercise, I will continue my visual analytics journey by selecting one of my classmate Take-Home Exercise 1 and critic the submission in terms of clarity and aesthetics."
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html#original-design",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html#original-design",
+    "title": "Take-Home Exercise 2",
+    "section": "4.1 Original Design",
+    "text": "4.1 Original Design\nThe original design is shown below:\n\nHistogram serves the purpose of displaying the distribution of the count of students in each subject."
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html#clarity",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html#clarity",
+    "title": "Take-Home Exercise 2",
+    "section": "4.2 Clarity",
+    "text": "4.2 Clarity\n\n4.2.1 Graph Title\nInteresting insight from the graph can be put as a main title. The graph title can be interesting to grab the attention of readers.\n\n\n4.2.2 Axes Labelling\nAxes labels must be meaningful to ensure readers are aware of what the axes represents. Names such as count is vague and can be improved to be more specific.\n\n\n4.2.3 Adding of Mean\nMean or Median can be included to provide audience with a better interpretation of the distribution among the subjects."
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html#aesthetics",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html#aesthetics",
+    "title": "Take-Home Exercise 2",
+    "section": "4.3 Aesthetics",
+    "text": "4.3 Aesthetics\n\n4.3.1 Colour\nHistogram can be of different colour as compared to the background. Grey Background can be improved to give a more clean and professional look.\n\n\n4.3.2 Title and Axes Label\nIn addition, the orientation of the histograms can be changed to ensure the title is readable. The rotation of y-axis label should be changed to ensure readability as well. Spelling of the y and x axis label can be adjusted accordingly to a give a more formal formatting (e.g. first letter of each word is capitalised while the rest is not)"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html#proposed-sketch",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html#proposed-sketch",
+    "title": "Take-Home Exercise 2",
+    "section": "4.4 Proposed sketch",
+    "text": "4.4 Proposed sketch"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html#final-design",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html#final-design",
+    "title": "Take-Home Exercise 2",
+    "section": "4.5 Final Design",
+    "text": "4.5 Final Design\n\nMathReadingScience\n\n\n\np1 &lt;- ggplot(data=stu_qqq_SG_MRS, \n             aes(x = AVEMATH )) +\n  # plot histogram\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"#666666\",\n                 fill=\"light blue\") +\n  # add mean math score line\n  geom_vline(aes(xintercept = mean(AVEMATH)),\n             linetype= 'dashed',\n             size= .4,\n             color= '#0e2f44') +\n  # annotation for mean math score line \n  geom_text(aes(mean(AVEMATH), 65, \n                label= 'Mean of Math Score',\n                hjust= -0.1),\n            check_overlap = T,\n            color= '#0e2f44') +\n  labs(y= 'No. of\\nStudents', x= 'Math Score from PISA',\n       title = \"Distribution of Students' Math Score from PISA 2022 Results\",\n       subtitle= 'Singapore Students aged 15 in 2022',\n       caption = \"Source: PISA 2022\")+\n  theme(axis.title.y= element_text(angle=0), \n        axis.title.y.right = element_text(angle=0, vjust = 1),\n        panel.grid.major = element_line(color= 'grey', size = 0.1),\n        panel.background= element_blank(), \n        axis.line= element_line(color= 'grey'),\n        plot.caption = element_text(hjust = 0))\np1\n\n\n\n\n\n\n\np2 &lt;- ggplot(data=stu_qqq_SG_MRS, \n             aes(x = AVEREAD )) +\n  # plot histogram\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"#666666\",\n                 fill=\"light blue\") +\n  # add mean math reading line\n  geom_vline(aes(xintercept = mean(AVEREAD)),\n             linetype= 'dashed',\n             size= .4,\n             color= '#0e2f44') +\n  # annotation for mean reading score line \n  geom_text(aes(mean(AVEMATH), 65, \n                label= 'Mean of Reading Score',\n                hjust= -0.1),\n            check_overlap = T,\n            color= '#0e2f44') +\n  labs(y= 'No. of\\nStudents', x= 'Reading Score from PISA',\n       title = \"Distribution of Students' Reading Score from PISA 2022 Results\",\n       subtitle= 'Singapore Students aged 15 in 2022',\n       caption = \"Source: PISA 2022\")+\n  theme(axis.title.y= element_text(angle=0), \n        axis.title.y.right = element_text(angle=0, vjust = 1),\n        panel.grid.major = element_line(color= 'grey', size = 0.1),\n        panel.background= element_blank(), \n        axis.line= element_line(color= 'grey'),\n        plot.caption = element_text(hjust = 0))\n\np2\n\n\n\n\n\n\n\np3 &lt;- ggplot(data=stu_qqq_SG_MRS, \n             aes(x = AVESCI )) +\n  # plot histogram\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"#666666\",\n                 fill=\"light blue\") +\n  # add mean science reading line\n  geom_vline(aes(xintercept = mean(AVESCI)),\n             linetype= 'dashed',\n             size= .4,\n             color= '#0e2f44') +\n  # annotation for mean Science score line \n  geom_text(aes(mean(AVEMATH), 65, \n                label= 'Mean of Science Score',\n                hjust= -0.1),\n            check_overlap = T,\n            color= '#0e2f44') +\n  labs(y= 'No. of\\nStudents', x= 'Science Score from PISA',\n       title = \"Distribution of Students' Science Score from PISA 2022 Results\",\n       subtitle= 'Singapore Students aged 15 in 2022',\n       caption = \"Source: PISA 2022\")+\n  theme(axis.title.y= element_text(angle=0), \n        axis.title.y.right = element_text(angle=0, vjust = 1),\n        panel.grid.major = element_line(color= 'grey', size = 0.1),\n        panel.background= element_blank(), \n        axis.line= element_line(color= 'grey'),\n        plot.caption = element_text(hjust = 0))\n\np3"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex02/take_home_ex02.html#graph-title",
+    "href": "take_home_ex/take_home_ex02/take_home_ex02.html#graph-title",
+    "title": "Take-Home Exercise 2",
+    "section": "4.2.1 Graph Title",
+    "text": "4.2.1 Graph Title\nInteresting insight from the graph can be put as a main title. The graph title can be interesting to grab the attention of readers.\n\n4.2.2 Axes Labelling\nAxes labels must be meaningful to ensure readers are aware of what the axes represents. Names such as count is vague and can be improved to be more specific.\n\n\n4.2.3 Adding of Mean\nMean or Median can be included to provide audience with a better interpretation of the distribution among the subjects."
   }
 ]
