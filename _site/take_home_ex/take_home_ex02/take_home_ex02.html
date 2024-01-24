@@ -293,6 +293,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#proposed-sketch" id="toc-proposed-sketch" class="nav-link" data-scroll-target="#proposed-sketch">4.4 Proposed sketch</a></li>
   <li><a href="#final-design" id="toc-final-design" class="nav-link" data-scroll-target="#final-design">4.5 Final Design</a></li>
   </ul></li>
+  <li><a href="#critique-2" id="toc-critique-2" class="nav-link" data-scroll-target="#critique-2">5 Critique 2</a>
+  <ul class="collapse">
+  <li><a href="#original-design-1" id="toc-original-design-1" class="nav-link" data-scroll-target="#original-design-1">5.1 Original Design</a></li>
+  <li><a href="#clarity-1" id="toc-clarity-1" class="nav-link" data-scroll-target="#clarity-1">5.2 Clarity</a>
+  <ul class="collapse">
+  <li><a href="#graph-title-1" id="toc-graph-title-1" class="nav-link" data-scroll-target="#graph-title-1"><strong>5.1.1 Graph Title</strong></a></li>
+  <li><a href="#axes-labelling-1" id="toc-axes-labelling-1" class="nav-link" data-scroll-target="#axes-labelling-1">5.2.1 Axes Labelling</a></li>
+  </ul></li>
+  <li><a href="#aesthetics-1" id="toc-aesthetics-1" class="nav-link" data-scroll-target="#aesthetics-1">5.3 Aesthetics</a>
+  <ul class="collapse">
+  <li><a href="#colour-1" id="toc-colour-1" class="nav-link" data-scroll-target="#colour-1">5.3.1 Colour</a></li>
+  <li><a href="#title-and-axes-label-1" id="toc-title-and-axes-label-1" class="nav-link" data-scroll-target="#title-and-axes-label-1">5.3.2 Title and Axes Label</a></li>
+  </ul></li>
+  <li><a href="#propose-sketch" id="toc-propose-sketch" class="nav-link" data-scroll-target="#propose-sketch">4.4 Propose sketch</a></li>
+  <li><a href="#final-design-1" id="toc-final-design-1" class="nav-link" data-scroll-target="#final-design-1">5.5 Final Design</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -325,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 23, 2024</p>
+      <p class="date-modified">January 24, 2024</p>
     </div>
   </div>
     
@@ -352,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggrepel, patchwork, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggthemes, hrbrthemes,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, haven) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, haven,cowplot) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Please refer this link <a href="https://czx-isss608.netlify.app/take_home_ex/take_home_ex01/take_home_ex01#data-preparation">here</a> on how the data source is obtained 😊</p>
 <div class="cell">
@@ -427,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># annotation for mean math score line </span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="fu">mean</span>(AVEMATH), <span class="dv">65</span>, </span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">label=</span> <span class="st">'Mean of Math Score'</span>,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">hjust=</span> <span class="sc">-</span><span class="fl">0.1</span>),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">hjust=</span> <span class="dv">1</span>, <span class="at">vjust=</span> <span class="sc">-</span><span class="dv">25</span>),</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">check_overlap =</span> T,</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span> <span class="st">'#0e2f44'</span>) <span class="sc">+</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">'No. of</span><span class="sc">\n</span><span class="st">Students'</span>, <span class="at">x=</span> <span class="st">'Math Score from PISA'</span>,</span>
@@ -463,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># annotation for mean reading score line </span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="fu">mean</span>(AVEMATH), <span class="dv">65</span>, </span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">label=</span> <span class="st">'Mean of Reading Score'</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">hjust=</span> <span class="sc">-</span><span class="fl">0.1</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">hjust=</span> <span class="dv">1</span>, <span class="at">vjust=</span> <span class="sc">-</span><span class="dv">25</span>),</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">check_overlap =</span> T,</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span> <span class="st">'#0e2f44'</span>) <span class="sc">+</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">'No. of</span><span class="sc">\n</span><span class="st">Students'</span>, <span class="at">x=</span> <span class="st">'Reading Score from PISA'</span>,</span>
@@ -500,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># annotation for mean Science score line </span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="fu">mean</span>(AVEMATH), <span class="dv">65</span>, </span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">label=</span> <span class="st">'Mean of Science Score'</span>,</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">hjust=</span> <span class="sc">-</span><span class="fl">0.1</span>),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">hjust=</span> <span class="dv">1</span>, <span class="at">vjust=</span> <span class="sc">-</span><span class="dv">25</span>),</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">check_overlap =</span> T,</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span> <span class="st">'#0e2f44'</span>) <span class="sc">+</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">'No. of</span><span class="sc">\n</span><span class="st">Students'</span>, <span class="at">x=</span> <span class="st">'Science Score from PISA'</span>,</span>
@@ -520,6 +536,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</div>
+</div>
+</section>
+</section>
+<section id="critique-2" class="level1">
+<h1>5 Critique 2</h1>
+<section id="original-design-1" class="level2">
+<h2 class="anchored" data-anchor-id="original-design-1">5.1 Original Design</h2>
+<p>The original design is shown below:</p>
+<p><img src="images/2.PNG" class="img-fluid"></p>
+<p>The above is a boxplot.</p>
+</section>
+<section id="clarity-1" class="level2">
+<h2 class="anchored" data-anchor-id="clarity-1">5.2 Clarity</h2>
+<section id="graph-title-1" class="level3">
+<h3 class="anchored" data-anchor-id="graph-title-1"><strong>5.1.1 Graph Title</strong></h3>
+<p>Interesting insight from the graph can be put as a main title. The graph title should be interesting to grab the attention of readers. In addition, putting F and M may be misleading to the readers</p>
+</section>
+<section id="axes-labelling-1" class="level3">
+<h3 class="anchored" data-anchor-id="axes-labelling-1">5.2.1 Axes Labelling</h3>
+<p>Axes labels must be meaningful to ensure readers are aware of what the axes represents. Names such as <strong>AVEMATH</strong> and <strong>Factor()</strong> can be misleading and can be improved to be more specific.</p>
+</section>
+</section>
+<section id="aesthetics-1" class="level2">
+<h2 class="anchored" data-anchor-id="aesthetics-1">5.3 Aesthetics</h2>
+<section id="colour-1" class="level3">
+<h3 class="anchored" data-anchor-id="colour-1">5.3.1 Colour</h3>
+<p>Grey Background can be improved to give a more clean and professional look.</p>
+</section>
+<section id="title-and-axes-label-1" class="level3">
+<h3 class="anchored" data-anchor-id="title-and-axes-label-1">5.3.2 Title and Axes Label</h3>
+<p>In addition, the orientation of the histograms can be changed to ensure the title is readable. The rotation of y-axis label should be changed to ensure readability as well. Spelling of the y and x axis label can be adjusted accordingly to a give a more formal formatting (e.g.&nbsp;first letter of each word is capitalised while the rest is not)</p>
+</section>
+</section>
+<section id="propose-sketch" class="level2">
+<h2 class="anchored" data-anchor-id="propose-sketch">4.4 Propose sketch</h2>
+</section>
+<section id="final-design-1" class="level2">
+<h2 class="anchored" data-anchor-id="final-design-1">5.5 Final Design</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_MRS_filtered <span class="ot">&lt;-</span> stu_qqq_SG_MRS <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ST004D01T <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> ST004D01T <span class="sc">==</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>combined_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> stu_qqq_SG_MRS_filtered, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(ST004D01T), <span class="at">group =</span> <span class="fu">factor</span>(ST004D01T))) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> AVEMATH, <span class="at">color =</span> <span class="st">"Math Score"</span>), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> AVEREAD, <span class="at">color =</span> <span class="st">"Reading Score"</span>), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> AVESCI, <span class="at">color =</span> <span class="st">"Science Score"</span>), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">y =</span> AVEMATH), <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">fun.y =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">y =</span> AVEREAD), <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">fun.y =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"green"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">y =</span> AVESCI), <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">fun.y =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Math Score"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Reading Score"</span> <span class="ot">=</span> <span class="st">"green"</span>, <span class="st">"Science Score"</span> <span class="ot">=</span> <span class="st">"orange"</span>)) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Comparison of Math, Reading and Science Score by Gender"</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle=</span> <span class="st">'Singapore Students aged 15 in 2022'</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: PISA 2022"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Score"</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>))</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>combined_boxplot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="take_home_ex02_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

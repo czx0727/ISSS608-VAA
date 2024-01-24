@@ -25,7 +25,7 @@ I will use the following package:
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
-               tidyverse, haven) 
+               tidyverse, haven,cowplot) 
 ```
 
 Please refer this link [here](https://czx-isss608.netlify.app/take_home_ex/take_home_ex01/take_home_ex01#data-preparation) on how the data source is obtained 😊
@@ -69,7 +69,7 @@ Mean or Median can be included to provide audience with a better interpretation 
 
 ## 4.3 Aesthetics
 
-### 4.3.1 Colour 
+### 4.3.1 Colour
 
 Histogram can be of different colour as compared to the background. Grey Background can be improved to give a more clean and professional look.
 
@@ -100,7 +100,7 @@ p1 <- ggplot(data=stu_qqq_SG_MRS,
   # annotation for mean math score line 
   geom_text(aes(mean(AVEMATH), 65, 
                 label= 'Mean of Math Score',
-                hjust= -0.1),
+                hjust= 1, vjust= -25),
             check_overlap = T,
             color= '#0e2f44') +
   labs(y= 'No. of\nStudents', x= 'Math Score from PISA',
@@ -134,7 +134,7 @@ p2 <- ggplot(data=stu_qqq_SG_MRS,
   # annotation for mean reading score line 
   geom_text(aes(mean(AVEMATH), 65, 
                 label= 'Mean of Reading Score',
-                hjust= -0.1),
+                hjust= 1, vjust= -25),
             check_overlap = T,
             color= '#0e2f44') +
   labs(y= 'No. of\nStudents', x= 'Reading Score from PISA',
@@ -169,7 +169,7 @@ p3 <- ggplot(data=stu_qqq_SG_MRS,
   # annotation for mean Science score line 
   geom_text(aes(mean(AVEMATH), 65, 
                 label= 'Mean of Science Score',
-                hjust= -0.1),
+                hjust= 1, vjust= -25),
             check_overlap = T,
             color= '#0e2f44') +
   labs(y= 'No. of\nStudents', x= 'Science Score from PISA',
@@ -186,3 +186,68 @@ p3 <- ggplot(data=stu_qqq_SG_MRS,
 p3
 ```
 :::
+
+# 5 Critique 2
+
+## 5.1 Original Design 
+
+The original design is shown below:
+
+![](images/2.PNG)
+
+The above is a boxplot.
+
+## 5.2 Clarity 
+
+### **5.1.1 Graph Title**
+
+Interesting insight from the graph can be put as a main title. The graph title should be interesting to grab the attention of readers. In addition, putting F and M may be misleading to the readers
+
+### 5.2.1 Axes Labelling
+
+Axes labels must be meaningful to ensure readers are aware of what the axes represents. Names such as **AVEMATH** and **Factor()** can be misleading and can be improved to be more specific.
+
+## 5.3 Aesthetics
+
+### 5.3.1 Colour
+
+Grey Background can be improved to give a more clean and professional look.
+
+### 5.3.2 Title and Axes Label
+
+In addition, the orientation of the histograms can be changed to ensure the title is readable. The rotation of y-axis label should be changed to ensure readability as well. Spelling of the y and x axis label can be adjusted accordingly to a give a more formal formatting (e.g. first letter of each word is capitalised while the rest is not)
+
+## 4.4 Propose sketch
+
+## 5.5 Final Design
+
+```{r}
+stu_qqq_SG_MRS_filtered <- stu_qqq_SG_MRS %>%
+  filter(ST004D01T == 1 | ST004D01T == 2)
+```
+
+```{r,warning=FALSE}
+
+combined_boxplot <- ggplot(data = stu_qqq_SG_MRS_filtered, 
+                           aes(x = factor(ST004D01T), group = factor(ST004D01T))) +
+  geom_boxplot(aes(y = AVEMATH, color = "Math Score"), position = position_dodge(width = 0.75), width = 0.6) +
+  geom_boxplot(aes(y = AVEREAD, color = "Reading Score"), position = position_dodge(width = 0.75), width = 0.6) +
+  geom_boxplot(aes(y = AVESCI, color = "Science Score"), position = position_dodge(width = 0.75), width = 0.6) +
+  stat_summary(aes(y = AVEMATH), geom = "point", fun.y = "mean", color = "blue", position = position_dodge(width = 0.75), size = 4) +
+  stat_summary(aes(y = AVEREAD), geom = "point", fun.y = "mean", color = "green", position = position_dodge(width = 0.75), size = 4) +
+  stat_summary(aes(y = AVESCI), geom = "point", fun.y = "mean", color = "orange", position = position_dodge(width = 0.75), size = 4) +
+  scale_color_manual(values = c("Math Score" = "blue", "Reading Score" = "green", "Science Score" = "orange")) +
+  scale_x_discrete(labels = c("Female", "Male")) +
+  ggtitle("Comparison of Math, Reading and Science Score by Gender") +
+  labs(
+    subtitle= 'Singapore Students aged 15 in 2022',
+    caption = "Source: PISA 2022",
+    x = "Gender",
+    y = "Score"
+  ) +
+  theme_minimal()+
+  theme(axis.text.y = element_text(angle = 90, hjust = 0, vjust = 0))
+  
+
+combined_boxplot
+```
