@@ -61,11 +61,11 @@ Interesting insight from the graph can be put as a main title. The graph title c
 
 ### 4.2.2 Axes Labelling
 
-Axes labels must be meaningful to ensure readers are aware of what the axes represents. Names such as count is vague and can be improved to be more specific.
+Axes labels must be meaningful to ensure readers are aware of what the axes represents. Names such as **count** is vague and can be improved to be more specific.
 
 ### 4.2.3 Adding of Mean
 
-Mean or Median can be included to provide audience with a better interpretation of the distribution among the subjects.
+Mean or Median can be included to provide audience with a better interpretation of the distribution among the subjects. This can also be compared among the different subjects.
 
 ## 4.3 Aesthetics
 
@@ -78,6 +78,8 @@ Histogram can be of different colour as compared to the background. Grey Backgro
 In addition, the orientation of the histograms can be changed to ensure the title is readable. The rotation of y-axis label should be changed to ensure readability as well. Spelling of the y and x axis label can be adjusted accordingly to a give a more formal formatting (e.g. first letter of each word is capitalised while the rest is not)
 
 ## 4.4 Proposed sketch
+
+![](images/20240125_214435.jpg){width="455"}
 
 ## 4.5 Final Design
 
@@ -189,19 +191,19 @@ p3
 
 # 5 Critique 2
 
-## 5.1 Original Design 
+## 5.1 Original Design
 
 The original design is shown below:
 
 ![](images/2.PNG)
 
-The above is a boxplot.
+The above is a boxplot to show the comparison between the various subjects among female and male.
 
-## 5.2 Clarity 
+## 5.2 Clarity
 
 ### **5.1.1 Graph Title**
 
-Interesting insight from the graph can be put as a main title. The graph title should be interesting to grab the attention of readers. In addition, putting F and M may be misleading to the readers
+Interesting insight from the graph can be put as a main title. The graph title should be interesting to grab the attention of readers. In addition, putting **F** and **M** may be misleading to the readers
 
 ### 5.2.1 Axes Labelling
 
@@ -215,9 +217,11 @@ Grey Background can be improved to give a more clean and professional look.
 
 ### 5.3.2 Title and Axes Label
 
-In addition, the orientation of the histograms can be changed to ensure the title is readable. The rotation of y-axis label should be changed to ensure readability as well. Spelling of the y and x axis label can be adjusted accordingly to a give a more formal formatting (e.g. first letter of each word is capitalised while the rest is not)
+In addition, the boxplots can be combined and also the title can be improved to be more readable. The rotation of y-axis label should be changed to ensure readability as well. Spelling of the y and x axis label can be adjusted accordingly to a give a more formal formatting (e.g. first letter of each word is capitalised while the rest is not). If legends are used, it should be labelled clearly.
 
-## 4.4 Propose sketch
+## 5.4 Propose sketch
+
+![](images/20240125_214912-01.jpg){width="476"}
 
 ## 5.5 Final Design
 
@@ -246,8 +250,15 @@ combined_boxplot <- ggplot(data = stu_qqq_SG_MRS_filtered,
     y = "Score"
   ) +
   theme_minimal()+
-  theme(axis.text.y = element_text(angle = 90, hjust = 0, vjust = 0))
+  theme(axis.text.y = element_text(angle = 0, hjust = 0, vjust = 0),
+        axis.title.y = element_text(angle = 0))
   
 
 combined_boxplot
 ```
+
+# 6 Learning Points
+
+Take Home Exercise 2 has enabled me to improve my peer's Take Home Exercise 1. In addition, it serves as an opportunity to improve my own work (if time permits). I understand the need to have an appropriate visualisation to communicate a "story" to the potential audience. It is not just plotting a boxplot/histogram. The design, colours and words used should convey a theme and message. This exercise also has enabled me to spend time in understanding the **ggplot (grammar of graphics)**.
+
+From a work perspective, I should be mindful in giving critique to colleagues in terms of their work. We would need acknowledge the effort done and provide the information as a form of improvement. We should not let down on fellow colleagues' hard work.
