@@ -22,6 +22,12 @@ This hands-on exercise covers all of the information from this [link](https://is
 
 😱 So many exercises in one hands-on!
 
+::: callout-note
+## Zhixuan's personal outcome
+
+1.  I will try to follow all and learn all these (despite CNY 😂)
+:::
+
 # **1. Creating Ternary Plot with R**
 
 ## **Installing and launching R packages**
