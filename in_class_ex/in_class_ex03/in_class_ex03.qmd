@@ -22,11 +22,13 @@ Personal Opinion - It is confusing and ugly
 5.  2 layers of pie charts
 :::
 
-# 2 Tableau
+# 2 Tableau Part 1
 
 Continuing from In Class Ex02, I have created the following dashboard and story
 
 ## Dashboard
+
+![](images/2.PNG)
 
 <https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise03-SuperstoreSalesandProfitReport/Dashboard1?publish=yes>
 
@@ -34,8 +36,10 @@ Continuing from In Class Ex02, I have created the following dashboard and story
 
 <https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise03-SuperstoreSalesandProfitStory/SuperstoreSalesandProfitStory?publish=yes>
 
-# 3 Tableau
+# 3 Tableau Part 2
 
 Using exam data 😀
+
+![](images/21.PNG)
 
 [https://public.tableau.com/app/profile/zhixuan.chai/viz/MathsvsEnglishScatterplotwithmarginalboxplot_17063397046100/Dashboard1?publish=yes](https://public.tableau.com/app/profile/zhixuan.chai/viz/MathsvsEnglishScatterplotwithmarginalboxplot_17063397046100/Dashboard1?publish=yeshttps://public.tableau.com/app/profile/zhixuan.chai/viz/MathsvsEnglishScatterplotwithmarginalboxplot_17063397046100/Dashboard1?publish=yes)
