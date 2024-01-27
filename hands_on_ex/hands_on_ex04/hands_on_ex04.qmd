@@ -51,7 +51,7 @@ exam <- read_csv("data/Exam_data.csv")
 
 ## **Visualising Distribution with Ridgeline Plot**
 
-The ridgeline plot below is plotted by using `geom_density_ridges()`.
+The ridgeline plot below is plotted by using `geom_density_ridges()`. Please read more from [here](https://r4va.netlify.app/chap09#visualising-distribution-with-ridgeline-plot).
 
 ::: panel-tabset
 ## The plot
@@ -101,7 +101,7 @@ ggplot(exam,
 ```
 :::
 
-I will try with Math scores:
+I will try with **Math scores**:
 
 ```{r}
 ggplot(exam, 
@@ -172,6 +172,26 @@ ggplot(exam,
 ::: callout-note
 Colour seems to be nice
 :::
+
+I try with **Math Score**
+
+```{r}
+ggplot(exam, 
+       aes(x = MATHS, 
+           y = CLASS,
+           fill = stat(x))) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01) +
+  scale_fill_viridis_c(name = "Temp. [F]",
+                       option = "C") +
+  scale_x_continuous(
+    name = "Math grades",
+    expand = c(0, 0)
+  ) +
+  scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
+  theme_ridges()
+```
 
 ### **Mapping the probabilities directly onto colour**
 
@@ -257,7 +277,7 @@ ggplot(exam,
 ```
 :::
 
-I can also specify quantiles by cut points such as 2.5% and 97.5% tails to colour the ridgeline plot as shown in the figure/code chunk below.
+I can specify quantiles by cut points such as 2.5% and 97.5% tails to colour the ridgeline plot as shown below.
 
 ```{r}
 ggplot(exam,
@@ -282,9 +302,9 @@ ggplot(exam,
 
 ### **Plotting a Half Eye graph**
 
-First, we will plot a Half-Eye graph by using [`stat_halfeye()`](https://mjskay.github.io/ggdist/reference/stat_halfeye.html) of **ggdist** package.
+I will plot a Half-Eye graph by using [`stat_halfeye()`](https://mjskay.github.io/ggdist/reference/stat_halfeye.html) of **ggdist** package.
 
-This produces a Half Eye visualization, which is contains a half-density and a slab-interval.
+This will produce a Half Eye visualization, which is contains a half-density and a slab-interval.
 
 ```{r}
 ggplot(exam, 
@@ -350,6 +370,26 @@ ggplot(exam,
   theme_economist()
 ```
 
+Let me try with Math data and another theme 💪
+
+```{r}
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 1.5) +
+  coord_flip() +
+  theme_wsj()
+```
+
 # 2 **Visual Statistical Analysis**
 
 ```{r}
@@ -373,6 +413,20 @@ gghistostats(
 )
 ```
 
+I will try with Math scores
+
+```{r}
+set.seed(1234)
+
+gghistostats(
+  data = exam,
+  x = MATHS,
+  type = "bayes",
+  test.value = 60,
+  xlab = "Math scores"
+)
+```
+
 ### **How to interpret Bayes Factor**
 
 ### **Two-sample mean test: *ggbetweenstats()***
@@ -387,13 +441,41 @@ ggbetweenstats(
 )
 ```
 
+I try with English score
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = GENDER, 
+  y = ENGLISH,
+  type = "np",
+  messages = FALSE
+)
+```
+
 ### **Oneway ANOVA Test: *ggbetweenstats()* method**
+
+[*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for One-way ANOVA test on English score by race.
 
 ```{r}
 ggbetweenstats(
   data = exam,
   x = RACE, 
   y = ENGLISH,
+  type = "p",
+  mean.ci = TRUE, 
+  pairwise.comparisons = TRUE, 
+  pairwise.display = "s",
+  p.adjust.method = "fdr",
+  messages = FALSE
+)
+```
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = RACE, 
+  y = MATHS,
   type = "p",
   mean.ci = TRUE, 
   pairwise.comparisons = TRUE, 
@@ -431,10 +513,6 @@ ggbarstats(exam1,
 ```
 
 ## **Visualising Models**
-
-```{r}
-pacman::p_load(readxl, performance, parameters, see)
-```
 
 ## **Installing and loading the required libraries**
 
@@ -515,6 +593,8 @@ ggcoefstats(model1,
 
 # 3 **Visualising Uncertainty**
 
+Exam data will be used again! 😀
+
 ```{r}
 #| eval: false
 devtools::install_github("wilkelab/ungeviz",force = TRUE)
@@ -573,6 +653,8 @@ ggplot(my_sum) +
 
 ### **Plotting confidence interval of point estimates**
 
+I can plot the confidence intervals of mean maths score by race.
+
 ```{r}
 
 ggplot(my_sum) +
@@ -596,6 +678,8 @@ ggplot(my_sum) +
 ```
 
 ### **Visualizing the uncertainty of point estimates with interactive error bars**
+
+I learn how to plot interactive error bars for the 99% confidence interval of mean maths score by race:
 
 ```{r}
 
@@ -645,7 +729,7 @@ bscols(widths = c(4,8),
                      digits=2))
 ```
 
-## **Visualising Uncertainty: ggdist package**
+## **Visualising Uncertainty: [ggdist package](https://mjskay.github.io/ggdist/)**
 
 ### **Visualizing the uncertainty of point estimates: ggdist methods**
 
@@ -672,7 +756,23 @@ exam %>%
     subtitle = "Median Point + Multiple-interval plot")
 ```
 
+I plot with English score
+
+```{r}
+
+exam %>%
+  ggplot(aes(x = RACE, y = ENGLISH)) +
+  stat_pointinterval(.width = 0.95,
+  .point = median,
+  .interval = qi) +
+  labs(
+    title = "Visualising confidence intervals of median english score",
+    subtitle = "Median Point + Multiple-interval plot")
+```
+
 ### **Visualizing the uncertainty of point estimates: ggdist methods**
+
+ [`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of **ggdist** is used to build a visual for displaying distribution of maths scores by race.
 
 ```{r}
 
@@ -702,6 +802,10 @@ exam %>%
     subtitle = "Gradient + interval plot")
 ```
 
+::: callout-note
+This is nice!
+:::
+
 ## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
@@ -726,6 +830,8 @@ ggplot(data = exam,
   transition_states(.draw, 1, 3)
 ```
 
+😱😱😱
+
 ## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
@@ -746,6 +852,8 @@ ggplot(data = exam,
   theme_bw() + 
   transition_states(.draw, 1, 3)
 ```
+
+😱😱😱
 
 # 4 **Funnel Plots for Fair Comparisons**
 
@@ -802,9 +910,15 @@ funnel_plot(
 )
 ```
 
+::: callout-note
+This looks good!!
+:::
+
 ## **Funnel Plot for Fair Visual Comparison: ggplot2 methods**
 
 ### **Computing the basic derived fields**
+
+To plot the funnel plot from scratch, we need to derive cumulative death rate and standard error of cumulative death rate.
 
 ```{r}
 df <- covid19 %>%
@@ -813,11 +927,15 @@ df <- covid19 %>%
   filter(rate > 0)
 ```
 
+Next, the *fit.mean* is computed by using the code chunk below.
+
 ```{r}
 fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
 ```
 
 ### **Calculate lower and upper limits for 95% and 99.9% CI**
+
+The code chunk below is used to compute the lower and upper limits for 95% confidence interval.
 
 ```{r}
 number.seq <- seq(1, max(df$Positive), 1)
@@ -830,6 +948,8 @@ dfCI <- data.frame(number.ll95, number.ul95, number.ll999,
 ```
 
 ### **Plotting a static funnel plot**
+
+ggplot2 functions are used to plot a static funnel plot.
 
 ```{r}
 p <- ggplot(df, aes(x = Positive, y = rate)) +
@@ -877,6 +997,10 @@ p <- ggplot(df, aes(x = Positive, y = rate)) +
 p
 ```
 
+::: callout-note
+Seems to be a bit confusing to me. Will try to understand the plot
+:::
+
 ### **Interactive Funnel Plot: plotly + ggplot2**
 
 ```{r}
@@ -886,3 +1010,5 @@ fp_ggplotly <- ggplotly(p,
               "y"))
 fp_ggplotly
 ```
+
+😱
