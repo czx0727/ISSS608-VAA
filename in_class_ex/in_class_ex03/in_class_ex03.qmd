@@ -1,0 +1,41 @@
+---
+title: "In-Class Ex3"
+author: "Chai Zhixuan"
+date: 2024-01-23
+date-format: long
+date-modified: "last-modified"
+---
+
+# 1 Class Discussion
+
+[Class Exercise](https://drive.google.com/file/d/17tETrT7AFar3YUuooWwqgGdIYhmFpaOm/view)
+
+![](images/1.PNG)
+
+::: callout-note
+Personal Opinion - It is confusing and ugly
+
+1.  Confusing pie chart
+2.  No numbers/No percentage (not easy to understand)
+3.  Colour is confusing - Colour scheme needs to be clearly differentiated (too many colours)
+4.  Unclear/confusing labelling as it does not link to the pie chart
+5.  2 layers of pie charts
+:::
+
+# 2 Tableau
+
+Continuing from In Class Ex02, I have created the following dashboard and story
+
+## Dashboard
+
+<https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise03-SuperstoreSalesandProfitReport/Dashboard1?publish=yes>
+
+## Story
+
+<https://public.tableau.com/app/profile/zhixuan.chai/viz/In_class_Exercise03-SuperstoreSalesandProfitStory/SuperstoreSalesandProfitStory?publish=yes>
+
+# 3 Tableau
+
+Using exam data 😀
+
+[https://public.tableau.com/app/profile/zhixuan.chai/viz/MathsvsEnglishScatterplotwithmarginalboxplot_17063397046100/Dashboard1?publish=yes](https://public.tableau.com/app/profile/zhixuan.chai/viz/MathsvsEnglishScatterplotwithmarginalboxplot_17063397046100/Dashboard1?publish=yeshttps://public.tableau.com/app/profile/zhixuan.chai/viz/MathsvsEnglishScatterplotwithmarginalboxplot_17063397046100/Dashboard1?publish=yes)
