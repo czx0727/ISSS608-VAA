@@ -631,7 +631,7 @@ knitr::kable(head(my_sum), format = 'html')
 
 Now I will plot the standard error bars of mean maths score by race as shown below.
 
-```{r}
+```{r, warning=FALSE}
 ggplot(my_sum) +
   geom_errorbar(
     aes(x=RACE, 
@@ -655,7 +655,7 @@ ggplot(my_sum) +
 
 I can plot the confidence intervals of mean maths score by race.
 
-```{r}
+```{r,warning=FALSE}
 
 ggplot(my_sum) +
   geom_errorbar(
@@ -681,7 +681,7 @@ ggplot(my_sum) +
 
 I learn how to plot interactive error bars for the 99% confidence interval of mean maths score by race:
 
-```{r}
+```{r,warning=FALSE}
 
 shared_df = SharedData$new(my_sum)
 
@@ -733,7 +733,7 @@ bscols(widths = c(4,8),
 
 ### **Visualizing the uncertainty of point estimates: ggdist methods**
 
-```{r}
+```{r,warning=FALSE}
 
 exam %>%
   ggplot(aes(x = RACE, 
@@ -744,7 +744,7 @@ exam %>%
     subtitle = "Mean Point + Multiple-interval plot")
 ```
 
-```{r}
+```{r,warning=FALSE}
 
 exam %>%
   ggplot(aes(x = RACE, y = MATHS)) +
@@ -756,9 +756,9 @@ exam %>%
     subtitle = "Median Point + Multiple-interval plot")
 ```
 
-I plot with English score
+I plot with **English score**
 
-```{r}
+```{r,warning=FALSE}
 
 exam %>%
   ggplot(aes(x = RACE, y = ENGLISH)) +
@@ -774,7 +774,7 @@ exam %>%
 
  [`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of **ggdist** is used to build a visual for displaying distribution of maths scores by race.
 
-```{r}
+```{r,warning=FALSE}
 
 exam %>%
   ggplot(aes(x = RACE, 
@@ -817,7 +817,7 @@ devtools::install_github("wilkelab/ungeviz")
 library(ungeviz)
 ```
 
-```{r}
+```{r,warning=FALSE}
 
 ggplot(data = exam, 
        (aes(x = factor(RACE), y = MATHS))) +
@@ -834,7 +834,7 @@ ggplot(data = exam,
 
 ## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
-```{r}
+```{r,warning=FALSE}
 
 ggplot(data = exam, 
        (aes(x = factor(RACE), 
@@ -872,7 +872,7 @@ covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
 
 ## **FunnelPlotR methods**
 
-```{r}
+```{r,warning=FALSE}
 funnel_plot(
   numerator = covid19$Positive,
   denominator = covid19$Death,
@@ -882,7 +882,7 @@ funnel_plot(
 
 ### **FunnelPlotR methods: Makeover 1**
 
-```{r}
+```{r,warning=FALSE}
 funnel_plot(
   numerator = covid19$Death,
   denominator = covid19$Positive,
@@ -895,7 +895,7 @@ funnel_plot(
 
 ### **FunnelPlotR methods: Makeover 2**
 
-```{r}
+```{r,warning=FALSE}
 funnel_plot(
   numerator = covid19$Death,
   denominator = covid19$Positive,
@@ -951,7 +951,7 @@ dfCI <- data.frame(number.ll95, number.ul95, number.ll999,
 
 ggplot2 functions are used to plot a static funnel plot.
 
-```{r}
+```{r,warning=FALSE}
 p <- ggplot(df, aes(x = Positive, y = rate)) +
   geom_point(aes(label=`Sub-district`), 
              alpha=0.4) +
