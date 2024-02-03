@@ -10,7 +10,8 @@ date-modified: "last-modified"
 
 ```{r}
 pacman::p_load(ggiraph, plotly, 
-               patchwork, DT, tidyverse) 
+               patchwork, DT, tidyverse, ggdist, 
+               ggridges, ggthemes,colorspace) 
 ```
 
 # Practice 1: Displaying information
@@ -94,3 +95,45 @@ plot_ly(data = exam_data,
 3.  Synchronize colour!
 4.  \+ sign is for zooming in! - brushing
 :::
+
+# Practice 4 **Adding the Dot Plots with `stat_dots()`**
+
+```{r}
+ggplot(exam_data, 
+       aes(x = RACE, 
+           y = ENGLISH)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 1.5) +
+  coord_flip() +
+  theme_economist()
+```
+
+```{r, warning=FALSE}
+p <- ggplot(exam_data, 
+       aes(x = RACE, 
+           y = ENGLISH)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 1.5) +
+  coord_flip() +
+  theme_economist()
+
+p <- ggplotly(p)
+
+p
+```
