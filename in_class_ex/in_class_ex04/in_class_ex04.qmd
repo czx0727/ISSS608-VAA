@@ -78,3 +78,19 @@ girafe(code = print(p1 + p2),
          )
        ) 
 ```
+
+# **Practice 3: plot_ly() method**
+
+```{r}
+plot_ly(data = exam_data, 
+        x = ~ENGLISH, 
+        y = ~MATHS, 
+        color = ~RACE)
+```
+
+::: callout-important
+1.  Clicking on legend is filter away!
+2.  Tooltips is there - comparing to ggiraph!
+3.  Synchronize colour!
+4.  \+ sign is for zooming in! - brushing
+:::
