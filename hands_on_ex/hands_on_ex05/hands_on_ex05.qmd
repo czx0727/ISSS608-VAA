@@ -39,7 +39,6 @@ This hands-on exercise covers all of the information from this [link](https://is
 -   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
 
 ```{r}
-#| eval: false
 pacman::p_load('plotly', 'tidyverse')
 ```
 
@@ -50,21 +49,18 @@ install_version("ggtern", version = "3.4.1", repos = "http://cran.us.r-project.o
 ```
 
 ```{r}
-#| eval: false
 library(ggtern)
 ```
 
 ### **Importing Data**
 
 ```{r}
-#| eval: false
 pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv") 
 ```
 
 ### **Preparing the Data**
 
 ```{r}
-#| eval: false
 agpop_mutated <- pop_data %>%
   mutate(`Year` = as.character(Year))%>%
   spread(AG, Population) %>%
@@ -79,13 +75,11 @@ agpop_mutated <- pop_data %>%
 ## **Plotting Ternary Diagram with R**
 
 ```{r}
-#| eval: false
 ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   geom_point()
 ```
 
 ```{r}
-#| eval: false
 ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   geom_point() +
   labs(title="Population structure, 2015") +
@@ -95,8 +89,6 @@ ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
 ### **Plotting an interative ternary diagram**
 
 ```{r}
-#| eval: false
-
 # reusable function for creating annotation object
 label <- function(txt) {
   list(
@@ -143,14 +135,12 @@ plot_ly(
 ## **Installing and Launching R Packages**
 
 ```{r}
-#| eval: false
 pacman::p_load(corrplot, ggstatsplot, tidyverse)
 ```
 
 ### **Importing Data**
 
 ```{r}
-#| eval: false
 wine <- read_csv("data/wine_quality.csv")
 ```
 
@@ -159,31 +149,27 @@ wine <- read_csv("data/wine_quality.csv")
 ### **Building a basic correlation matrix**
 
 ```{r}
-#| eval: false
 pairs(wine[,1:11])
 ```
 
 ```{r}
-#| eval: false
 pairs(wine[,2:12])
 ```
 
 ### **Drawing the lower corner**
 
 ```{r}
-#| eval: false
 pairs(wine[,2:12], upper.panel = NULL)
 ```
 
 ```{r}
-#| eval: false
 pairs(wine[,2:12], lower.panel = NULL)
 ```
 
 ### **Including with correlation coefficients**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
+
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...) {
 usr <- par("usr")
 on.exit(par(usr))
@@ -222,7 +208,6 @@ ggstatsplot::ggcorrmat(
 ```
 
 ```{r}
-#| eval: false
 ggplot.component = list(
     theme(text=element_text(size=5),
       axis.text.x = element_text(size = 8),
@@ -232,7 +217,6 @@ ggplot.component = list(
 ## **Building multiple plots**
 
 ```{r}
-#| eval: false
 grouped_ggcorrmat(
   data = wine,
   cor.vars = 1:11,
@@ -257,19 +241,16 @@ grouped_ggcorrmat(
 ### **Getting started with corrplot**
 
 ```{r}
-#| eval: false
 wine.cor <- cor(wine[, 1:11])
 ```
 
 ```{r}
-#| eval: false
 corrplot(wine.cor)
 ```
 
 ### **Working with visual geometrics**
 
 ```{r}
-#| eval: false
 corrplot(wine.cor, 
          method = "ellipse") 
 ```
@@ -277,14 +258,12 @@ corrplot(wine.cor,
 ### **Working with layout**
 
 ```{r}
-#| eval: false
 corrplot(wine.cor, 
          method = "ellipse", 
          type="lower")
 ```
 
 ```{r}
-#| eval: false
 corrplot(wine.cor, 
          method = "ellipse", 
          type="lower",
@@ -295,7 +274,6 @@ corrplot(wine.cor,
 ### **Working with mixed layout**
 
 ```{r}
-#| eval: false
 corrplot.mixed(wine.cor, 
                lower = "ellipse", 
                upper = "number",
@@ -305,7 +283,6 @@ corrplot.mixed(wine.cor,
 ```
 
 ```{r}
-#| eval: false
 corrplot.mixed(wine.cor, 
                lower = "ellipse", 
                upper = "number",
@@ -317,12 +294,10 @@ corrplot.mixed(wine.cor,
 ### **Combining corrgram with the significant test**
 
 ```{r}
-#| eval: false
 wine.sig = cor.mtest(wine.cor, conf.level= .95)
 ```
 
 ```{r}
-#| eval: false
 corrplot(wine.cor,
          method = "number",
          type = "lower",
@@ -336,7 +311,6 @@ corrplot(wine.cor,
 ### **Reorder a corrgram**
 
 ```{r}
-#| eval: false
 corrplot.mixed(wine.cor, 
                lower = "ellipse", 
                upper = "number",
@@ -349,7 +323,6 @@ corrplot.mixed(wine.cor,
 ### **Reordering a correlation matrix using hclust**
 
 ```{r}
-#| eval: false
 corrplot(wine.cor, 
          method = "ellipse", 
          tl.pos = "lt",
@@ -364,7 +337,6 @@ corrplot(wine.cor,
 ## **Installing and Launching R Packages**
 
 ```{r}
-#| eval: false
 pacman::p_load(seriation, dendextend, heatmaply, tidyverse)
 ```
 
@@ -373,21 +345,18 @@ pacman::p_load(seriation, dendextend, heatmaply, tidyverse)
 ### **Importing the data set**
 
 ```{r}
-#| eval: false
 wh <- read_csv("data/WHData-2018.csv")
 ```
 
 ### **Preparing the data**
 
 ```{r}
-#| eval: false
 row.names(wh) <- wh$Country
 ```
 
 ### **Transforming the data frame into a matrix**
 
 ```{r}
-#| eval: false
 wh1 <- dplyr::select(wh, c(3, 7:12))
 wh_matrix <- data.matrix(wh)
 ```
@@ -395,18 +364,15 @@ wh_matrix <- data.matrix(wh)
 ### **heatmap() of R Stats**
 
 ```{r}
-#| eval: false
 wh_heatmap <- heatmap(wh_matrix,
                       Rowv=NA, Colv=NA)
 ```
 
 ```{r}
-#| eval: false
 wh_heatmap <- heatmap(wh_matrix)
 ```
 
 ```{r}
-#| eval: false
 wh_heatmap <- heatmap(wh_matrix,
                       scale="column",
                       cexRow = 0.6, 
@@ -419,19 +385,16 @@ wh_heatmap <- heatmap(wh_matrix,
 ### **Working with heatmaply**
 
 ```{r}
-#| eval: false
 heatmaply(mtcars)
 ```
 
 ```{r}
-#| eval: false
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)])
 ```
 
 ### **Data trasformation**
 
 ```{r}
-#| eval: false
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
           scale = "column")
 ```
@@ -439,14 +402,12 @@ heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
 #### Normalising method
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))
 ```
 
 #### Percentising method
 
 ```{r}
-#| eval: false
 heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 ```
 
@@ -455,7 +416,6 @@ heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 ### **Manual approach**
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           dist_method = "euclidean",
           hclust_method = "ward.D")
@@ -464,20 +424,17 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ### **Statistical approach**
 
 ```{r}
-#| eval: false
 wh_d <- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = "euclidean")
 dend_expend(wh_d)[[3]]
 ```
 
 ```{r}
-#| eval: false
 wh_clust <- hclust(wh_d, method = "average")
 num_k <- find_k(wh_clust)
 plot(num_k)
 ```
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           dist_method = "euclidean",
           hclust_method = "average",
@@ -487,25 +444,21 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ### **Seriation**
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "OLO")
 ```
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "GW")
 ```
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "mean")
 ```
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "none")
 ```
@@ -513,7 +466,6 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ### **Working with colour palettes**
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "none",
           colors = Blues)
@@ -522,7 +474,6 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ### **The finishing touch**
 
 ```{r}
-#| eval: false
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           Colv=NA,
           seriate = "none",
@@ -542,21 +493,18 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ## **Installing and Launching R Packages**
 
 ```{r}
-#| eval: false
 pacman::p_load(GGally, parallelPlot, tidyverse)
 ```
 
 ## **Data Preparation**
 
 ```{r}
-#| eval: false
 wh <- read_csv("data/WHData-2018.csv")
 ```
 
 ## **Plotting Static Parallel Coordinates Plot**
 
 ```{r}
-#| eval: false
 ggparcoord(data = wh, 
            columns = c(7:12))
 ```
@@ -564,7 +512,6 @@ ggparcoord(data = wh,
 ### **Plotting a parallel coordinates with boxplot**
 
 ```{r}
-#| eval: false
 ggparcoord(data = wh, 
            columns = c(7:12), 
            groupColumn = 2,
@@ -577,7 +524,6 @@ ggparcoord(data = wh,
 ### **Parallel coordinates with facet**
 
 ```{r}
-#| eval: false
 ggparcoord(data = wh, 
            columns = c(7:12), 
            groupColumn = 2,
@@ -591,7 +537,6 @@ ggparcoord(data = wh,
 ### **Rotating x-axis text label**
 
 ```{r}
-#| eval: false
 ggparcoord(data = wh, 
            columns = c(7:12), 
            groupColumn = 2,
@@ -606,7 +551,6 @@ ggparcoord(data = wh,
 ### **Adjusting the rotated x-axis text label**
 
 ```{r}
-#| eval: false
 ggparcoord(data = wh, 
            columns = c(7:12), 
            groupColumn = 2,
@@ -621,7 +565,6 @@ ggparcoord(data = wh,
 ## **Plotting Interactive Parallel Coordinates Plot: parallelPlot methods**
 
 ```{r}
-#| eval: false
 wh <- wh %>%
   select("Happiness score", c(7:12))
 parallelPlot(wh,
@@ -632,7 +575,6 @@ parallelPlot(wh,
 ### **Rotate axis label**
 
 ```{r}
-#| eval: false
 parallelPlot(wh,
              rotateTitle = TRUE)
 ```
@@ -640,7 +582,6 @@ parallelPlot(wh,
 ### **Changing the colour scheme**
 
 ```{r}
-#| eval: false
 parallelPlot(wh,
              continuousCS = "YlOrRd",
              rotateTitle = TRUE)
@@ -649,7 +590,6 @@ parallelPlot(wh,
 ### **Parallel coordinates plot with histogram**
 
 ```{r}
-#| eval: false
 histoVisibility <- rep(TRUE, ncol(wh))
 parallelPlot(wh,
              rotateTitle = TRUE,
@@ -661,7 +601,6 @@ parallelPlot(wh,
 ## **Installing and Launching R Packages**
 
 ```{r}
-#| eval: false
 pacman::p_load(treemap, treemapify, tidyverse) 
 ```
 
@@ -670,7 +609,6 @@ pacman::p_load(treemap, treemapify, tidyverse)
 ### **Importing the data set**
 
 ```{r}
-#| eval: false
 realis2018 <- read_csv("data/realis2018.csv")
 ```
 
@@ -679,7 +617,6 @@ realis2018 <- read_csv("data/realis2018.csv")
 ### **Grouped summaries without the Pipe**
 
 ```{r}
-#| eval: false
 realis2018_grouped <- group_by(realis2018, `Project Name`,
                                `Planning Region`, `Planning Area`, 
                                `Property Type`, `Type of Sale`)
@@ -693,7 +630,6 @@ realis2018_summarised <- summarise(realis2018_grouped,
 ### **Grouped summaries with the *pipe***
 
 ```{r}
-#| eval: false
 realis2018_summarised <- realis2018 %>% 
   group_by(`Project Name`,`Planning Region`, 
            `Planning Area`, `Property Type`, 
@@ -709,7 +645,6 @@ realis2018_summarised <- realis2018 %>%
 ### **Designing a static treemap**
 
 ```{r}
-#| eval: false
 realis2018_selected <- realis2018_summarised %>%
   filter(`Property Type` == "Condominium", `Type of Sale` == "Resale")
 ```
@@ -717,7 +652,6 @@ realis2018_selected <- realis2018_summarised %>%
 ### **Using the basic arguments**
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -730,7 +664,6 @@ treemap(realis2018_selected,
 ### **Working with *vColor* and *type* arguments**
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -746,7 +679,6 @@ treemap(realis2018_selected,
 ### **The "value" type treemap**
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -761,7 +693,6 @@ treemap(realis2018_selected,
 ### **The "manual" type treemap**
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -774,7 +705,6 @@ treemap(realis2018_selected,
 ```
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -791,7 +721,6 @@ treemap(realis2018_selected,
 ### **Working with *algorithm* argument**
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -807,7 +736,6 @@ treemap(realis2018_selected,
 ### **Using *sortID***
 
 ```{r}
-#| eval: false
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
         vSize="Total Unit Sold",
@@ -826,7 +754,6 @@ treemap(realis2018_selected,
 ### **Designing a basic treemap**
 
 ```{r}
-#| eval: false
 ggplot(data=realis2018_selected, 
        aes(area = `Total Unit Sold`,
            fill = `Median Unit Price ($ psm)`),
@@ -839,7 +766,6 @@ ggplot(data=realis2018_selected,
 ### **Defining hierarchy**
 
 ```{r}
-#| eval: false
 ggplot(data=realis2018_selected, 
        aes(area = `Total Unit Sold`,
            fill = `Median Unit Price ($ psm)`,
@@ -849,7 +775,6 @@ ggplot(data=realis2018_selected,
 ```
 
 ```{r}
-#| eval: false
 ggplot(data=realis2018_selected, 
        aes(area = `Total Unit Sold`,
            fill = `Median Unit Price ($ psm)`,
@@ -859,7 +784,6 @@ ggplot(data=realis2018_selected,
 ```
 
 ```{r}
-#| eval: false
 ggplot(data=realis2018_selected, 
        aes(area = `Total Unit Sold`,
            fill = `Median Unit Price ($ psm)`,
@@ -881,20 +805,17 @@ install.packages("devtools")
 ```
 
 ```{r}
-#| eval: false
 library(devtools)
 install_github("timelyportfolio/d3treeR")
 ```
 
 ```{r}
-#| eval: false
 library(d3treeR)
 ```
 
 ### **Designing An Interactive Treemap**
 
 ```{r}
-#| eval: false
 tm <- treemap(realis2018_summarised,
         index=c("Planning Region", "Planning Area"),
         vSize="Total Unit Sold",
@@ -906,6 +827,5 @@ tm <- treemap(realis2018_summarised,
 ```
 
 ```{r}
-#| eval: false
 d3tree(tm,rootname = "Singapore" )
 ```
