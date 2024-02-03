@@ -82,7 +82,7 @@ girafe(code = print(p1 + p2),
 
 # **Practice 3: plot_ly() method**
 
-```{r}
+```{r, warning=FALSE}
 plot_ly(data = exam_data, 
         x = ~ENGLISH, 
         y = ~MATHS, 
@@ -96,9 +96,11 @@ plot_ly(data = exam_data,
 4.  \+ sign is for zooming in! - brushing
 :::
 
-# Practice 4 **Adding the Dot Plots with `stat_dots()`**
+# Practice 4: **Adding the Dot Plots with `stat_dots()`**
 
-```{r}
+## Original
+
+```{r, warning=FALSE}
 ggplot(exam_data, 
        aes(x = RACE, 
            y = ENGLISH)) +
@@ -115,6 +117,8 @@ ggplot(exam_data,
   coord_flip() +
   theme_economist()
 ```
+
+## Attempt 1
 
 ```{r, warning=FALSE}
 p <- ggplot(exam_data, 
@@ -136,4 +140,20 @@ p <- ggplot(exam_data,
 p <- ggplotly(p)
 
 p
+```
+
+## Attempt  2
+
+```{r, warning=FALSE}
+
+p <- ggplot(exam_data, aes(x = RACE, y = ENGLISH)) +
+  stat_halfeye(adjust = 0.5, justification = -0.2, .width = 0, point_colour = NA) +
+  geom_boxplot(width = 0.20, outlier.shape = NA) +
+  geom_point_interactive(aes(tooltip = exam_data$tooltip,data_id = CLASS, size = 1.5)) +
+  coord_flip() +
+  theme_economist()
+
+# Plot
+girafe(ggobj = p)
+
 ```
