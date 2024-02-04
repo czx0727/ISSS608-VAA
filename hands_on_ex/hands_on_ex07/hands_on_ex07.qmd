@@ -31,27 +31,23 @@ I need to refer to this [link](https://czx-isss624.netlify.app/)which I did for 
 I will use the following packages:
 
 ```{r}
-#| eval: false
 pacman::p_load(sf, tmap, tidyverse)
 ```
 
 ### **The Data**
 
 ```{r}
-#| eval: false
 mpsz <- st_read(dsn = "data/geospatial", 
                 layer = "MP14_SUBZONE_WEB_PL")
 ```
 
 ```{r}
-#| eval: false
 mpsz
 ```
 
 ### **Importing Attribute Data into R**
 
 ```{r}
-#| eval: false
 popdata <- read_csv("data/aspatial/respopagesextod2011to2020.csv")
 ```
 
@@ -66,7 +62,6 @@ The following data wrangling and transformation functions will be used:
 -   *mutate()*, *filter()*, *group_by()* and *select()* of **dplyr** package
 
 ```{r}
-#| eval: false
 popdata2020 <- popdata %>%
   filter(Time == 2020) %>%
   group_by(PA, SZ, AG) %>%
@@ -89,8 +84,7 @@ mutate(`DEPENDENCY` = (`YOUNG` + `AGED`)
 
 #### Joining the attribute data and geospatial data
 
-```{r}
-#| eval: false
+```{r,warning=FALSE}
 popdata2020 <- popdata2020 %>%
   mutate_at(.vars = vars(PA, SZ), 
           .funs = funs(toupper)) %>%
@@ -98,13 +92,11 @@ popdata2020 <- popdata2020 %>%
 ```
 
 ```{r}
-#| eval: false
 mpsz_pop2020 <- left_join(mpsz, popdata2020,
                           by = c("SUBZONE_N" = "SZ"))
 ```
 
 ```{r}
-#| eval: false
 write_rds(mpsz_pop2020, "data/rds/mpszpop2020.rds")
 ```
 
@@ -113,16 +105,14 @@ write_rds(mpsz_pop2020, "data/rds/mpszpop2020.rds")
 ### **Plotting a choropleth map quickly by using *qtm()***
 
 ```{r}
-#| eval: false
 tmap_mode("plot")
 qtm(mpsz_pop2020, 
     fill = "DEPENDENCY")
 ```
 
-### **Creating a choropleth map by using *tmap*\'s elements**
+### **Creating a choropleth map by using *tmap*'s elements**
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY", 
           style = "quantile", 
@@ -145,7 +135,6 @@ tm_shape(mpsz_pop2020)+
 #### Drawing a base map
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020) +
   tm_polygons()
 ```
@@ -153,7 +142,6 @@ tm_shape(mpsz_pop2020) +
 #### Drawing a choropleth map using *tm_polygons()*
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_polygons("DEPENDENCY")
 ```
@@ -161,13 +149,11 @@ tm_shape(mpsz_pop2020)+
 #### Drawing a choropleth map using *tm_fill()* and \*tm_border()\*\*
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY")
 ```
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY") +
   tm_borders(lwd = 0.1,  alpha = 1)
@@ -176,7 +162,6 @@ tm_shape(mpsz_pop2020)+
 ### **Data classification methods of tmap**
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 5,
@@ -185,7 +170,6 @@ tm_shape(mpsz_pop2020)+
 ```
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 5,
@@ -193,15 +177,13 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-####  Plotting choropleth map with custome break
+#### Plotting choropleth map with custome break
 
 ```{r}
-#| eval: false
 summary(mpsz_pop2020$DEPENDENCY)
 ```
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           breaks = c(0, 0.60, 0.70, 0.80, 0.90, 1.00)) +
@@ -215,7 +197,6 @@ tm_shape(mpsz_pop2020)+
 #### Using ColourBrewer palette
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 6,
@@ -225,7 +206,6 @@ tm_shape(mpsz_pop2020)+
 ```
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           style = "quantile",
@@ -238,7 +218,6 @@ tm_shape(mpsz_pop2020)+
 #### Map Legend
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY", 
           style = "jenks", 
@@ -262,7 +241,6 @@ tm_shape(mpsz_pop2020)+
 **tmap** allows a wide variety of layout settings to be changed. They can be called by using *tmap_style()*.
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY", 
           style = "quantile", 
@@ -274,7 +252,6 @@ tm_shape(mpsz_pop2020)+
 #### Cartographic Furniture
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY", 
           style = "quantile", 
@@ -299,7 +276,6 @@ tm_shape(mpsz_pop2020)+
 #### By assigning multiple values to at least one of the aesthetic arguments
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+
   tm_fill(c("YOUNG", "AGED"),
           style = "equal", 
@@ -310,7 +286,6 @@ tm_shape(mpsz_pop2020)+
 ```
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020)+ 
   tm_polygons(c("DEPENDENCY","AGED"),
           style = c("equal", "quantile"), 
@@ -321,7 +296,6 @@ tm_shape(mpsz_pop2020)+
 #### By defining a group-by variable in *tm_facets()*
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020) +
   tm_fill("DEPENDENCY",
           style = "quantile",
@@ -339,7 +313,6 @@ tm_shape(mpsz_pop2020) +
 #### By creating multiple stand-alone maps with *tmap_arrange()*
 
 ```{r}
-#| eval: false
 youngmap <- tm_shape(mpsz_pop2020)+ 
   tm_polygons("YOUNG", 
               style = "quantile", 
@@ -356,7 +329,6 @@ tmap_arrange(youngmap, agedmap, asp=1, ncol=2)
 ### **Mappping Spatial Object Meeting a Selection Criterion**
 
 ```{r}
-#| eval: false
 tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
   tm_fill("DEPENDENCY", 
           style = "quantile", 
@@ -375,7 +347,6 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
 # **2 Visualising Geospatial Point Data**
 
 ```{r}
-#| eval: false
 pacman::p_load(sf, tmap, tidyverse)
 ```
 
@@ -384,40 +355,34 @@ pacman::p_load(sf, tmap, tidyverse)
 ### **Data Import and Preparation**
 
 ```{r}
-#| eval: false
 sgpools <- read_csv("data/aspatial/SGPools_svy21.csv")
 ```
 
 ```{r}
-#| eval: false
 list(sgpools) 
 ```
 
 ### **Creating a sf data frame from an aspatial data frame**
 
 ```{r}
-#| eval: false
 sgpools_sf <- st_as_sf(sgpools, 
                        coords = c("XCOORD", "YCOORD"),
                        crs= 3414)
 ```
 
 ```{r}
-#| eval: false
 list(sgpools_sf)
 ```
 
 ### **Drawing Proportional Symbol Map**
 
 ```{r}
-#| eval: false
 tmap_mode("view")
 ```
 
 ### **It all started with an interactive point symbol map**
 
 ```{r}
-#| eval: false
 tm_shape(sgpools_sf)+
 tm_bubbles(col = "red",
            size = 1,
@@ -428,7 +393,6 @@ tm_bubbles(col = "red",
 ### **Lets make it proportional**
 
 ```{r}
-#| eval: false
 tm_shape(sgpools_sf)+
 tm_bubbles(col = "red",
            size = "Gp1Gp2 Winnings",
@@ -439,7 +403,6 @@ tm_bubbles(col = "red",
 ### **Lets give it a different colour**
 
 ```{r}
-#| eval: false
 tm_shape(sgpools_sf)+
 tm_bubbles(col = "OUTLET TYPE", 
           size = "Gp1Gp2 Winnings",
@@ -450,7 +413,6 @@ tm_bubbles(col = "OUTLET TYPE",
 ### **I have a twin brothers :)**
 
 ```{r}
-#| eval: false
 tm_shape(sgpools_sf) +
   tm_bubbles(col = "OUTLET TYPE", 
           size = "Gp1Gp2 Winnings",
@@ -462,19 +424,16 @@ tm_shape(sgpools_sf) +
 ```
 
 ```{r}
-#| eval: false
 tmap_mode("plot")
 ```
 
 # **3 Analytical Mapping**
 
 ```{r}
-#| eval: false
 pacman::p_load(tmap, tidyverse, sf)
 ```
 
 ```{r}
-#| eval: false
 NGA_wp <- read_rds("data/rds/NGA_wp.rds")
 ```
 
@@ -483,7 +442,6 @@ NGA_wp <- read_rds("data/rds/NGA_wp.rds")
 ### **Visualising distribution of non-functional water point**
 
 ```{r}
-#| eval: false
 p1 <- tm_shape(NGA_wp) +
   tm_fill("wp_functional",
           n = 10,
@@ -496,7 +454,18 @@ p1 <- tm_shape(NGA_wp) +
 ```
 
 ```{r}
-#| eval: false
+p2 <- tm_shape(NGA_wp) +
+  tm_fill("total_wp",
+          n = 10,
+          style = "equal",
+          palette = "Blues") +
+  tm_borders(lwd = 0.1,
+             alpha = 1) +
+  tm_layout(main.title = "Distribution of total  water point by LGAs",
+            legend.outside = FALSE)
+```
+
+```{r}
 tmap_arrange(p2, p1, nrow = 1)
 ```
 
@@ -505,7 +474,6 @@ tmap_arrange(p2, p1, nrow = 1)
 ### **Deriving Proportion of Functional Water Points and Non-Functional Water Points**
 
 ```{r}
-#| eval: false
 NGA_wp <- NGA_wp %>%
   mutate(pct_functional = wp_functional/total_wp) %>%
   mutate(pct_nonfunctional = wp_nonfunctional/total_wp)
@@ -514,7 +482,6 @@ NGA_wp <- NGA_wp %>%
 ### **Plotting map of rate**
 
 ```{r}
-#| eval: false
 tm_shape(NGA_wp) +
   tm_fill("pct_functional",
           n = 10,
@@ -534,13 +501,11 @@ tm_shape(NGA_wp) +
 #### Data Preparation
 
 ```{r}
-#| eval: false
 NGA_wp <- NGA_wp %>%
   drop_na()
 ```
 
 ```{r}
-#| eval: false
 percent <- c(0,.01,.1,.5,.9,.99,1)
 var <- NGA_wp["pct_functional"] %>%
   st_set_geometry(NULL)
@@ -550,7 +515,6 @@ quantile(var[,1], percent)
 #### Creating the get.var function
 
 ```{r}
-#| eval: false
 get.var <- function(vname,df) {
   v <- df[vname] %>% 
     st_set_geometry(NULL)
@@ -562,7 +526,6 @@ get.var <- function(vname,df) {
 #### A percentile mapping function
 
 ```{r}
-#| eval: false
 percentmap <- function(vnam, df, legtitle=NA, mtitle="Percentile Map"){
   percent <- c(0,.01,.1,.5,.9,.99,1)
   var <- get.var(vnam, df)
@@ -584,14 +547,12 @@ percentmap <- function(vnam, df, legtitle=NA, mtitle="Percentile Map"){
 #### Test drive the percentile mapping function
 
 ```{r}
-#| eval: false
 percentmap("total_wp", NGA_wp)
 ```
 
 ### **Box map**
 
 ```{r}
-#| eval: false
 ggplot(data = NGA_wp,
        aes(x = "",
            y = wp_nonfunctional)) +
@@ -601,7 +562,6 @@ ggplot(data = NGA_wp,
 #### Creating the boxbreaks function
 
 ```{r}
-#| eval: false
 boxbreaks <- function(v,mult=1.5) {
   qv <- unname(quantile(v))
   iqr <- qv[4] - qv[2]
@@ -632,7 +592,6 @@ boxbreaks <- function(v,mult=1.5) {
 #### Creating the get.var function
 
 ```{r}
-#| eval: false
 get.var <- function(vname,df) {
   v <- df[vname] %>% st_set_geometry(NULL)
   v <- unname(v[,1])
@@ -643,7 +602,6 @@ get.var <- function(vname,df) {
 #### Test drive the newly created function
 
 ```{r}
-#| eval: false
 var <- get.var("wp_nonfunctional", NGA_wp) 
 boxbreaks(var)
 ```
@@ -651,7 +609,6 @@ boxbreaks(var)
 #### Boxmap function
 
 ```{r}
-#| eval: false
 boxmap <- function(vnam, df, 
                    legtitle=NA,
                    mtitle="Box Map",
@@ -678,7 +635,6 @@ boxmap <- function(vnam, df,
 ```
 
 ```{r}
-#| eval: false
 tmap_mode("plot")
 boxmap("wp_nonfunctional", NGA_wp)
 ```
