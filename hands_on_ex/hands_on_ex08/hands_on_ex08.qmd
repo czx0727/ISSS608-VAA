@@ -18,7 +18,6 @@ date-modified: "last-modified"
 ### **Installing and launching R packages**
 
 ```{r}
-#| eval: false
 pacman::p_load(igraph, tidygraph, ggraph, 
                visNetwork, lubridate, clock,
                tidyverse, graphlayouts)
@@ -27,7 +26,6 @@ pacman::p_load(igraph, tidygraph, ggraph,
 ### **Importing network data from files**
 
 ```{r}
-#| eval: false
 GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
 GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
 ```
@@ -35,7 +33,6 @@ GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
 ### **Reviewing the imported data**
 
 ```{r}
-#| eval: false
 glimpse(GAStech_edges)
 ```
 
@@ -44,7 +41,6 @@ glimpse(GAStech_edges)
 ### **Reviewing the revised date fields**
 
 ```{r}
-#| eval: false
 GAStech_edges <- GAStech_edges %>%
   mutate(SendDate = dmy(SentDate)) %>%
   mutate(Weekday = wday(SentDate,
@@ -57,7 +53,6 @@ GAStech_edges <- GAStech_edges %>%
 ### **Reviewing the revised edges file**
 
 ```{r}
-#| eval: false
 GAStech_edges_aggregated <- GAStech_edges %>%
   filter(MainSubject == "Work related") %>%
   group_by(source, target, Weekday) %>%
@@ -76,25 +71,22 @@ GAStech_edges_aggregated <- GAStech_edges %>%
 ### **Using `tbl_graph()` to build tidygraph data model**
 
 ```{r}
-#| eval: false
 GAStech_graph <- tbl_graph(nodes = GAStech_nodes,
                            edges = GAStech_edges_aggregated, 
                            directed = TRUE)
 ```
 
-### **Reviewing the output tidygraph\'s graph object**
+### **Reviewing the output tidygraph's graph object**
 
 ```{r}
-#| eval: false
 GAStech_graph
 ```
 
-### **Reviewing the output tidygraph\'s graph object**
+### **Reviewing the output tidygraph's graph object**
 
 ### **Changing the active object**
 
 ```{r}
-#| eval: false
 GAStech_graph %>%
   activate(edges) %>%
   arrange(desc(Weight))
@@ -105,7 +97,6 @@ GAStech_graph %>%
 ### **Plotting a basic network graph**
 
 ```{r}
-#| eval: false
 ggraph(GAStech_graph) +
   geom_edge_link() +
   geom_node_point()
@@ -114,7 +105,6 @@ ggraph(GAStech_graph) +
 ### **Changing the default network graph theme**
 
 ```{r}
-#| eval: false
 g <- ggraph(GAStech_graph) + 
   geom_edge_link(aes()) +
   geom_node_point(aes())
@@ -122,10 +112,9 @@ g <- ggraph(GAStech_graph) +
 g + theme_graph()
 ```
 
-###  **Changing the coloring of the plot**
+### **Changing the coloring of the plot**
 
-```{r}
-#| eval: false
+```{r, warning= FALSE}
 g <- ggraph(GAStech_graph) + 
   geom_edge_link(aes(colour = 'grey50')) +
   geom_node_point(aes(colour = 'grey40'))
@@ -134,12 +123,11 @@ g + theme_graph(background = 'grey10',
                 text_colour = 'white')
 ```
 
-### **Working with ggraph\'s layouts**
+### **Working with ggraph's layouts**
 
 ### **Fruchterman and Reingold layout**
 
 ```{r}
-#| eval: false
 g <- ggraph(GAStech_graph, 
             layout = "fr") +
   geom_edge_link(aes()) +
@@ -150,8 +138,7 @@ g + theme_graph()
 
 ### **Modifying network nodes**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 g <- ggraph(GAStech_graph, 
             layout = "nicely") + 
   geom_edge_link(aes()) +
@@ -163,8 +150,7 @@ g + theme_graph()
 
 ### **Modifying edges**
 
-```{r}
-#| eval: false
+```{r,warning= FALSE}
 g <- ggraph(GAStech_graph, 
             layout = "nicely") +
   geom_edge_link(aes(width=Weight), 
@@ -178,10 +164,9 @@ g + theme_graph()
 
 ## **Creating facet graphs**
 
-###  **Working with *facet_edges()***
+### **Working with *facet_edges()***
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 set_graph_style()
 
 g <- ggraph(GAStech_graph, 
@@ -199,8 +184,7 @@ g + facet_edges(~Weekday)
 
 The code chunk below uses *theme()* to change the position of the legend.
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 set_graph_style()
 
 g <- ggraph(GAStech_graph, 
@@ -215,10 +199,9 @@ g <- ggraph(GAStech_graph,
 g + facet_edges(~Weekday)
 ```
 
-###  **A framed facet graph**
+### **A framed facet graph**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 set_graph_style() 
 
 g <- ggraph(GAStech_graph, 
@@ -237,8 +220,7 @@ g + facet_edges(~Weekday) +
 
 ### **Working with *facet_nodes()***
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 set_graph_style()
 
 g <- ggraph(GAStech_graph, 
@@ -259,8 +241,7 @@ g + facet_nodes(~Department)+
 
 ### **Computing centrality indices**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 g <- GAStech_graph %>%
   mutate(betweenness_centrality = centrality_betweenness()) %>%
   ggraph(layout = "fr") + 
@@ -274,8 +255,7 @@ g + theme_graph()
 
 ### **Visualising network metrics**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 g <- GAStech_graph %>%
   ggraph(layout = "fr") + 
   geom_edge_link(aes(width=Weight), 
@@ -288,8 +268,7 @@ g + theme_graph()
 
 ### **Visualising Community**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 g <- GAStech_graph %>%
   mutate(community = as.factor(group_edge_betweenness(weights = Weight, directed = TRUE))) %>%
   ggraph(layout = "fr") + 
@@ -305,8 +284,7 @@ g + theme_graph()
 
 ### **Data preparation**
 
-```{r}
-#| eval: false
+```{r, warning = FALSE}
 GAStech_edges_aggregated <- GAStech_edges %>%
   left_join(GAStech_nodes, by = c("sourceLabel" = "label")) %>%
   rename(from = id) %>%
@@ -323,7 +301,6 @@ GAStech_edges_aggregated <- GAStech_edges %>%
 ### **Plotting the first interactive network graph**
 
 ```{r}
-#| eval: false
 visNetwork(GAStech_nodes, 
            GAStech_edges_aggregated)
 ```
@@ -331,7 +308,6 @@ visNetwork(GAStech_nodes,
 ### **Working with layout**
 
 ```{r}
-#| eval: false
 visNetwork(GAStech_nodes,
            GAStech_edges_aggregated) %>%
   visIgraphLayout(layout = "layout_with_fr") 
@@ -340,13 +316,11 @@ visNetwork(GAStech_nodes,
 ### **Working with visual attributes - Nodes**
 
 ```{r}
-#| eval: false
 GAStech_nodes <- GAStech_nodes %>%
   rename(group = Department) 
 ```
 
 ```{r}
-#| eval: false
 visNetwork(GAStech_nodes,
            GAStech_edges_aggregated) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -357,7 +331,6 @@ visNetwork(GAStech_nodes,
 ### **Working with visual attributes - Edges**
 
 ```{r}
-#| eval: false
 visNetwork(GAStech_nodes,
            GAStech_edges_aggregated) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
@@ -371,7 +344,6 @@ visNetwork(GAStech_nodes,
 ### **Interactivity**
 
 ```{r}
-#| eval: false
 visNetwork(GAStech_nodes,
            GAStech_edges_aggregated) %>%
   visIgraphLayout(layout = "layout_with_fr") %>%
