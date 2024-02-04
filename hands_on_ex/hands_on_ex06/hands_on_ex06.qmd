@@ -9,7 +9,7 @@ date-modified: "last-modified"
 # **Getting Started**
 
 ::: callout-note
-## Zhixuan\'s personal learning outcomes:
+## Zhixuan's personal learning outcomes:
 
 1.  Learn good visualisation to plot with time series model!
 :::
@@ -29,7 +29,6 @@ I can create the data visualisation by using R packages (hurray!):
 ## **Installing and launching R packages**
 
 ```{r}
-#| eval: false
 pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)
 ```
 
@@ -40,14 +39,12 @@ pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, d
 ### **Importing the data**
 
 ```{r}
-#| eval: false
 attacks <- read_csv("data/eventlog.csv")
 ```
 
 ### **Examining the data structure**
 
 ```{r}
-#| eval: false
 kable(head(attacks))
 ```
 
@@ -56,7 +53,6 @@ kable(head(attacks))
 Step 1: Deriving *weekday* and *hour of day* fields
 
 ```{r}
-#| eval: false
 make_hr_wkday <- function(ts, sc, tz) {
   real_times <- ymd_hms(ts, 
                         tz = tz[1], 
@@ -71,7 +67,6 @@ make_hr_wkday <- function(ts, sc, tz) {
 Step 2: Deriving the attacks tibble data frame
 
 ```{r}
-#| eval: false
 wkday_levels <- c('Saturday', 'Friday', 
                   'Thursday', 'Wednesday', 
                   'Tuesday', 'Monday', 
@@ -90,14 +85,12 @@ attacks <- attacks %>%
 ```
 
 ```{r}
-#| eval: false
 kable(head(attacks))
 ```
 
 ### **Building the Calendar Heatmaps**
 
-```{r}
-#| eval: false
+```{r,warning=FALSE}
 grouped <- attacks %>% 
   count(wkday, hour) %>% 
   ungroup() %>%
@@ -128,7 +121,6 @@ theme(axis.ticks = element_blank(),
 ### **Plotting Multiple Calendar Heatmaps**
 
 ```{r}
-#| eval: false
 attacks_by_country <- count(
   attacks, source_country) %>%
   mutate(percent = percent(n/sum(n))) %>%
@@ -136,7 +128,6 @@ attacks_by_country <- count(
 ```
 
 ```{r}
-#| eval: false
 top4 <- attacks_by_country$source_country[1:4]
 top4_attacks <- attacks %>%
   filter(source_country %in% top4) %>%
@@ -151,8 +142,7 @@ top4_attacks <- attacks %>%
 
 Step 3: Plotting the Multiple Calender Heatmap by using ggplot2 package.
 
-```{r}
-#| eval: false
+```{r,warning=FALSE}
 ggplot(top4_attacks, 
        aes(hour, 
            wkday, 
@@ -179,14 +169,12 @@ ggplot(top4_attacks,
 ### **Step 1: Data Import**
 
 ```{r}
-#| eval: false
 air <- read_excel("data/arrivals_by_air.xlsx")
 ```
 
 ### **Step 2: Deriving month and year fields**
 
 ```{r}
-#| eval: false
 air$month <- factor(month(air$`Month-Year`), 
                     levels=1:12, 
                     labels=month.abb, 
@@ -197,7 +185,6 @@ air$year <- year(ymd(air$`Month-Year`))
 ### **Step 3: Extracting the target country**
 
 ```{r}
-#| eval: false
 Vietnam <- air %>% 
   select(`Vietnam`, 
          month, 
@@ -208,7 +195,6 @@ Vietnam <- air %>%
 ### **Step 4: Computing year average arrivals by month**
 
 ```{r}
-#| eval: false
 hline.data <- Vietnam %>% 
   group_by(month) %>%
   summarise(avgvalue = mean(`Vietnam`))
@@ -216,8 +202,7 @@ hline.data <- Vietnam %>%
 
 ### **Step 5: Plotting the cycle plot**
 
-```{r}
-#| eval: false
+```{r,warning=FALSE}
 ggplot() + 
   geom_line(data=Vietnam,
             aes(x=year, 
@@ -242,19 +227,17 @@ ggplot() +
 ### **Step 1: Data Import**
 
 ```{r}
-#| eval: false
 rice <- read_csv("data/rice.csv")
 ```
 
 ### **Step 2: Plotting the slopegraph**
 
 ```{r}
-#| eval: false
 rice %>% 
   mutate(Year = factor(Year)) %>%
   filter(Year %in% c(1961, 1980)) %>%
   newggslopegraph(Year, Yield, Country,
                 Title = "Rice Yield of Top 11 Asian Counties",
                 SubTitle = "1961-1980",
-                Caption = "Prepared by: Dr. Kam Tin Seong")
+                Caption = "Prepared by: Chai Zhixuan")
 ```
