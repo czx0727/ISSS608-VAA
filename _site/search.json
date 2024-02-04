@@ -396,7 +396,7 @@
     "href": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#visualising-correlation-matrix-ggcormat",
     "title": "Hands-on Ex 5",
     "section": "Visualising Correlation Matrix: ggcormat()",
-    "text": "Visualising Correlation Matrix: ggcormat()\n\nggstatsplot::ggcorrmat(\n  data = wine, \n  cor.vars = 1:11)\n\n\nggstatsplot::ggcorrmat(\n  data = wine, \n  cor.vars = 1:11,\n  ggcorrplot.args = list(outline.color = \"black\", \n                         hc.order = TRUE,\n                         tl.cex = 10),\n  title    = \"Correlogram for wine dataset\",\n  subtitle = \"Four pairs are no significant at p &lt; 0.05\"\n)\n\n\nggplot.component = list(\n    theme(text=element_text(size=5),\n      axis.text.x = element_text(size = 8),\n      axis.text.y = element_text(size = 8)))"
+    "text": "Visualising Correlation Matrix: ggcormat()\n\nggstatsplot::ggcorrmat(data = wine, cor.vars = 1:11)\n\n\nggstatsplot::ggcorrmat(\n  data = wine, \n  cor.vars = 1:11,\n  ggcorrplot.args = list(outline.color = \"black\", \n                         hc.order = TRUE,\n                         tl.cex = 10),\n  title    = \"Correlogram for wine dataset\",\n  subtitle = \"Four pairs are no significant at p &lt; 0.05\"\n)\n\n\nggplot.component = list(\n    theme(text=element_text(size=5),\n      axis.text.x = element_text(size = 8),\n      axis.text.y = element_text(size = 8)))"
   },
   {
     "objectID": "hands_on_ex/hands_on_ex05/hands_on_ex05.html#building-multiple-plots",

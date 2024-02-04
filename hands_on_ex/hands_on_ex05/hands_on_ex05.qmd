@@ -189,9 +189,7 @@ pairs(wine[,2:12],
 
 ```{r}
 #| eval: false
-ggstatsplot::ggcorrmat(
-  data = wine, 
-  cor.vars = 1:11)
+ggstatsplot::ggcorrmat(data = wine, cor.vars = 1:11)
 ```
 
 ```{r}
