@@ -18,7 +18,7 @@ Below shows the visualisation presented by NCCS
 
 This take home exercise will explore ways of using visual interactivity and visualising uncertainty methods to validate the claims presented above.
 
-# 2 Data Preparation 
+# 2 Data Preparation
 
 I will follow the steps as shown below. I will be downloading ***Daily Rainfall*** in **December** of the year **1983, 1993, 2003, 2013 and 2023** in **Clementi**
 
@@ -40,7 +40,7 @@ I will follow the steps as shown below. I will be downloading ***Daily Rainfall*
 
 ![](images/3.PNG)
 
-4.  Head back to <http://www.weather.gov.sg/climate-historical-daily>. Select **Clementi**, **December** and **1983.** Then click **"Display"**
+4.  Head back to <http://www.weather.gov.sg/climate-historical-daily>. Select **Clementi**, **December** and **2023.** Then click **"Display"**
 
 ![](images/4-01.PNG)
 
