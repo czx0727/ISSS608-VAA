@@ -915,5 +915,12 @@
     "title": "In-Class Ex 4",
     "section": "Attempt 2",
     "text": "Attempt 2\n\np &lt;- ggplot(exam_data, aes(x = RACE, y = ENGLISH)) +\n  stat_halfeye(adjust = 0.5, justification = -0.2, .width = 0, point_colour = NA) +\n  geom_boxplot(width = 0.20, outlier.shape = NA) +\n  geom_point_interactive(aes(tooltip = exam_data$tooltip,data_id = CLASS, size = 1.5)) +\n  coord_flip() +\n  theme_economist()\n\n# Plot\ngirafe(ggobj = p)"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex03/take_home_ex03.html",
+    "href": "take_home_ex/take_home_ex03/take_home_ex03.html",
+    "title": "Take-Home Exercise 3",
+    "section": "",
+    "text": "1 Overview\nFrom NCCS, Singapore is vulnerable to the effects of climate change, evident in the rise in annual mean temperature from 26.9°C to 28.0°C between 1980 and 2020. Additionally, the mean sea level in the Straits of Singapore escalated by 1.2mm to 1.7mm annually from 1975 to 2009.\nIn recent years, rainfall intensity has heightened, with the annual rainfall total for Singapore experiencing an average increase of 67 mm per decade from 1980 to 2019.\nBelow shows the visualisation presented by NCCS\n\nThis take home exercise will explore ways of using visual interactivity and visualising uncertainty methods to validate the claims presented above.\n\n\n2 Data Preparation\nI will follow the steps as shown below. I will be downloading Daily Rainfall in December of the year 1983, 1993, 2003, 2013 and 2023 in Clementi\n\nGo to the following website: http://www.weather.gov.sg/climate-historical-daily\n(a) With reference to email queries wto NEA, I will make the website non-secure\n\n\n\n\n\n\nNote\n\n\n\nPlease note that this is only in chrome.\n\n\n\n\n\n(b) I will click the icon beside the link\n\n\n\n(c) Change the insecure content to allow. You will be prompted to reload the website\n\n\n\nHead back to http://www.weather.gov.sg/climate-historical-daily. Select Clementi, December and 1983. Then click “Display”\n\n\n\nScroll down to download the CSV file\n\n\n\nI will repeat the same step to download the data for December of the year 1983, 1993, 2003, and 2013 in Clementi\n\n\n\n3 Installing packages"
   }
 ]

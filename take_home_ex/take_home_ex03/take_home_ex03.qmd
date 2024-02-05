@@ -1,0 +1,53 @@
+---
+title: "Take-Home Exercise 3"
+author: "Chai Zhixuan"
+date: 2024-02-05
+date-format: long
+date-modified: "last-modified"
+---
+
+# 1 Overview
+
+From [NCCS](https://www.nccs.gov.sg/singapores-climate-action/impact-of-climate-change-in-singapore/), Singapore is vulnerable to the effects of climate change, evident in the rise in annual mean temperature from 26.9°C to 28.0°C between 1980 and 2020. Additionally, the mean sea level in the Straits of Singapore escalated by 1.2mm to 1.7mm annually from 1975 to 2009.
+
+In recent years, rainfall intensity has heightened, with the annual rainfall total for Singapore experiencing an average increase of 67 mm per decade from 1980 to 2019.
+
+Below shows the visualisation presented by NCCS
+
+![](images/6.PNG)
+
+This take home exercise will explore ways of using visual interactivity and visualising uncertainty methods to validate the claims presented above.
+
+# 2 Data Preparation 
+
+I will follow the steps as shown below. I will be downloading ***Daily Rainfall*** in **December** of the year **1983, 1993, 2003, 2013 and 2023** in **Clementi**
+
+1.  Go to the following website: <http://www.weather.gov.sg/climate-historical-daily>
+
+2.  \(a\) With reference to email queries wto NEA, I will make the website non-secure
+
+    ::: callout-note
+    Please note that this is only in chrome.
+    :::
+
+![](images/1.PNG)
+
+2.  \(b\) I will click the icon beside the link
+
+![](images/2.PNG)
+
+2.  \(c\) Change the insecure content to allow. You will be prompted to reload the website
+
+![](images/3.PNG)
+
+4.  Head back to <http://www.weather.gov.sg/climate-historical-daily>. Select **Clementi**, **December** and **1983.** Then click **"Display"**
+
+![](images/4-01.PNG)
+
+5.  Scroll down to download the CSV file
+
+![](images/5.PNG)
+
+6.  I will repeat the same step to download the data for **December** of the year **1983, 1993, 2003, and 2013** in **Clementi**
+
+# 3 Installing packages
