@@ -48,6 +48,10 @@ require(devtools)
 install_version("ggtern", version = "3.4.1", repos = "http://cran.us.r-project.org")
 ```
 
+::: callout-note
+ggtern is version 3.2.1. It can be used for this exercise 😀
+:::
+
 ```{r}
 library(ggtern)
 ```
@@ -59,6 +63,8 @@ pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv")
 ```
 
 ### **Preparing the Data**
+
+I will use the [mutate function](https://dplyr.tidyverse.org/reference/mutate.html) to derive 3 new measures: young, active and old:
 
 ```{r}
 agpop_mutated <- pop_data %>%
@@ -74,6 +80,8 @@ agpop_mutated <- pop_data %>%
 
 ## **Plotting Ternary Diagram with R**
 
+Use ***ggtern()*** function of **ggtern** package to create a simple ternary plot.
+
 ```{r}
 ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   geom_point()
@@ -87,6 +95,8 @@ ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
 ```
 
 ### **Plotting an interative ternary diagram**
+
+I will use the ***plot_ly()*** function of **Plotly R**.
 
 ```{r}
 # reusable function for creating annotation object
@@ -134,6 +144,8 @@ plot_ly(
 
 ## **Installing and Launching R Packages**
 
+I will use the following packages below:
+
 ```{r}
 pacman::p_load(corrplot, ggstatsplot, tidyverse)
 ```
@@ -148,6 +160,8 @@ wine <- read_csv("data/wine_quality.csv")
 
 ### **Building a basic correlation matrix**
 
+A scatter plot matrix of Wine Quality Data is plotted below. It is a 11 by 11 matrix.
+
 ```{r}
 pairs(wine[,1:11])
 ```
@@ -158,15 +172,21 @@ pairs(wine[,2:12])
 
 ### **Drawing the lower corner**
 
+To show the lower half of the correlation matrix, the upper.panel argument will be used as shown in the code chunk below.
+
 ```{r}
 pairs(wine[,2:12], upper.panel = NULL)
 ```
+
+Similarly, you can display the upper half of the correlation matrix by using the code chun below.
 
 ```{r}
 pairs(wine[,2:12], lower.panel = NULL)
 ```
 
 ### **Including with correlation coefficients**
+
+To show the correlation coefficient of each pair of variables instead of a scatter plot, [*panel.cor*](https://www.rdocumentation.org/packages/xcms/versions/1.48.0/topics/panel.cor) function will be used. This will also show higher correlations in a larger font.
 
 ```{r, warning = FALSE}
 
@@ -187,6 +207,8 @@ pairs(wine[,2:12],
 
 ## **Visualising Correlation Matrix: ggcormat()**
 
+One of the major limitation of the correlation matrix is that the scatter plots appear very cluttered when the number of observations is relatively large (i.e. more than 500 observations). To over come this problem, **Corrgram** data visualisation technique suggested by D. J. Murdoch and E. D. Chow (1996) and Friendly, M (2002) and will be used.
+
 ```{r}
 #| eval: false
 ggstatsplot::ggcorrmat(data = wine, cor.vars = 1:11)
@@ -206,6 +228,7 @@ ggstatsplot::ggcorrmat(
 ```
 
 ```{r}
+#| eval: false
 ggplot.component = list(
     theme(text=element_text(size=5),
       axis.text.x = element_text(size = 8),
@@ -213,6 +236,8 @@ ggplot.component = list(
 ```
 
 ## **Building multiple plots**
+
+[*grouped_ggcorrmat()*](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggcorrmat.html) of **ggstatsplot**. is used
 
 ```{r}
 grouped_ggcorrmat(
@@ -238,9 +263,13 @@ grouped_ggcorrmat(
 
 ### **Getting started with corrplot**
 
+In the code chunk below, [*cor()*](https://www.rdocumentation.org/packages/stats/versions/3.6.0/topics/cor) of R Stats is used to compute the correlation matrix of wine data frame.
+
 ```{r}
 wine.cor <- cor(wine[, 1:11])
 ```
+
+Next, [*corrplot()*](https://www.rdocumentation.org/packages/corrplot/versions/0.2-0/topics/corrplot) is used to plot the corrgram by using all the default setting as shown in the code chunk below.
 
 ```{r}
 corrplot(wine.cor)
@@ -248,12 +277,30 @@ corrplot(wine.cor)
 
 ### **Working with visual geometrics**
 
+The default visual geometric of corrplot matrix is circle. However, this default setting can be changed by using the *method* argument as shown in the code chunk below.
+
 ```{r}
 corrplot(wine.cor, 
          method = "ellipse") 
 ```
 
+::: callout-note
+I try with other methods - square and pie
+:::
+
+```{r}
+corrplot(wine.cor, 
+         method = "square") 
+```
+
+```{r}
+corrplot(wine.cor, 
+         method = "pie") 
+```
+
 ### **Working with layout**
+
+*corrplor()* supports three layout types, namely: "full", "upper" or "lower". The default is "full" which display full matrix. The default setting can be changed by using the *type* argument of *corrplot()*.
 
 ```{r}
 corrplot(wine.cor, 
@@ -269,7 +316,39 @@ corrplot(wine.cor,
          tl.col = "black")
 ```
 
+::: callout-note
+I try with other method
+:::
+
+```{r}
+corrplot(wine.cor, 
+         method = "ellipse", 
+         type="lower",
+         diag = FALSE,
+         tl.srt = 45)
+```
+
+```{r}
+corrplot(wine.cor, 
+         method = "ellipse", 
+         type="lower",
+         diag = FALSE,
+         tl.pos = 'n')
+```
+
+```{r}
+corrplot(wine.cor, 
+         method = "ellipse", 
+         type="lower",
+         diag = FALSE,
+         tl.cex = 0.5)
+```
+
 ### **Working with mixed layout**
+
+In order to create a coorgram with mixed layout, the [*corrplot.mixed()*](https://www.rdocumentation.org/packages/corrplot/versions/0.84/topics/corrplot.mixed), a wrapped function for mixed visualisation style will be used.
+
+Figure below shows a mixed layout corrgram plotted using wine quality data.
 
 ```{r}
 corrplot.mixed(wine.cor, 
@@ -290,6 +369,8 @@ corrplot.mixed(wine.cor,
 ```
 
 ### **Combining corrgram with the significant test**
+
+With corrplot package, we can use the *cor.mtest()* to compute the p-values and confidence interval for each pair of variables.
 
 ```{r}
 wine.sig = cor.mtest(wine.cor, conf.level= .95)
@@ -319,6 +400,8 @@ corrplot.mixed(wine.cor,
 ```
 
 ### **Reordering a correlation matrix using hclust**
+
+If using **hclust**, ***corrplot()*** can draw rectangles around the corrgram based on the results of hierarchical clustering.
 
 ```{r}
 corrplot(wine.cor, 
@@ -354,12 +437,16 @@ row.names(wh) <- wh$Country
 
 ### **Transforming the data frame into a matrix**
 
+The code chunk below will be used to transform *wh* data frame into a data matrix.
+
 ```{r}
 wh1 <- dplyr::select(wh, c(3, 7:12))
 wh_matrix <- data.matrix(wh)
 ```
 
 ### **heatmap() of R Stats**
+
+In this sub-section, we will plot a heatmap by using *heatmap()* of Base Stats. The code chunk is given below.
 
 ```{r}
 wh_heatmap <- heatmap(wh_matrix,
@@ -382,15 +469,21 @@ wh_heatmap <- heatmap(wh_matrix,
 
 ### **Working with heatmaply**
 
+[**heatmaply**](http://talgalili.github.io/heatmaply/) is an R package for building interactive cluster heatmap that can be shared online as a stand-alone HTML file. It is designed and maintained by Tal Galili.
+
 ```{r}
 heatmaply(mtcars)
 ```
+
+The code chunk below shows the basic syntax needed to create n interactive heatmap by using **heatmaply** package.
 
 ```{r}
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)])
 ```
 
 ### **Data trasformation**
+
+#### Scaling method
 
 ```{r}
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
@@ -413,6 +506,8 @@ heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 
 ### **Manual approach**
 
+In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with "Euclidean distance" and "ward.D" method.
+
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           dist_method = "euclidean",
@@ -420,6 +515,10 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ```
 
 ### **Statistical approach**
+
+In order to determine the best clustering method and number of cluster the *dend_expend()* and *find_k()* functions of **dendextend** package will be used.
+
+First, the *dend_expend()* will be used to determine the recommended clustering method to be used.
 
 ```{r}
 wh_d <- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = "euclidean")
@@ -469,6 +568,16 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           colors = Blues)
 ```
 
+::: callout-note
+i try with different colour
+:::
+
+```{r}
+heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
+          seriate = "none",
+           colors = heat.colors(100))
+```
+
 ### **The finishing touch**
 
 ```{r}
@@ -502,12 +611,16 @@ wh <- read_csv("data/WHData-2018.csv")
 
 ## **Plotting Static Parallel Coordinates Plot**
 
+Code chunk below shows a typical syntax used to plot a basic static parallel coordinates plot by using `ggparcoord()`.
+
 ```{r}
 ggparcoord(data = wh, 
            columns = c(7:12))
 ```
 
 ### **Plotting a parallel coordinates with boxplot**
+
+I will do a makeover the plot by using a collection of arguments provided by `ggparcoord()`.
 
 ```{r}
 ggparcoord(data = wh, 
@@ -534,6 +647,8 @@ ggparcoord(data = wh,
 
 ### **Rotating x-axis text label**
 
+To make the x-axis text label easy to read, let us rotate the labels by 30 degrees. We can rotate axis text labels using `theme()` function in ggplot2 as shown in the code chunk below
+
 ```{r}
 ggparcoord(data = wh, 
            columns = c(7:12), 
@@ -547,6 +662,8 @@ ggparcoord(data = wh,
 ```
 
 ### **Adjusting the rotated x-axis text label**
+
+Rotating x-axis text labels to 30 degrees makes the label overlap with the plot and we can avoid this by adjusting the text location using `hjust` argument to theme's text element with `element_text()`. We use `axis.text.x` as we want to change the look of x-axis text.
 
 ```{r}
 ggparcoord(data = wh, 
@@ -562,6 +679,8 @@ ggparcoord(data = wh,
 
 ## **Plotting Interactive Parallel Coordinates Plot: parallelPlot methods**
 
+The code chunk below plot an interactive parallel coordinates plot by using `parallelPlot()`.
+
 ```{r}
 wh <- wh %>%
   select("Happiness score", c(7:12))
@@ -572,12 +691,16 @@ parallelPlot(wh,
 
 ### **Rotate axis label**
 
+In the code chunk below, `rotateTitle` argument is used to avoid overlapping axis labels.
+
 ```{r}
 parallelPlot(wh,
              rotateTitle = TRUE)
 ```
 
 ### **Changing the colour scheme**
+
+We can change the default blue colour scheme by using `continousCS` argument as shown in the code chunk below.
 
 ```{r}
 parallelPlot(wh,
@@ -586,6 +709,8 @@ parallelPlot(wh,
 ```
 
 ### **Parallel coordinates plot with histogram**
+
+In the code chunk below, `histoVisibility` argument is used to plot histogram along the axis of each variables.
 
 ```{r}
 histoVisibility <- rep(TRUE, ncol(wh))
@@ -614,16 +739,7 @@ realis2018 <- read_csv("data/realis2018.csv")
 
 ### **Grouped summaries without the Pipe**
 
-```{r}
-realis2018_grouped <- group_by(realis2018, `Project Name`,
-                               `Planning Region`, `Planning Area`, 
-                               `Property Type`, `Type of Sale`)
-realis2018_summarised <- summarise(realis2018_grouped, 
-                          `Total Unit Sold` = sum(`No. of Units`, na.rm = TRUE),
-                          `Total Area` = sum(`Area (sqm)`, na.rm = TRUE),
-                          `Median Unit Price ($ psm)` = median(`Unit Price ($ psm)`, na.rm = TRUE), 
-                          `Median Transacted Price` = median(`Transacted Price ($)`, na.rm = TRUE))
-```
+The code chunk below shows a more efficient way to tackle the same processes by using the *pipe*, %\>%:
 
 ### **Grouped summaries with the *pipe***
 
@@ -642,12 +758,16 @@ realis2018_summarised <- realis2018 %>%
 
 ### **Designing a static treemap**
 
+First, we will select records belongs to resale condominium property type from *realis2018_selected* data frame.
+
 ```{r}
 realis2018_selected <- realis2018_summarised %>%
   filter(`Property Type` == "Condominium", `Type of Sale` == "Resale")
 ```
 
 ### **Using the basic arguments**
+
+The code chunk below designed a treemap by using three core arguments of *treemap()*, namely: *index*, *vSize* and *vColor*.
 
 ```{r}
 treemap(realis2018_selected,
@@ -660,6 +780,8 @@ treemap(realis2018_selected,
 ```
 
 ### **Working with *vColor* and *type* arguments**
+
+In the code chunk below, *type* argument is define as value.
 
 ```{r}
 treemap(realis2018_selected,
@@ -676,6 +798,8 @@ treemap(realis2018_selected,
 
 ### **The "value" type treemap**
 
+The code chunk below shows a value type treemap.
+
 ```{r}
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
@@ -689,6 +813,8 @@ treemap(realis2018_selected,
 ```
 
 ### **The "manual" type treemap**
+
+The code chunk below shows a manual type treemap.
 
 ```{r}
 treemap(realis2018_selected,
@@ -718,6 +844,8 @@ treemap(realis2018_selected,
 
 ### **Working with *algorithm* argument**
 
+The code chunk below plots a squarified treemap by changing the *algorithm* argument.
+
 ```{r}
 treemap(realis2018_selected,
         index=c("Planning Region", "Planning Area", "Project Name"),
@@ -732,6 +860,8 @@ treemap(realis2018_selected,
 ```
 
 ### **Using *sortID***
+
+When "pivotSize" algorithm is used, *sortID* argument can be used to dertemine the order in which the rectangles are placed from top left to bottom right.
 
 ```{r}
 treemap(realis2018_selected,
@@ -763,6 +893,8 @@ ggplot(data=realis2018_selected,
 
 ### **Defining hierarchy**
 
+Group by Planning Region
+
 ```{r}
 ggplot(data=realis2018_selected, 
        aes(area = `Total Unit Sold`,
@@ -772,6 +904,8 @@ ggplot(data=realis2018_selected,
   geom_treemap()
 ```
 
+Group by Planning Area
+
 ```{r}
 ggplot(data=realis2018_selected, 
        aes(area = `Total Unit Sold`,
@@ -780,6 +914,8 @@ ggplot(data=realis2018_selected,
            subgroup2 = `Planning Area`)) + 
   geom_treemap()
 ```
+
+Adding boundary line
 
 ```{r}
 ggplot(data=realis2018_selected, 
@@ -813,6 +949,8 @@ library(d3treeR)
 
 ### **Designing An Interactive Treemap**
 
+1.  *treemap()* is used to build a treemap by using selected variables in condominium data.frame. The treemap created is save as object called ***tm***.
+
 ```{r}
 tm <- treemap(realis2018_summarised,
         index=c("Planning Region", "Planning Area"),
@@ -823,6 +961,8 @@ tm <- treemap(realis2018_summarised,
         title.legend = "Median Unit Price (S$ per sq. m)"
         )
 ```
+
+2.  Then *d3tree()* is used to build an interactive treemap.
 
 ```{r}
 d3tree(tm,rootname = "Singapore" )
