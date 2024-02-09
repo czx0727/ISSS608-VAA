@@ -51,3 +51,114 @@ I will follow the steps as shown below. I will be downloading ***Daily Rainfall*
 6.  I will repeat the same step to download the data for **December** of the year **1983, 1993, 2003, and 2013** in **Clementi**
 
 # 3 Installing packages
+
+I will use the following packages:
+
+```{r}
+pacman::p_load(readxl, gifski, gapminder,
+               plotly, gganimate, tidyverse)
+```
+
+# 4 Data Wrangling 
+
+I will import all the files downloaded. An example is shown for 1983 Dec Data. I will also select specific columns I want, mainly: ***Year, Month, Day,*** and ***Daily Rainfall***.
+
+```{r}
+#| eval: false
+set1_data <- read_csv("data/DAILYDATA_S50_198312.csv",locale=locale(encoding="latin1"))
+
+set1_data <- set1_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
+```
+
+I will proceed to do the same for the other csv files
+
+::: panel-tabset
+## 1993 Dec Data
+
+```{r}
+#| eval: false
+set2_data <- read_csv("data/DAILYDATA_S50_199312.csv",locale=locale(encoding="latin1"))
+
+set2_data <- set2_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
+```
+
+## 2003 Dec Data
+
+```{r}
+#| eval: false
+set3_data <- read_csv("data/DAILYDATA_S50_200312.csv",locale=locale(encoding="latin1"))
+
+set3_data <- set3_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
+```
+
+## 2013 Dec Data
+
+```{r}
+#| eval: false
+set4_data <- read_csv("data/DAILYDATA_S50_201312.csv",locale=locale(encoding="latin1"))
+
+set4_data <- set4_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
+```
+
+## 2023 Dec Data
+
+```{r}
+#| eval: false
+set5_data <- read_csv("data/DAILYDATA_S50_202312.csv",locale=locale(encoding="latin1"))
+
+set5_data <- set5_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
+```
+:::
+
+I will merge all the data together and save to rds file
+
+```{r}
+#| eval: false
+combined_rainfall <- bind_rows(set1_data,set2_data,set3_data,set4_data,set5_data)
+```
+
+```{r}
+#| eval: false
+write_rds(combined_rainfall,
+          "data/combined_rainfall.rds")
+```
+
+I will read back the rds file.
+
+```{r}
+combined_rainfall <- read_rds("data/combined_rainfall.rds")
+```
+
+I will first have a look at the data structure
+
+```{r}
+str(combined_rainfall)
+```
+
+I will rename the Daily Rainfall Total (mm) to Daily Rainfall
+
+```{r}
+combined_rainfall <- combined_rainfall %>%
+   rename("Rainfall" = "Daily Rainfall Total (mm)")
+```
+
+# 5 Proposed Sketch
+
+selection of data visualisation techniques
+
+# 6 Data Visualisation Design
+
+interactivity principles and best practices
+
+```{r}
+
+gg_plot <- ggplot(combined_rainfall, aes(x = as.Date(paste(Year, Month, Day, sep = "-")), y = Rainfall)) +
+  geom_point(aes(size = Rainfall,frame = Year)) +
+  labs(title = 'Clementi - Daily Rainfall (mm)', x = 'Date', y = 'Rainfall (mm)') +
+  theme_minimal()
+
+interactive_plot <- ggplotly(gg_plot)
+
+interactive_plot
+
+```
