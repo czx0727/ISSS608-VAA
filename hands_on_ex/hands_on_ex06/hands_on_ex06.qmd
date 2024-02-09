@@ -44,6 +44,8 @@ attacks <- read_csv("data/eventlog.csv")
 
 ### **Examining the data structure**
 
+*kable()* can be used to review the structure of the imported data frame.
+
 ```{r}
 kable(head(attacks))
 ```
@@ -120,12 +122,16 @@ theme(axis.ticks = element_blank(),
 
 ### **Plotting Multiple Calendar Heatmaps**
 
+Step 1: Deriving attack by country object
+
 ```{r}
 attacks_by_country <- count(
   attacks, source_country) %>%
   mutate(percent = percent(n/sum(n))) %>%
   arrange(desc(n))
 ```
+
+Step 2: Preparing the tidy data frame
 
 ```{r}
 top4 <- attacks_by_country$source_country[1:4]
@@ -168,11 +174,15 @@ ggplot(top4_attacks,
 
 ### **Step 1: Data Import**
 
+*arrivals_by_air.xlsx* will be used now
+
 ```{r}
 air <- read_excel("data/arrivals_by_air.xlsx")
 ```
 
 ### **Step 2: Deriving month and year fields**
+
+Next, two new fields called *month* and *year* are derived from *Month-Year* field.
 
 ```{r}
 air$month <- factor(month(air$`Month-Year`), 
@@ -184,6 +194,8 @@ air$year <- year(ymd(air$`Month-Year`))
 
 ### **Step 3: Extracting the target country**
 
+Next, the code chunk below is use to extract data for the target country (i.e. Vietnam)
+
 ```{r}
 Vietnam <- air %>% 
   select(`Vietnam`, 
@@ -194,6 +206,8 @@ Vietnam <- air %>%
 
 ### **Step 4: Computing year average arrivals by month**
 
+The code chunk below uses `group_by()` and `summarise()` of **dplyr** to compute year average arrivals by month.
+
 ```{r}
 hline.data <- Vietnam %>% 
   group_by(month) %>%
@@ -201,6 +215,8 @@ hline.data <- Vietnam %>%
 ```
 
 ### **Step 5: Plotting the cycle plot**
+
+The code chunk below is used to plot the cycle plot
 
 ```{r,warning=FALSE}
 ggplot() + 
@@ -231,6 +247,8 @@ rice <- read_csv("data/rice.csv")
 ```
 
 ### **Step 2: Plotting the slopegraph**
+
+Next, code chunk below will be used to plot a basic slopegraph as shown below.
 
 ```{r}
 rice %>% 

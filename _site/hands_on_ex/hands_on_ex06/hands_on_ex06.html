@@ -334,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 4, 2024</p>
+      <p class="date-modified">February 9, 2024</p>
     </div>
   </div>
     
@@ -399,6 +399,7 @@ dttm (1): timestamp
 </section>
 <section id="examining-the-data-structure" class="level3">
 <h3 class="anchored" data-anchor-id="examining-the-data-structure"><strong>Examining the data structure</strong></h3>
+<p><em>kable()</em>&nbsp;can be used to review the structure of the imported data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(attacks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -568,12 +569,14 @@ dttm (1): timestamp
 </section>
 <section id="plotting-multiple-calendar-heatmaps" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-multiple-calendar-heatmaps"><strong>Plotting Multiple Calendar Heatmaps</strong></h3>
+<p>Step 1: Deriving attack by country object</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>attacks_by_country <span class="ot">&lt;-</span> <span class="fu">count</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  attacks, source_country) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">percent</span>(n<span class="sc">/</span><span class="fu">sum</span>(n))) <span class="sc">%&gt;%</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Step 2: Preparing the tidy data frame</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>top4 <span class="ot">&lt;-</span> attacks_by_country<span class="sc">$</span>source_country[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>top4_attacks <span class="ot">&lt;-</span> attacks <span class="sc">%&gt;%</span></span>
@@ -618,12 +621,14 @@ dttm (1): timestamp
 <h2 class="anchored" data-anchor-id="plotting-cycle-plot"><strong>Plotting Cycle Plot</strong></h2>
 <section id="step-1-data-import" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-data-import"><strong>Step 1: Data Import</strong></h3>
+<p><em>arrivals_by_air.xlsx</em>&nbsp;will be used now</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/arrivals_by_air.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-2-deriving-month-and-year-fields" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-deriving-month-and-year-fields"><strong>Step 2: Deriving month and year fields</strong></h3>
+<p>Next, two new fields called&nbsp;<em>month</em>&nbsp;and&nbsp;<em>year</em>&nbsp;are derived from&nbsp;<em>Month-Year</em>&nbsp;field.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>air<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">month</span>(air<span class="sc">$</span><span class="st">`</span><span class="at">Month-Year</span><span class="st">`</span>), </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, </span>
@@ -634,6 +639,7 @@ dttm (1): timestamp
 </section>
 <section id="step-3-extracting-the-target-country" class="level3">
 <h3 class="anchored" data-anchor-id="step-3-extracting-the-target-country"><strong>Step 3: Extracting the target country</strong></h3>
+<p>Next, the code chunk below is use to extract data for the target country (i.e.&nbsp;Vietnam)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Vietnam <span class="ot">&lt;-</span> air <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span>, </span>
@@ -644,6 +650,7 @@ dttm (1): timestamp
 </section>
 <section id="step-4-computing-year-average-arrivals-by-month" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-computing-year-average-arrivals-by-month"><strong>Step 4: Computing year average arrivals by month</strong></h3>
+<p>The code chunk below uses&nbsp;<code>group_by()</code>&nbsp;and&nbsp;<code>summarise()</code>&nbsp;of&nbsp;<strong>dplyr</strong>&nbsp;to compute year average arrivals by month.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>hline.data <span class="ot">&lt;-</span> Vietnam <span class="sc">%&gt;%</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span></span>
@@ -652,6 +659,7 @@ dttm (1): timestamp
 </section>
 <section id="step-5-plotting-the-cycle-plot" class="level3">
 <h3 class="anchored" data-anchor-id="step-5-plotting-the-cycle-plot"><strong>Step 5: Plotting the cycle plot</strong></h3>
+<p>The code chunk below is used to plot the cycle plot</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>Vietnam,</span>
@@ -696,6 +704,7 @@ dbl (3): Year, Yield, Production
 </section>
 <section id="step-2-plotting-the-slopegraph" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-plotting-the-slopegraph"><strong>Step 2: Plotting the slopegraph</strong></h3>
+<p>Next, code chunk below will be used to plot a basic slopegraph as shown below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span></span>
