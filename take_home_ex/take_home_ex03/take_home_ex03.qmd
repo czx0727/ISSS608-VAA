@@ -40,15 +40,15 @@ I will follow the steps as shown below. I will be downloading ***Daily Rainfall*
 
 ![](images/3.PNG)
 
-4.  Head back to <http://www.weather.gov.sg/climate-historical-daily>. Select **Clementi**, **December** and **2023.** Then click **"Display"**
+3.  Head back to <http://www.weather.gov.sg/climate-historical-daily>. Select **Clementi**, **December** and **2023.** Then click **"Display"**
 
 ![](images/4-01.PNG)
 
-5.  Scroll down to download the CSV file
+4.  Scroll down to download the CSV file
 
 ![](images/5.PNG)
 
-6.  I will repeat the same step to download the data for **December** of the year **1983, 1993, 2003, and 2013** in **Clementi**
+5.  I will repeat the same step to download the data for **December** of the year **1983, 1993, 2003, and 2013** in **Clementi**
 
 # 3 Installing packages
 
@@ -59,7 +59,7 @@ pacman::p_load(readxl, gifski, gapminder,
                plotly, gganimate, tidyverse)
 ```
 
-# 4 Data Wrangling 
+# 4 Data Wrangling
 
 I will import all the files downloaded. An example is shown for 1983 Dec Data. I will also select specific columns I want, mainly: ***Year, Month, Day,*** and ***Daily Rainfall***.
 
@@ -126,39 +126,109 @@ write_rds(combined_rainfall,
 I will read back the rds file.
 
 ```{r}
+#| eval: false
 combined_rainfall <- read_rds("data/combined_rainfall.rds")
 ```
 
-I will first have a look at the data structure
+I will first have a look at the data structure. Further data wrangling is required:
 
 ```{r}
+#| eval: false
 str(combined_rainfall)
 ```
 
 I will rename the Daily Rainfall Total (mm) to Daily Rainfall
 
 ```{r}
+#| eval: false
 combined_rainfall <- combined_rainfall %>%
    rename("Rainfall" = "Daily Rainfall Total (mm)")
 ```
 
+I will combine the ***Year, Month and Day*** together to a new column: ***Date***
+
+```{r}
+#| eval: false
+combined_rainfall$Date <- as.Date(paste(combined_rainfall$Year, combined_rainfall$Month, combined_rainfall$Day, sep = "-"))
+
+```
+
+I will keep ***date, year and rainfall.***
+
+```{r}
+#| eval: false
+combined_rainfall_1 <- combined_rainfall[, c('Rainfall', 'Date', 'Year')]
+```
+
+I will save to rds file
+
+```{r}
+#| eval: false
+write_rds(combined_rainfall_1,
+          "data/combined_rainfall_1.rds")
+```
+
+I will import back the file
+
+```{r}
+combined_rainfall_1 <- read_rds("data/combined_rainfall_1.rds")
+```
+
 # 5 Proposed Sketch
 
-selection of data visualisation techniques
+Below is the proposed sketch I have in mind:
 
-# 6 Data Visualisation Design
+![](images/20240210_163123.jpg)
 
-interactivity principles and best practices
+# 6 Data Visualisation
+
+## 6.1 Data visualisation design
+
+### 6.1.1 **Clarity - Graph Title**
+
+Interesting insight from the graph can be put as a main title. The graph title can be interesting to grab the attention of readers.
+
+### **6.1.2 Clarity- Axes Labelling**
+
+Axes labels must be meaningful to ensure readers are aware of what the axes represents. 
+
+### 6.1.3 **Aesthetics - Colour**
+
+Colour should be different from the background.
+
+## 6.2 Interactivity Principles 
+
+### 6.2.1 Animation
+
+Animation may not be required in this interactive visualisation as the purpose is for readers to sieve out if the annual total rainfall rose by 101mm per decade. In my example I will be using Dec of the selected years as a proxy. This will be important to link back to the future climate projections mentioned by NCCS
+
+### 6.2.2 View manipulation: selection function
+
+Pointer is needed to show the year and rainfall when selected. This will give users a guidance to the points they are looking at. Plotly will enable users to select specify areas using lasso or box format
+
+# 7 Final Design
 
 ```{r}
 
-gg_plot <- ggplot(combined_rainfall, aes(x = as.Date(paste(Year, Month, Day, sep = "-")), y = Rainfall)) +
-  geom_point(aes(size = Rainfall,frame = Year)) +
-  labs(title = 'Clementi - Daily Rainfall (mm)', x = 'Date', y = 'Rainfall (mm)') +
-  theme_minimal()
+gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall)) +
+  geom_point() +
+  labs(title = 'Daily Rainfall in Clementi - 1983 to 2023 (Selected Period)', x = 'Year', y = 'Daily Rainfall (mm)') +
+  theme_minimal()+
+  geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = "dashed", color = "red", linewidth = 1) +
+  annotate("text", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), 
+           label = paste("Average Rainfall:", round(mean(combined_rainfall_1$Rainfall), 2), "mm"), size=3,
+           vjust = -1, hjust = 1, color = "red")
+  
+  
 
 interactive_plot <- ggplotly(gg_plot)
 
 interactive_plot
 
 ```
+
+# 8 Observation 
+
+Based on the interactive visualisation above, using only Dec in 1983, 1993, 2003, 2013, and 2023, the claims made by NCCS seem to be invalid. In 2003, the rainfalls seem to be have the widest spread. Average rainfall did not rise as drastically as mentioned above.
+
+Further studies can be done by analysing all the data.
