@@ -54,9 +54,12 @@ I will follow the steps as shown below. I will be downloading ***Daily Rainfall*
 
 I will use the following packages:
 
+1.  [**plotly**](https://plotly.com/r/), R library for plotting interactive statistical graphs.
+2.  [**tidyverse**](https://www.tidyverse.org/), a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.
+3.  [**ggiraph**](https://davidgohel.github.io/ggiraph/) for making \'ggplot\' graphics interactive.
+
 ```{r}
-pacman::p_load(readxl, gifski, gapminder,
-               plotly, gganimate, tidyverse)
+pacman::p_load(ggiraph,plotly, tidyverse)
 ```
 
 # 4 Data Wrangling
@@ -196,7 +199,7 @@ Axes labels must be meaningful to ensure readers are aware of what the axes repr
 
 Colour should be different from the background.
 
-## 6.2 Interactivity Principles 
+## 6.2 Interactivity Principles
 
 ### 6.2.1 Animation
 
@@ -212,7 +215,7 @@ Pointer is needed to show the year and rainfall when selected. This will give us
 
 gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall)) +
   geom_point() +
-  labs(title = 'Daily Rainfall in Clementi - 1983 to 2023 (Selected Period)', x = 'Year', y = 'Daily Rainfall (mm)') +
+  labs(title = 'Clementi - 40 Years of December Rainfall: 1983 to 2023', x = 'Year', y = 'Daily Rainfall (mm)') +
   theme_minimal()+
   geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = "dashed", color = "red", linewidth = 1) +
   annotate("text", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), 
@@ -227,7 +230,7 @@ interactive_plot
 
 ```
 
-# 8 Observation 
+# 8 Observation
 
 Based on the interactive visualisation above, using only Dec in 1983, 1993, 2003, 2013, and 2023, the claims made by NCCS seem to be invalid. In 2003, the rainfalls seem to be have the widest spread. Average rainfall did not rise as drastically as mentioned above.
 
