@@ -20,7 +20,7 @@ This take home exercise will explore ways of using visual interactivity and visu
 
 # 2 Data Preparation
 
-I will follow the steps as shown below. I will be downloading ***Daily Rainfall*** in **December** of the year **1983, 1993, 2003, 2013 and 2023** in **Clementi**
+I will follow the steps as shown below. I will be downloading ***Daily Rainfall*** in **December** of the year **1983, 2003, 2023** and **June** of the year **1993, 2013** in **Clementi**. The 2 months are selected to compare between the wet (Nov to Jan) and dry (Feb, Jun to Sep) period.
 
 1.  Go to the following website: <http://www.weather.gov.sg/climate-historical-daily>
 
@@ -56,7 +56,7 @@ I will use the following packages:
 
 1.  [**plotly**](https://plotly.com/r/), R library for plotting interactive statistical graphs.
 2.  [**tidyverse**](https://www.tidyverse.org/), a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.
-3.  [**ggiraph**](https://davidgohel.github.io/ggiraph/) for making \'ggplot\' graphics interactive.
+3.  [**ggiraph**](https://davidgohel.github.io/ggiraph/) for making 'ggplot' graphics interactive.
 
 ```{r}
 pacman::p_load(ggiraph,plotly, tidyverse)
@@ -76,11 +76,11 @@ set1_data <- set1_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
 I will proceed to do the same for the other csv files
 
 ::: panel-tabset
-## 1993 Dec Data
+## 1993 Jun Data
 
 ```{r}
 #| eval: false
-set2_data <- read_csv("data/DAILYDATA_S50_199312.csv",locale=locale(encoding="latin1"))
+set2_data <- read_csv("data/DAILYDATA_S50_199306.csv",locale=locale(encoding="latin1"))
 
 set2_data <- set2_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
 ```
@@ -94,11 +94,11 @@ set3_data <- read_csv("data/DAILYDATA_S50_200312.csv",locale=locale(encoding="la
 set3_data <- set3_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
 ```
 
-## 2013 Dec Data
+## 2013 Jun Data
 
 ```{r}
 #| eval: false
-set4_data <- read_csv("data/DAILYDATA_S50_201312.csv",locale=locale(encoding="latin1"))
+set4_data <- read_csv("data/DAILYDATA_S50_201306.csv",locale=locale(encoding="latin1"))
 
 set4_data <- set4_data %>% select(Year, Month, Day, `Daily Rainfall Total (mm)`)
 ```
@@ -215,7 +215,7 @@ Pointer is needed to show the year and rainfall when selected. This will give us
 
 gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall)) +
   geom_point() +
-  labs(title = 'Clementi - 40 Years of December Rainfall: 1983 to 2023', x = 'Year', y = 'Daily Rainfall (mm)') +
+  labs(title = 'Clementi - 40 Years of Rainfall: 1983 to 2023', x = 'Year', y = 'Daily Rainfall (mm)') +
   theme_minimal()+
   geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = "dashed", color = "red", linewidth = 1) +
   annotate("text", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), 
@@ -232,6 +232,12 @@ interactive_plot
 
 # 8 Observation
 
-Based on the interactive visualisation above, using only Dec in 1983, 1993, 2003, 2013, and 2023, the claims made by NCCS seem to be invalid. In 2003, the rainfalls seem to be have the widest spread. Average rainfall did not rise as drastically as mentioned above.
+Based on the interactive visualisation above, using only Dec 1983, 2003 and 2023 for wet season, and Jun 1993 and 2013 for dry season, the claims made by NCCS seem to be valid: The contrast between the wet months (November to January) and dry month (February and June to September) is likely to be more pronounced.
 
-Further studies can be done by analysing all the data.
+For the months of rainfalls in Dec, the concentration of rainfalls have a balance between the numbers of days above and below the average mean of the selected period in 2023. Previously, 1993 and 2003, the rainfalls seems to be clustered below the average mean of the selected period, with a few exceptional days above the average mean of the selected period.
+
+For Jun 2003, the rainfalls are below the selected period's average, as compared to Jun 1993.
+
+Rainfalls' amount increase in the wet season, and decrease in the dry season across the 40 years.
+
+However, further studies can be done by analysing all the data instead of selected period.
