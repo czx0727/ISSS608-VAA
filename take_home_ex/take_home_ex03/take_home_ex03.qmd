@@ -197,7 +197,7 @@ Axes labels must be meaningful to ensure readers are aware of what the axes repr
 
 ### 6.1.3 **Aesthetics - Colour**
 
-Colour should be different from the background.
+Colour should be different from the background. In addition, there should be colour to differentiate between the high rainfall and low rainfall.
 
 ## 6.2 Interactivity Principles
 
@@ -213,14 +213,15 @@ Pointer is needed to show the year and rainfall when selected. This will give us
 
 ```{r}
 
-gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall)) +
+gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfall)) +
   geom_point() +
   labs(title = 'Clementi - 40 Years of Rainfall: 1983 to 2023', x = 'Year', y = 'Daily Rainfall (mm)') +
   theme_minimal()+
   geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = "dashed", color = "red", linewidth = 1) +
   annotate("text", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), 
            label = paste("Average Rainfall:", round(mean(combined_rainfall_1$Rainfall), 2), "mm"), size=3,
-           vjust = -1, hjust = 1, color = "red")
+           vjust = -1, hjust = 1, color = "red")+
+  scale_color_gradient(low = "blue", high = "red")
   
   
 
