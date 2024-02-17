@@ -1,0 +1,9 @@
+---
+title: "In-Class Ex 6"
+author: "Chai Zhixuan"
+date: 2024-02-17
+date-format: long
+date-modified: "last-modified"
+---
+
+Shiny App!

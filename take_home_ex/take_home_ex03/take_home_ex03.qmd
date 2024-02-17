@@ -222,7 +222,7 @@ gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfa
            label = paste("Average Rainfall:", round(mean(combined_rainfall_1$Rainfall), 2), "mm"), size=3,
            vjust = -1, hjust = 1, color = "red")+
 labs(y= 'Rainfall (mm)', x= 'Year',title = "Clementi - 40 Years of Rainfall: 1983 to 2023",
-       subtitle= 'Period: Dec-83, Jun-93, Dec-03, Jun-13, Dec-13',
+       subtitle= 'Period: Dec-83, Jun-93, Dec-03, Jun-13, Dec-23',
        caption = "Source: Meteorological Service Singapore")+
    theme(axis.title.y= element_text(angle=0), 
         axis.title.y.right = element_text(angle=0, vjust = 1),

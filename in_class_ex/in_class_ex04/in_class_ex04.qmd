@@ -142,7 +142,7 @@ p <- ggplotly(p)
 p
 ```
 
-## Attempt  2
+## Attempt 2
 
 ```{r, warning=FALSE}
 
