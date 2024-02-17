@@ -24,7 +24,7 @@ I will follow the steps as shown below. I will be downloading ***Daily Rainfall*
 
 1.  Go to the following website: <http://www.weather.gov.sg/climate-historical-daily>
 
-2.  \(a\) With reference to email queries wto NEA, I will make the website non-secure
+2.  \(a\) With reference to email queries to NEA, I will make the website non-secure
 
     ::: callout-note
     Please note that this is only in chrome.
@@ -48,7 +48,7 @@ I will follow the steps as shown below. I will be downloading ***Daily Rainfall*
 
 ![](images/5.PNG)
 
-5.  I will repeat the same step to download the data for **December** of the year **1983, 1993, 2003, and 2013** in **Clementi**
+5.  I will repeat the same step to download the rest of the day
 
 # 3 Installing packages
 
