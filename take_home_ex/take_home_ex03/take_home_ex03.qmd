@@ -211,6 +211,31 @@ Pointer is needed to show the year and rainfall when selected. This will give us
 
 # 7 Final Design
 
+## 7.1 Data Visualisation
+
+```{r,warning=FALSE}
+gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfall)) +
+  geom_point() +
+  theme_minimal()+
+  geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = "dashed", color = "red", linewidth = 1) +
+  annotate("text", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), 
+           label = paste("Average Rainfall:", round(mean(combined_rainfall_1$Rainfall), 2), "mm"), size=3,
+           vjust = -1, hjust = 1, color = "red")+
+labs(y= 'Rainfall (mm)', x= 'Year',title = "Clementi - 40 Years of Rainfall: 1983 to 2023",
+       subtitle= 'Period: Dec-83, Jun-93, Dec-03, Jun-13, Dec-13',
+       caption = "Source: Meteorological Service Singapore")+
+   theme(axis.title.y= element_text(angle=0), 
+        axis.title.y.right = element_text(angle=0, vjust = 1),
+        panel.grid.major = element_line(color= 'grey', size = 0.1),
+        panel.background= element_blank(), 
+        axis.line= element_line(color= 'grey'),
+        plot.caption = element_text(hjust = 0))
+
+gg_plot
+```
+
+## 7.2 Interactive Visualisation
+
 ```{r}
 
 gg_plot <- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfall)) +

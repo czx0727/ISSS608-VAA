@@ -936,5 +936,26 @@
     "title": "Take-Home Exercise 3",
     "section": "6.2 Interactivity Principles",
     "text": "6.2 Interactivity Principles\n\n6.2.1 Animation\nAnimation may not be required in this interactive visualisation as the purpose is for readers to sieve out if the annual total rainfall rose by 101mm per decade. In my example I will be using Dec of the selected years as a proxy. This will be important to link back to the future climate projections mentioned by NCCS\n\n\n6.2.2 View manipulation: selection function\nPointer is needed to show the year and rainfall when selected. This will give users a guidance to the points they are looking at. Plotly will enable users to select specify areas using lasso or box format"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex03/take_home_ex03.html#data-visualisation-1",
+    "href": "take_home_ex/take_home_ex03/take_home_ex03.html#data-visualisation-1",
+    "title": "Take-Home Exercise 3",
+    "section": "7.1 Data Visualisation",
+    "text": "7.1 Data Visualisation\n\ngg_plot &lt;- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfall)) +\n  geom_point() +\n  theme_minimal()+\n  geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = \"dashed\", color = \"red\", linewidth = 1) +\n  annotate(\"text\", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), \n           label = paste(\"Average Rainfall:\", round(mean(combined_rainfall_1$Rainfall), 2), \"mm\"), size=3,\n           vjust = -1, hjust = 1, color = \"red\")+\nlabs(y= 'Rainfall (mm)', x= 'Year',title = \"Clementi - 40 Years of Rainfall: 1983 to 2023\",\n       subtitle= 'Period: Dec-83, Jun-93, Dec-03, Jun-13, Dec-13',\n       caption = \"Source: Meteorological Service Singapore\")+\n   theme(axis.title.y= element_text(angle=0), \n        axis.title.y.right = element_text(angle=0, vjust = 1),\n        panel.grid.major = element_line(color= 'grey', size = 0.1),\n        panel.background= element_blank(), \n        axis.line= element_line(color= 'grey'),\n        plot.caption = element_text(hjust = 0))\n\ngg_plot"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex03/take_home_ex03.html#interactive-technique",
+    "href": "take_home_ex/take_home_ex03/take_home_ex03.html#interactive-technique",
+    "title": "Take-Home Exercise 3",
+    "section": "7.2 Interactive Technique",
+    "text": "7.2 Interactive Technique\n\ngg_plot &lt;- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfall)) +\n  geom_point() +\n  labs(title = 'Clementi - 40 Years of Rainfall: 1983 to 2023', x = 'Year', y = 'Daily Rainfall (mm)') +\n  theme_minimal()+\n  geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = \"dashed\", color = \"red\", linewidth = 1) +\n  annotate(\"text\", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), \n           label = paste(\"Average Rainfall:\", round(mean(combined_rainfall_1$Rainfall), 2), \"mm\"), size=3,\n           vjust = -1, hjust = 1, color = \"red\")+\n  scale_color_gradient(low = \"blue\", high = \"red\")\n  \n  \n\ninteractive_plot &lt;- ggplotly(gg_plot)\n\ninteractive_plot"
+  },
+  {
+    "objectID": "take_home_ex/take_home_ex03/take_home_ex03.html#interactive-visualisation",
+    "href": "take_home_ex/take_home_ex03/take_home_ex03.html#interactive-visualisation",
+    "title": "Take-Home Exercise 3",
+    "section": "7.2 Interactive Visualisation",
+    "text": "7.2 Interactive Visualisation\n\ngg_plot &lt;- ggplot(combined_rainfall_1, aes(x = Date, y = Rainfall,color = Rainfall)) +\n  geom_point() +\n  labs(title = 'Clementi - 40 Years of Rainfall: 1983 to 2023', x = 'Year', y = 'Daily Rainfall (mm)') +\n  theme_minimal()+\n  geom_hline(yintercept = mean(combined_rainfall_1$Rainfall), linetype = \"dashed\", color = \"red\", linewidth = 1) +\n  annotate(\"text\", x = median(combined_rainfall_1$Date), y = median(combined_rainfall_1$Rainfall), \n           label = paste(\"Average Rainfall:\", round(mean(combined_rainfall_1$Rainfall), 2), \"mm\"), size=3,\n           vjust = -1, hjust = 1, color = \"red\")+\n  scale_color_gradient(low = \"blue\", high = \"red\")\n  \n  \n\ninteractive_plot &lt;- ggplotly(gg_plot)\n\ninteractive_plot"
   }
 ]
