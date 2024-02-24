@@ -1,0 +1,16 @@
+{
+  "hash": "8f2d7a53709ba2686735894f3aafa8be",
+  "result": {
+    "markdown": "---\ntitle: \"In Class Ex 07 - Horizon Plot\"\nauthor: \"Chai Zhixuan\"\ndate: 2024-02-24\ndate-format: long\ndate-modified: \"last-modified\"\nexecute: \n  eval: true\n  echo: true\n  freeze: true\n  warning: false\n  message: false\n---\n\n\nTableau exercise 😀\n\nhttps://public.tableau.com/app/profile/zhixuan.chai/viz/in_class_exercise07/Dashboard1?publish=yes\n\nhttps://public.tableau.com/app/profile/zhixuan.chai/viz/in_class_ex07_part2/Sheet1?publish=yes\n\n## **Getting started**\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(ggHoriPlot, ggthemes, tidyverse)\n```\n:::\n\n\n### **Step 1: Data Import**\n\n\n::: {.cell}\n\n```{.r .cell-code}\naverp <- read_csv(\"data/AVERP.csv\") %>%\n  mutate(`Date` = dmy(`Date`))\n```\n:::\n\n\n### **Step 2: Plotting the horizon graph**\n\n\n::: {.cell}\n\n```{.r .cell-code}\naverp %>% \n  filter(Date >= \"2018-01-01\") %>%\n  ggplot() +\n  geom_horizon(aes(x = Date, y=Values), \n               origin = \"midpoint\", \n               horizonscale = 6)+\n  facet_grid(`Consumer Items`~.) +\n    theme_few() +\n  scale_fill_hcl(palette = 'RdBu') +\n  theme(panel.spacing.y=unit(0, \"lines\"), strip.text.y = element_text(\n    size = 5, angle = 0, hjust = 0),\n    legend.position = 'none',\n    axis.text.y = element_blank(),\n    axis.text.x = element_text(size=7),\n    axis.title.y = element_blank(),\n    axis.title.x = element_blank(),\n    axis.ticks.y = element_blank(),\n    panel.border = element_blank()\n    ) +\n    scale_x_date(expand=c(0,0), date_breaks = \"3 month\", date_labels = \"%b%y\") +\n  ggtitle('Average Retail Prices of Selected Consumer Items (Jan 2018 to Dec 2022)')\n```\n\n::: {.cell-output-display}\n![](in_class_ex07_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "in_class_ex07_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
