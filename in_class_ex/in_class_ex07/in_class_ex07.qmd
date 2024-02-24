@@ -12,11 +12,11 @@ execute:
   message: false
 ---
 
-Tableau exercise 😀
+# Tableau exercise 😀
 
-https://public.tableau.com/app/profile/zhixuan.chai/viz/in_class_exercise07/Dashboard1?publish=yes
+<https://public.tableau.com/app/profile/zhixuan.chai/viz/in_class_exercise07/Dashboard1?publish=yes>
 
-https://public.tableau.com/app/profile/zhixuan.chai/viz/in_class_ex07_part2/Sheet1?publish=yes
+<https://public.tableau.com/app/profile/zhixuan.chai/viz/in_class_ex07_part2/Sheet1?publish=yes>
 
 ## **Getting started**
 
