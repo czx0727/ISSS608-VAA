@@ -34,6 +34,8 @@ averp <- read_csv("data/AVERP.csv") %>%
 ### **Step 2: Plotting the horizon graph**
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 10
 averp %>% 
   filter(Date >= "2018-01-01") %>%
   ggplot() +
