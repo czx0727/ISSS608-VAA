@@ -4,9 +4,19 @@ author: "Chai Zhixuan"
 date: 2024-01-21
 date-format: long
 date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
 ---
 
 # **Getting Started**
+
+::: callout-note
+Make some changes to the figure size after guidance from Prof's lesson 24 Feb 2024
+:::
 
 ::: callout-note
 ## Zhixuan's personal learning outcomes:
@@ -149,6 +159,8 @@ top4_attacks <- attacks %>%
 Step 3: Plotting the Multiple Calender Heatmap by using ggplot2 package.
 
 ```{r,warning=FALSE}
+#| fig-width: 12
+#| fig-height: 10
 ggplot(top4_attacks, 
        aes(hour, 
            wkday, 
@@ -219,6 +231,8 @@ hline.data <- Vietnam %>%
 The code chunk below is used to plot the cycle plot
 
 ```{r,warning=FALSE}
+#| fig-width: 12
+#| fig-height: 10
 ggplot() + 
   geom_line(data=Vietnam,
             aes(x=year, 
