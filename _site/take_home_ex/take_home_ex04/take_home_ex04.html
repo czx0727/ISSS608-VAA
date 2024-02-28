@@ -285,10 +285,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#creating-a-sf-data-frame-from-an-aspatial-data-frame" id="toc-creating-a-sf-data-frame-from-an-aspatial-data-frame" class="nav-link" data-scroll-target="#creating-a-sf-data-frame-from-an-aspatial-data-frame"><strong>3.2.3 Creating a sf data frame from an aspatial data frame</strong></a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#preliminary-visualisation" id="toc-preliminary-visualisation" class="nav-link" data-scroll-target="#preliminary-visualisation">4 Preliminary visualisation</a></li>
-  <li><a href="#selection-of-data-visualisation-techniques-used" id="toc-selection-of-data-visualisation-techniques-used" class="nav-link" data-scroll-target="#selection-of-data-visualisation-techniques-used">5. Selection of data visualisation techniques used</a></li>
-  <li><a href="#data-visualisation-design-and-interactivity-principles-and-best-practices-implemented" id="toc-data-visualisation-design-and-interactivity-principles-and-best-practices-implemented" class="nav-link" data-scroll-target="#data-visualisation-design-and-interactivity-principles-and-best-practices-implemented">6. Data visualisation design and interactivity principles and best practices implemented</a></li>
-  <li><a href="#ui-design" id="toc-ui-design" class="nav-link" data-scroll-target="#ui-design">7. UI design&nbsp;</a></li>
+  <li><a href="#selection-of-data-visualisation-techniques-used" id="toc-selection-of-data-visualisation-techniques-used" class="nav-link" data-scroll-target="#selection-of-data-visualisation-techniques-used">4 Selection of data visualisation techniques used</a>
+  <ul class="collapse">
+  <li><a href="#colour" id="toc-colour" class="nav-link" data-scroll-target="#colour">4.1 Colour</a></li>
+  <li><a href="#graph-title" id="toc-graph-title" class="nav-link" data-scroll-target="#graph-title">4.2 <strong>Graph Title</strong></a></li>
+  <li><a href="#legend" id="toc-legend" class="nav-link" data-scroll-target="#legend">4.3 Legend</a></li>
+  </ul></li>
+  <li><a href="#preliminary-visualisation" id="toc-preliminary-visualisation" class="nav-link" data-scroll-target="#preliminary-visualisation">5 Preliminary Visualisation</a></li>
+  <li><a href="#ui-design" id="toc-ui-design" class="nav-link" data-scroll-target="#ui-design">7. UI design</a></li>
   <li><a href="#r-shiny" id="toc-r-shiny" class="nav-link" data-scroll-target="#r-shiny">8. R Shiny</a></li>
   </ul>
 </nav>
@@ -333,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level1">
 <h1>1 Overview</h1>
-<p>This take-home exercise will be selecting one of the module of my team’s <a href="https://isss608-team13.netlify.app/proposal#data-visualisation-methods">project</a> proposed Shiny application. I will be working on storyboard 3: geospatial analysis</p>
+<p>In this take-home exercise, I will be selecting one of the modules of my team’s <a href="https://isss608-team13.netlify.app/proposal#data-visualisation-methods">project</a> proposed Shiny application. I will be working on storyboard 3: Geospatial Visualisation.</p>
 </section>
 <section id="setting-the-analytical-tools" class="level1">
 <h1><strong>2. Setting the Analytical Tools</strong></h1>
@@ -347,10 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-data"><strong>3.1 The data</strong></h2>
 <ul>
 <li><p>The first dataset will from <a href="#0">Energy Market Authority</a>. I am using the tidy data.</p>
-<p><img src="images/1-05.PNG" class="img-fluid"></p></li>
-</ul>
-<p><img src=".png" class="img-fluid"></p>
-<ul>
+<p><img src="images/1-06.PNG" class="img-fluid"></p></li>
 <li><p>The second dataset will be Master Plan 2019 Subzone Boundary (Web) (i.e.&nbsp;<code>MP14_SUBZONE_WEB_PL</code>) in ESRI shapefile format. It can be downloaded at <a href="https://data.gov.sg/">data.gov.sg</a> This is a geospatial data. It consists of the geographical boundary of Singapore at the planning subzone level. The data is based on URA Master Plan 2019.</p></li>
 <li><p>The third dataset will be population data</p></li>
 </ul>
@@ -442,7 +443,7 @@ First 10 features:
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mpsz_SES <span class="ot">&lt;-</span> <span class="fu">left_join</span>(mpsz, SES_2_1,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"PLN_AREA_N"</span> <span class="ot">=</span> <span class="st">"Description"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I will remove rows with na.</p>
+<p>I will remove rows with <em>NA</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mpsz_SES_filtered <span class="ot">&lt;-</span> mpsz_SES <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kwh_per_acc =</span> <span class="fu">coalesce</span>(kwh_per_acc, <span class="dv">0</span>),<span class="at">dwelling_type =</span> <span class="fu">coalesce</span>(dwelling_type, <span class="st">"NA"</span>))<span class="sc">%&gt;%</span></span>
@@ -451,8 +452,24 @@ First 10 features:
 </section>
 </section>
 </section>
+<section id="selection-of-data-visualisation-techniques-used" class="level1">
+<h1>4 Selection of data visualisation techniques used</h1>
+<p>Since this is related to geospatial, <strong>choropleth map</strong> will be used. A key aspect will be the appropriate number of classes to be used.</p>
+<section id="colour" class="level2">
+<h2 class="anchored" data-anchor-id="colour">4.1 Colour</h2>
+<p>In terms of colour, I should avoid multiple colours as it will cause confusion to readers. I should stick with a single hue (or a small set of closely related hues) and vary intensity from pale colours for low values to increasingly darker and brighter colours for high values.</p>
+</section>
+<section id="graph-title" class="level2">
+<h2 class="anchored" data-anchor-id="graph-title">4.2 <strong>Graph Title</strong></h2>
+<p>Interesting insight from the graph can be put as a main title. The graph title can be interesting to grab the attention of readers.</p>
+</section>
+<section id="legend" class="level2">
+<h2 class="anchored" data-anchor-id="legend">4.3 Legend</h2>
+<p>Legend will need to be clear to indicate the range and what it entails.</p>
+</section>
+</section>
 <section id="preliminary-visualisation" class="level1">
-<h1>4 Preliminary visualisation</h1>
+<h1>5 Preliminary Visualisation</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_options</span>(<span class="at">check.and.fix =</span> <span class="cn">TRUE</span>)</span>
@@ -485,14 +502,8 @@ First 10 features:
 </div>
 </div>
 </section>
-<section id="selection-of-data-visualisation-techniques-used" class="level1">
-<h1>5. Selection of data visualisation techniques used</h1>
-</section>
-<section id="data-visualisation-design-and-interactivity-principles-and-best-practices-implemented" class="level1">
-<h1>6. Data visualisation design and interactivity principles and best practices implemented</h1>
-</section>
 <section id="ui-design" class="level1">
-<h1>7. UI design&nbsp;</h1>
+<h1>7. UI design</h1>
 </section>
 <section id="r-shiny" class="level1">
 <h1>8. R Shiny</h1>

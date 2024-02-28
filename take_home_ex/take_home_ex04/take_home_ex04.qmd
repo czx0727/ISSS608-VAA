@@ -14,7 +14,7 @@ execute:
 
 # 1 Overview
 
-This take-home exercise will be selecting one of the module of my team's [project](https://isss608-team13.netlify.app/proposal#data-visualisation-methods) proposed Shiny application. I will be working on storyboard 3: geospatial analysis
+In this take-home exercise, I will be selecting one of the modules of my team's [project](https://isss608-team13.netlify.app/proposal#data-visualisation-methods) proposed Shiny application. I will be working on storyboard 3: Geospatial Visualisation.
 
 # **2. Setting the Analytical Tools**
 
@@ -28,9 +28,7 @@ pacman::p_load(sf,  readxl, tmap, tidyverse)
 
 -   The first dataset will from [Energy Market Authority](#0). I am using the tidy data.
 
-    ![](images/1-05.PNG)
-
-![]()
+    ![](images/1-06.PNG)
 
 -   The second dataset will be Master Plan 2019 Subzone Boundary (Web) (i.e. `MP14_SUBZONE_WEB_PL`) in ESRI shapefile format. It can be downloaded at [data.gov.sg](https://data.gov.sg/) This is a geospatial data. It consists of the geographical boundary of Singapore at the planning subzone level. The data is based on URA Master Plan 2019.
 
@@ -81,7 +79,7 @@ mpsz_SES <- left_join(mpsz, SES_2_1,
                           by = c("PLN_AREA_N" = "Description"))
 ```
 
-I will remove rows with na.
+I will remove rows with *NA*.
 
 ```{r}
 mpsz_SES_filtered <- mpsz_SES %>%
@@ -89,7 +87,23 @@ mpsz_SES_filtered <- mpsz_SES %>%
   select(dwelling_type,kwh_per_acc, geometry) 
 ```
 
-# 4 Preliminary visualisation
+# 4 Selection of data visualisation techniques used
+
+Since this is related to geospatial, **choropleth map** will be used. A key aspect will be the appropriate number of classes to be used.
+
+## 4.1 Colour
+
+In terms of colour, I should avoid multiple colours as it will cause confusion to readers. I should stick with a single hue (or a small set of closely related hues) and vary intensity from pale colours for low values to increasingly darker and brighter colours for high values.
+
+## 4.2 **Graph Title**
+
+Interesting insight from the graph can be put as a main title. The graph title can be interesting to grab the attention of readers.
+
+## 4.3 Legend
+
+Legend will need to be clear to indicate the range and what it entails.
+
+# 5 Preliminary Visualisation
 
 ```{r,warning=FALSE}
 tmap_mode("plot")
@@ -118,10 +132,6 @@ tm_shape(mpsz_SES_filtered)+
              position = c("left", "bottom"))
 ```
 
-# 5. Selection of data visualisation techniques used
-
-# 6. Data visualisation design and interactivity principles and best practices implemented
-
-# 7. UI design 
+# 7. UI design
 
 # 8. R Shiny
