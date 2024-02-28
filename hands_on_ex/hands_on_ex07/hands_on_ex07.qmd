@@ -249,7 +249,7 @@ tm_shape(mpsz_pop2020)+
 
 Notice that the choropleth map is shaded in green.
 
-To reverse the colour shading, add a \"-\" prefix.
+To reverse the colour shading, add a "-" prefix.
 
 ```{r}
 tm_shape(mpsz_pop2020)+
@@ -484,7 +484,7 @@ tm_bubbles(col = "OUTLET TYPE",
 
 ### **I have a twin brothers :)**
 
-An impressive and little-know feature of **tmap**\'s view mode is that it also works with faceted plots. The argument *sync* in *tm_facets()* can be used in this case to produce multiple maps with synchronised zoom and pan settings.
+An impressive and little-know feature of **tmap**'s view mode is that it also works with faceted plots. The argument *sync* in *tm_facets()* can be used in this case to produce multiple maps with synchronised zoom and pan settings.
 
 ```{r}
 tm_shape(sgpools_sf) +
@@ -717,7 +717,7 @@ get.var <- function(vname,df) {
 
 #### Test drive the newly created function
 
-Let\'s test the newly created function
+Let's test the newly created function
 
 ```{r}
 var <- get.var("wp_nonfunctional", NGA_wp) 

@@ -1,0 +1,127 @@
+---
+title: "Take-Home Exercise 4"
+author: "Chai Zhixuan"
+date: 2024-02-28
+date-format: long
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---
+
+# 1 Overview
+
+This take-home exercise will be selecting one of the module of my team's [project](https://isss608-team13.netlify.app/proposal#data-visualisation-methods) proposed Shiny application. I will be working on storyboard 3: geospatial analysis
+
+# **2. Setting the Analytical Tools**
+
+```{r}
+pacman::p_load(sf,  readxl, tmap, tidyverse)
+```
+
+# 3. Data Preparation 
+
+## **3.1 The data**
+
+-   The first dataset will from [Energy Market Authority](#0). I am using the tidy data.
+
+    ![](images/1-05.PNG)
+
+![]()
+
+-   The second dataset will be Master Plan 2019 Subzone Boundary (Web) (i.e. `MP14_SUBZONE_WEB_PL`) in ESRI shapefile format. It can be downloaded at [data.gov.sg](https://data.gov.sg/) This is a geospatial data. It consists of the geographical boundary of Singapore at the planning subzone level. The data is based on URA Master Plan 2019.
+
+-   The third dataset will be population data
+
+## **3.2 Data Import and Preparation**
+
+### **3.2.1 Importing Geospatial Data into R**
+
+```{r}
+mpsz <- st_read(dsn = "data/geospatial", 
+                layer = "MPSZ-2019")
+```
+
+```{r}
+mpsz
+```
+
+###  **3.2.2 Importing Attribute Data into R**
+
+```{r,warning=FALSE}
+SES_2 <- read_excel("data/SES_Public_2023_tidy.xlsx", sheet = "T3.5")
+```
+
+```{r}
+str(SES_2)
+```
+
+I will keep to 2023, and overall with annual data
+
+```{r}
+SES_2_1 <- SES_2 %>%
+  filter(year == 2023, month == "Annual", dwelling_type == "Overall", Description != "Central Region", Description != "North Region", Description != "North East Region",Description != "Overall", Description != "West Region")
+```
+
+Convert areas to upper case.
+
+```{r, warning=FALSE}
+SES_2_1 <- SES_2_1 %>%
+  mutate_at(.vars = vars(Description), 
+          .funs = funs(toupper))
+```
+
+### **3.2.3 Creating a sf data frame from an aspatial data frame**
+
+```{r}
+mpsz_SES <- left_join(mpsz, SES_2_1,
+                          by = c("PLN_AREA_N" = "Description"))
+```
+
+I will remove rows with na.
+
+```{r}
+mpsz_SES_filtered <- mpsz_SES %>%
+  mutate(kwh_per_acc = coalesce(kwh_per_acc, 0),dwelling_type = coalesce(dwelling_type, "NA"))%>%
+  select(dwelling_type,kwh_per_acc, geometry) 
+```
+
+# 4 Preliminary visualisation
+
+```{r,warning=FALSE}
+tmap_mode("plot")
+tmap_options(check.and.fix = TRUE)
+qtm(mpsz_SES_filtered, 
+    fill = "kwh_per_acc")
+```
+
+```{r,warning=FALSE}
+tm_shape(mpsz_SES_filtered)+
+  tm_fill("kwh_per_acc", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Electricity Consumption in kwh_per_acc") +
+  tm_layout(main.title = "Total Household Electricity Consumption by Household in 2023",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and electricity data from Energy Marketing Authority (EMA)", 
+             position = c("left", "bottom"))
+```
+
+# 5. Selection of data visualisation techniques used
+
+# 6. Data visualisation design and interactivity principles and best practices implemented
+
+# 7. UI design 
+
+# 8. R Shiny
