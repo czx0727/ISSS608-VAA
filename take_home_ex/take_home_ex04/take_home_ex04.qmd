@@ -22,7 +22,7 @@ In this take-home exercise, I will be selecting one of the modules of my team's 
 pacman::p_load(sf,  readxl, tmap, tidyverse)
 ```
 
-# 3. Data Preparation 
+# 3. Data Preparation
 
 ## **3.1 The data**
 
@@ -32,7 +32,7 @@ pacman::p_load(sf,  readxl, tmap, tidyverse)
 
 -   The second dataset will be Master Plan 2019 Subzone Boundary (Web) (i.e. `MP14_SUBZONE_WEB_PL`) in ESRI shapefile format. It can be downloaded at [data.gov.sg](https://data.gov.sg/) This is a geospatial data. It consists of the geographical boundary of Singapore at the planning subzone level. The data is based on URA Master Plan 2019.
 
--   The third dataset will be population data
+-   The third dataset will be population data. I will download from: [https://tablebuilder.singstat.gov.sg/table/CT/8186#!](https://tablebuilder.singstat.gov.sg/table/CT/8186#!https://tablebuilder.singstat.gov.sg/table/CT/8186#!)
 
 ## **3.2 Data Import and Preparation**
 
@@ -47,7 +47,7 @@ mpsz <- st_read(dsn = "data/geospatial",
 mpsz
 ```
 
-###  **3.2.2 Importing Attribute Data into R**
+### **3.2.2 Importing Attribute Data into R**
 
 ```{r,warning=FALSE}
 SES_2 <- read_excel("data/SES_Public_2023_tidy.xlsx", sheet = "T3.5")
@@ -84,7 +84,19 @@ I will remove rows with *NA*.
 ```{r}
 mpsz_SES_filtered <- mpsz_SES %>%
   mutate(kwh_per_acc = coalesce(kwh_per_acc, 0),dwelling_type = coalesce(dwelling_type, "NA"))%>%
-  select(dwelling_type,kwh_per_acc, geometry) 
+  select(SUBZONE_N, dwelling_type,kwh_per_acc, geometry) 
+```
+
+I will save the file to rds
+
+```{r}
+write_rds(mpsz_SES_filtered, "data/rds/mpsz_SES_filtered.rds")
+```
+
+I will import the rds file
+
+```{r}
+mpsz_SES_filtered <- read_rds("data/rds/mpsz_SES_filtered.rds")
 ```
 
 # 4 Selection of data visualisation techniques used
@@ -103,13 +115,20 @@ Interesting insight from the graph can be put as a main title. The graph title c
 
 Legend will need to be clear to indicate the range and what it entails.
 
-# 5 Preliminary Visualisation
+# 5 Visualisation (Electricity)
 
 ```{r,warning=FALSE}
-tmap_mode("plot")
+tmap_mode("view")
 tmap_options(check.and.fix = TRUE)
 qtm(mpsz_SES_filtered, 
-    fill = "kwh_per_acc")
+    fill = "kwh_per_acc",
+    title = "Electricity Consumption",
+    popup.vars = c("kwh_per_acc", "name_of_area")) +
+  tm_borders()
+```
+
+```{r}
+tmap_mode("plot")
 ```
 
 ```{r,warning=FALSE}
@@ -131,6 +150,12 @@ tm_shape(mpsz_SES_filtered)+
   tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and electricity data from Energy Marketing Authority (EMA)", 
              position = c("left", "bottom"))
 ```
+
+# 6 Visualisation (Population)
+
+The above data cleaning process and visualisation is for electricity data. I will do the same for popluation data
+
+## 6.1 Data Wrangling 
 
 # 7. UI design
 
