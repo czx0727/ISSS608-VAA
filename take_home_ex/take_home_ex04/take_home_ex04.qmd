@@ -122,8 +122,7 @@ tmap_mode("view")
 tmap_options(check.and.fix = TRUE)
 qtm(mpsz_SES_filtered, 
     fill = "kwh_per_acc",
-    title = "Electricity Consumption",
-    popup.vars = c("kwh_per_acc", "name_of_area")) +
+    title = "Electricity Consumption") +
   tm_borders()
 ```
 
@@ -156,6 +155,180 @@ tm_shape(mpsz_SES_filtered)+
 The above data cleaning process and visualisation is for electricity data. I will do the same for popluation data
 
 ## 6.1 Data Wrangling 
+
+Manual cleaning is required in the excel as it consists on rows that will not be used.
+
+### **6.1.1 Importing Attribute Data into R**
+
+```{r, warning=FALSE}
+popdata <- read_csv("data/respopagesextod2011to2020.csv")
+```
+
+I will group the population together by the region.
+
+```{r, warning=FALSE}
+popdata2020 <- popdata %>%
+  filter(Time == 2020) %>%
+  group_by(PA, SZ)%>%
+  summarise(`POP` = sum(`Pop`))
+```
+
+I will change region name to uppercase
+
+```{r, warning=FALSE}
+popdata2020 <- popdata2020 %>%
+  mutate_at(.vars = vars(PA, SZ), 
+          .funs = funs(toupper))
+```
+
+I will join the data together
+
+```{r}
+mpsz_pop2020 <- left_join(mpsz, popdata2020,
+                          by = c("SUBZONE_N" = "SZ"))
+```
+
+I will write the results to rds
+
+```{r}
+write_rds(mpsz_pop2020, "data/rds/mpszpop2020.rds")
+```
+
+I will import the rds
+
+```{r}
+mpsz_pop2020 <- read_rds("data/rds/mpszpop2020.rds")
+```
+
+## 6.2 Plotting of choropleth map
+
+```{r,warning=FALSE}
+tmap_mode("view")
+tmap_options(check.and.fix = TRUE)
+qtm(mpsz_pop2020, 
+    fill = "POP",
+    title = "Singapore's population in 2020") +
+  tm_borders()
+
+```
+
+```{r}
+tmap_mode("plot")
+```
+
+```{r,warning=FALSE}
+tm_shape(mpsz_pop2020)+
+  tm_fill("POP", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Singapore Population") +
+  tm_layout(main.title = "Singapore's population by region in 2020",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and Population data from Department of Statistics", 
+             position = c("left", "bottom"))
+```
+
+I will plot the 2 maps side by side now
+
+```{r, warning = FALSE}
+#| fig-width: 12
+#| fig-height: 10
+elecmap <- tm_shape(mpsz_SES_filtered)+
+  tm_fill("kwh_per_acc", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Electricity Consumption in kwh_per_acc") +
+  tm_layout(main.title = "Total Household Electricity Consumption by Household in 2023",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and electricity data from Energy Marketing Authority (EMA)", 
+             position = c("left", "bottom"))
+
+popmap <- tm_shape(mpsz_pop2020)+
+  tm_fill("POP", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Singapore Population") +
+  tm_layout(main.title = "Singapore's population by region in 2020",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and Population data from Department of Statistics", 
+             position = c("left", "bottom"))
+
+tmap_arrange(elecmap, popmap, asp=1, ncol=2)
+```
+
+```{r}
+tmap_mode("view")
+```
+
+```{r}
+#| fig-width: 12
+#| fig-height: 10
+elecmap <- tm_shape(mpsz_SES_filtered)+
+  tm_fill("kwh_per_acc", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Electricity Consumption in kwh_per_acc") +
+  tm_layout(main.title = "Total Household Electricity Consumption by Household in 2023",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and electricity data from Energy Marketing Authority (EMA)", 
+             position = c("left", "bottom"))
+
+popmap <- tm_shape(mpsz_pop2020)+
+  tm_fill("POP", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Singapore Population") +
+  tm_layout(main.title = "Singapore's population by region in 2020",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Singapore Residents by Planning Area / Subzone, Age Group, Sex and Type of Dwelling from Department of Statistics)", 
+             position = c("left", "bottom"))
+
+tmap_arrange(elecmap, popmap, asp=1, ncol=2)
+```
+
+```{r}
+tmap_mode("plot")
+```
 
 # 7. UI design
 
