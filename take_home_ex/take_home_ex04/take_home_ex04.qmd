@@ -385,3 +385,7 @@ It should be linked with the other tabs of the different modules.
 Below is the mockup of the storyboard:
 
 ![](images/3.PNG)
+
+Detailed information is as shown below:
+
+![](images/1-08.PNG)
