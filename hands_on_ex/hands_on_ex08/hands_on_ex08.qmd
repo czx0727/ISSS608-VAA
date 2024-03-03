@@ -4,6 +4,12 @@ author: "Chai Zhixuan"
 date: 2024-01-28
 date-format: long
 date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
 ---
 
 # **Getting Started**
@@ -16,6 +22,10 @@ date-modified: "last-modified"
 :::
 
 ### **Installing and launching R packages**
+
+4 network data modelling and visualisation packages will be installed and launched - igraph, tidygraph, ggraph and visNetwork. 
+
+Tidyverse and [lubridate](https://lubridate.tidyverse.org/), an R package specially designed to handle and wrangling time data will be installed and launched too.
 
 ```{r}
 pacman::p_load(igraph, tidygraph, ggraph, 
@@ -32,13 +42,19 @@ GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
 
 ### **Reviewing the imported data**
 
+Next, we will examine the structure of the data frame using *glimpse()* of **dplyr**.
+
 ```{r}
 glimpse(GAStech_edges)
 ```
 
 ### **Wrangling time**
 
+The code chunk below will be used to perform the changes.
+
 ### **Reviewing the revised date fields**
+
+Table below shows the data structure of the reformatted *GAStech_edges* data frame
 
 ```{r}
 GAStech_edges <- GAStech_edges %>%
@@ -51,6 +67,8 @@ GAStech_edges <- GAStech_edges %>%
 ### **Wrangling attributes**
 
 ### **Reviewing the revised edges file**
+
+Table below shows the data structure of the reformatted *GAStech_edges* data frame
 
 ```{r}
 GAStech_edges_aggregated <- GAStech_edges %>%
@@ -114,6 +132,8 @@ g + theme_graph()
 
 ### **Changing the coloring of the plot**
 
+`theme_graph()` makes it easy to change the coloring of the plot.
+
 ```{r, warning= FALSE}
 g <- ggraph(GAStech_graph) + 
   geom_edge_link(aes(colour = 'grey50')) +
@@ -127,6 +147,8 @@ g + theme_graph(background = 'grey10',
 
 ### **Fruchterman and Reingold layout**
 
+The code chunks below will be used to plot the network graph using Fruchterman and Reingold layout.
+
 ```{r}
 g <- ggraph(GAStech_graph, 
             layout = "fr") +
@@ -137,6 +159,8 @@ g + theme_graph()
 ```
 
 ### **Modifying network nodes**
+
+In this section, you will colour each node by referring to their respective departments.
 
 ```{r, warning = FALSE}
 g <- ggraph(GAStech_graph, 
@@ -149,6 +173,8 @@ g + theme_graph()
 ```
 
 ### **Modifying edges**
+
+In the code chunk below, the thickness of the edges will be mapped with the *Weight* variable.
 
 ```{r,warning= FALSE}
 g <- ggraph(GAStech_graph, 
@@ -165,6 +191,8 @@ g + theme_graph()
 ## **Creating facet graphs**
 
 ### **Working with *facet_edges()***
+
+In the code chunk below, [*facet_edges()*](https://ggraph.data-imaginist.com/reference/facet_edges.html) is used. Before getting started, it is advisable for you to read it\'s reference guide at least once.
 
 ```{r, warning = FALSE}
 set_graph_style()
@@ -300,12 +328,16 @@ GAStech_edges_aggregated <- GAStech_edges %>%
 
 ### **Plotting the first interactive network graph**
 
+The code chunk below will be used to plot an interactive network graph by using the data prepared
+
 ```{r}
 visNetwork(GAStech_nodes, 
            GAStech_edges_aggregated)
 ```
 
 ### **Working with layout**
+
+In the code chunk below, Fruchterman and Reingold layout is used.
 
 ```{r}
 visNetwork(GAStech_nodes,
@@ -314,6 +346,8 @@ visNetwork(GAStech_nodes,
 ```
 
 ### **Working with visual attributes - Nodes**
+
+The code chunk below rename Department field to group.
 
 ```{r}
 GAStech_nodes <- GAStech_nodes %>%
@@ -330,6 +364,10 @@ visNetwork(GAStech_nodes,
 
 ### **Working with visual attributes - Edges**
 
+In the code run below *visEdges()* is used to symbolise the edges.\
+- The argument *arrows* is used to define where to place the arrow.\
+- The *smooth* argument is used to plot the edges using a smooth curve.
+
 ```{r}
 visNetwork(GAStech_nodes,
            GAStech_edges_aggregated) %>%
@@ -342,6 +380,12 @@ visNetwork(GAStech_nodes,
 ```
 
 ### **Interactivity**
+
+In the code chunk below, *visOptions()* is used to incorporate interactivity features in the data visualisation.
+
+-   The argument *highlightNearest* highlights nearest when clicking a node.
+
+-   The argument *nodesIdSelection* adds an id node selection creating an HTML select element.
 
 ```{r}
 visNetwork(GAStech_nodes,
