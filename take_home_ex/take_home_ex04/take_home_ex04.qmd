@@ -115,6 +115,10 @@ Interesting insight from the graph can be put as a main title. The graph title c
 
 Legend will need to be clear to indicate the range and what it entails.
 
+## 4.4 Viewing
+
+Visualisation should be easy to view and do not consist of a lot of information.
+
 # 5 Visualisation (Electricity)
 
 ```{r,warning=FALSE}
@@ -154,7 +158,7 @@ tm_shape(mpsz_SES_filtered)+
 
 The above data cleaning process and visualisation is for electricity data. I will do the same for popluation data
 
-## 6.1 Data Wrangling 
+## 6.1 Data Wrangling
 
 Manual cleaning is required in the excel as it consists on rows that will not be used.
 
@@ -332,4 +336,52 @@ tmap_mode("plot")
 
 # 7. UI design
 
-# 8. R Shiny
+## 7.1 Proposed Sketch
+
+The image below shows the sketch of the prototype
+
+![](images/1-07.png)
+
+## 7.2 Shiny layout and UI Design
+
+### 7.2.1 Shiny Layout Panels
+
+The side panel can be used to select the year, month, region and dwelling types.
+
+![](images/2.PNG)
+
+### 7.2.2 Shiny UI
+
+The side panel should consist of the following:
+
+**Year** - It can be a slicerinput/ dropdown box (selectInput)
+
+**Month** - It can be a slicerinput/ dropdown box (selectInput)
+
+**Region** - It can be a dropdown box (selectInput)
+
+**Dwelling types** - It can be a dropdown box (selectInput)
+
+::: callout-note
+Might not need to include as this is for another tab
+:::
+
+**Submit button** - To refresh the data after selecting the region
+
+**Other features can be included in the main panel/Overview:**
+
+-   Maximum (Average Household Electricity Consumption)
+
+-   Minimum(Average Household Electricity Consumption)
+
+-   Maximum Population
+
+-   Minimum Population
+
+It should be linked with the other tabs of the different modules.
+
+# 8 Storyboard
+
+Below is the mockup of the storyboard:
+
+![](images/3.PNG)
