@@ -16,7 +16,11 @@ execute:
 
 # Tableau (In Class Exercise)
 
-To be published
+Link: [Tableau](https://public.tableau.com/app/profile/zhixuan.chai/viz/in-class-exercise08/Dashboard1?publish=yes)
+
+::: callout-note
+Link was added in after class. This is the only changes
+:::
 
 # R (In Class Exercise)
 
