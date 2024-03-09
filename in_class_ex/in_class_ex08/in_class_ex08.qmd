@@ -1,7 +1,7 @@
 ---
 title: "In-Class Ex 08"
 author: "Chai Zhixuan"
-date: 2024-02-24
+date: 2024-03-09
 date-format: long
 date-modified: "last-modified"
 execute: 
@@ -11,3 +11,67 @@ execute:
   warning: false
   message: false
 ---
+
+# **Overview**
+
+# Tableau (In Class Exercise)
+
+To be published
+
+# R (In Class Exercise)
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse, terra, gstat, viridis)
+```
+
+```{r}
+rfstations <- read_csv("data/aspatial/RainfallStation.csv")
+```
+
+```{r}
+rfdata <- read_csv("data/aspatial/DAILYDATA_202402.csv") %>%
+  select(c(1, 5)) %>%
+  group_by(Station) %>%
+  summarise(MONTHSUM = sum(`Daily Rainfall Total (mm)`)) %>%
+  ungroup()
+
+```
+
+```{r}
+rfdata <- rfdata %>%
+  left_join(rfstations)
+```
+
+```{r}
+rfdata_sf <- st_as_sf(rfdata, 
+                      coords = c("Longitude",
+                                 "Latitude"),
+                      crs=4326) %>%
+  st_transform(crs = 3414)
+```
+
+```{r}
+mpsz2019 <- st_read(dsn = "data/geospatial",
+                    layer = "MPSZ-2019") %>%
+  st_transform(crs = 3141)
+```
+
+```{r}
+tmap_options(check.and.fix = TRUE)
+tmap_mode("view")
+tm_shape(mpsz2019) +
+  tm_borders() +
+tm_shape(rfdata_sf) +
+  tm_dots(col = "MONTHSUM")
+tmap_mode("plot")
+
+```
+
+```{r}
+grid <- terra::rast(mpsz2019,
+                    nrows = 690,
+                    ncols = 1075)
+
+xy <- terra::xyFromCell(grid,
+                        1:ncell(grid))
+```
