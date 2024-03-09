@@ -192,7 +192,7 @@ g + theme_graph()
 
 ### **Working with *facet_edges()***
 
-In the code chunk below, [*facet_edges()*](https://ggraph.data-imaginist.com/reference/facet_edges.html) is used. Before getting started, it is advisable for you to read it\'s reference guide at least once.
+In the code chunk below, [*facet_edges()*](https://ggraph.data-imaginist.com/reference/facet_edges.html) is used. Before getting started, it is advisable for you to read it's reference guide at least once.
 
 ```{r, warning = FALSE}
 set_graph_style()
