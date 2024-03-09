@@ -1,0 +1,13 @@
+---
+title: "In-Class Ex 08"
+author: "Chai Zhixuan"
+date: 2024-02-24
+date-format: long
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---

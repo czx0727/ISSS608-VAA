@@ -1,0 +1,18 @@
+---
+title: "Hands-on Ex 09"
+author: "Chai Zhixuan"
+date: 2024-02-24
+date-format: long
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---
+
+Please note that during 9 Mar lesson, there was a change in the schedule:
+
+1.  Hands on Exercise 8 - [Here](https://czx-isss608.netlify.app/hands_on_ex/hands_on_ex08/hands_on_ex08)
+2.  Hands on Exercise 9 - [Here](https://czx-isss608.netlify.app/hands_on_ex/hands_on_ex08/hands_on_ex08)

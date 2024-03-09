@@ -1062,5 +1062,19 @@
     "title": "Take-Home Exercise 4",
     "section": "7.2 Shiny layout and UI Design",
     "text": "7.2 Shiny layout and UI Design\n\n7.2.1 Shiny Layout Panels\nThe side panel can be used to select the year, month, region and dwelling types.\n\n\n\n7.2.2 Shiny UI\nThe side panel should consist of the following:\nYear - It can be a slicerinput/ dropdown box (selectInput)\nMonth - It can be a slicerinput/ dropdown box (selectInput)\nRegion - It can be a dropdown box (selectInput)\nDwelling types - It can be a dropdown box (selectInput)\n\n\n\n\n\n\nNote\n\n\n\nMight not need to include as this is for another tab\n\n\nSubmit button - To refresh the data after selecting the region\nOther features can be included in the main panel/Overview:\n\nMaximum (Average Household Electricity Consumption)\nMinimum(Average Household Electricity Consumption)\nMaximum Population\nMinimum Population\n\nIt should be linked with the other tabs of the different modules."
+  },
+  {
+    "objectID": "hands_on_ex/hands_on_ex09/hands_on_ex09.html",
+    "href": "hands_on_ex/hands_on_ex09/hands_on_ex09.html",
+    "title": "Hands-on Ex 09",
+    "section": "",
+    "text": "Please note that during 9 Mar lesson, there was a change in the schedule:\n\nHands on Exercise 8 - Here\nHands on Exercise 9 - Here"
+  },
+  {
+    "objectID": "in_class_ex/in_class_ex08/data/geospatial/MPSZ-2019.html",
+    "href": "in_class_ex/in_class_ex08/data/geospatial/MPSZ-2019.html",
+    "title": "ISSS608 Visual Analytics and Applications",
+    "section": "",
+    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n        0 0     false"
   }
 ]
