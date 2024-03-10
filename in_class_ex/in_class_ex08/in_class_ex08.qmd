@@ -25,7 +25,7 @@ Link was added in after class. This is the only changes
 # R (In Class Exercise)
 
 ```{r}
-pacman::p_load(sf, tmap, tidyverse, terra, gstat, viridis)
+pacman::p_load(sf, tmap, tidyverse, terra, gstat, viridis, automap)
 ```
 
 ```{r}
@@ -57,7 +57,7 @@ rfdata_sf <- st_as_sf(rfdata,
 ```{r}
 mpsz2019 <- st_read(dsn = "data/geospatial",
                     layer = "MPSZ-2019") %>%
-  st_transform(crs = 3141)
+  st_transform(crs = 3414)
 ```
 
 ```{r}
@@ -72,10 +72,178 @@ tmap_mode("plot")
 ```
 
 ```{r}
-grid <- terra::rast(mpsz2019,
-                    nrows = 690,
+grid <- terra::rast(mpsz2019, 
+                    nrows = 690, 
                     ncols = 1075)
+grid
 
-xy <- terra::xyFromCell(grid,
+```
+
+```{r}
+xy <- terra::xyFromCell(grid, 
                         1:ncell(grid))
+head(xy)
+```
+
+::: callout-note
+This is added based on the information provided by Prof Kam:
+
+[https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomap](https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomaphttps://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomap)
+:::
+
+```{r}
+coop <- st_as_sf(as.data.frame(xy), 
+                 coords = c("x", "y"),
+                 crs = st_crs(mpsz2019))
+coop <- st_filter(coop, mpsz2019)
+head(coop)
+```
+
+## **Inverse Distance Weighted (IDW)**
+
+```{r}
+res <- gstat(formula = MONTHSUM ~ 1, 
+             locations = rfdata_sf, 
+             nmax = 5,
+             set = list(idp = 0))
+```
+
+```{r}
+resp <- predict(res, coop)
+```
+
+```{r}
+resp$x <- st_coordinates(resp)[,1]
+resp$y <- st_coordinates(resp)[,2]
+resp$pred <- resp$var1.pred
+
+pred <- terra::rasterize(resp, grid, 
+                         field = "pred", 
+                         fun = "mean")
+```
+
+```{r}
+tmap_options(check.and.fix = TRUE)
+tmap_mode("plot")
+tm_shape(pred) + 
+  tm_raster(alpha = 0.6, 
+            palette = "viridis")
+```
+
+## **Kriging**
+
+```{r}
+v <- variogram(MONTHSUM ~ 1, 
+               data = rfdata_sf)
+plot(v)
+```
+
+```{r}
+fv <- fit.variogram(object = v,
+                    model = vgm(
+                      psill = 0.5, 
+                      model = "Sph",
+                      range = 5000, 
+                      nugget = 0.1))
+fv
+```
+
+```{r}
+plot(v, fv)
+```
+
+```{r}
+k <- gstat(formula = MONTHSUM ~ 1, 
+           data = rfdata_sf, 
+           model = fv)
+k
+```
+
+```{r}
+resp <- predict(k, coop)
+```
+
+```{r}
+resp$x <- st_coordinates(resp)[,1]
+resp$y <- st_coordinates(resp)[,2]
+resp$pred <- resp$var1.pred
+resp$pred <- resp$pred
+resp
+```
+
+```{r}
+kpred <- terra::rasterize(resp, grid, 
+                         field = "pred")
+kpred
+```
+
+### **Mapping the interpolated rainfall raster**
+
+```{r}
+tmap_options(check.and.fix = TRUE)
+tmap_mode("plot")
+tm_shape(kpred) + 
+  tm_raster(alpha = 0.6, 
+            palette = "viridis",
+            title = "Total monthly rainfall (mm)") +
+  tm_layout(main.title = "Distribution of monthly rainfall, Feb 2024",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+### **Automatic variogram modelling**
+
+```{R}
+v_auto <- autofitVariogram(MONTHSUM ~ 1, 
+                           rfdata_sf)
+plot(v_auto)
+```
+
+```{r}
+v_auto
+```
+
+```{r}
+k <- gstat(formula = MONTHSUM ~ 1, 
+           model = v_auto$var_model,
+           data = rfdata_sf)
+k
+```
+
+```{r}
+resp <- predict(k, coop)
+```
+
+```{r}
+resp$x <- st_coordinates(resp)[,1]
+resp$y <- st_coordinates(resp)[,2]
+resp$pred <- resp$var1.pred
+resp$pred <- resp$pred
+
+kpred <- terra::rasterize(resp, grid, 
+                         field = "pred")
+```
+
+```{r}
+tmap_options(check.and.fix = TRUE)
+tmap_mode("plot")
+tm_shape(kpred) + 
+  tm_raster(alpha = 0.6, 
+            palette = "viridis",
+            title = "Total monthly rainfall (mm)") +
+  tm_layout(main.title = "Distribution of monthly rainfall, Feb 2024",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
 ```
