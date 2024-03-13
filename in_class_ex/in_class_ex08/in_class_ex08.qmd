@@ -88,7 +88,7 @@ head(xy)
 ::: callout-note
 This is added based on the information provided by Prof Kam:
 
-[https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomap](https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomaphttps://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomap)
+<https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/in-class_ex07-isomap>
 :::
 
 ```{r}
