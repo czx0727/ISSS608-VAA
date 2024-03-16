@@ -11,3 +11,19 @@ execute:
   warning: false
   message: false
 ---
+
+# Overview
+
+Recap of hands-on exercise 9 was done:
+
+<https://czx-isss608.netlify.app/hands_on_ex/hands_on_ex08/hands_on_ex08>
+
+Few things to take note:
+
+<https://czx-isss608.netlify.app/hands_on_ex/hands_on_ex08/hands_on_ex08#fruchterman-and-reingold-layout>
+
+::: callout-note
+Can be changed to kk, fr, nicely easily
+
+<https://www.data-imaginist.com/posts/2017-02-06-ggraph-introduction-layouts/>
+:::
