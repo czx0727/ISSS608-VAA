@@ -1,0 +1,13 @@
+---
+title: "In Class Ex09"
+author: "Chai Zhixuan"
+date: 2024-03-16
+date-format: long
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---
