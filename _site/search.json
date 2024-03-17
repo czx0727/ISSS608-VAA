@@ -943,5 +943,19 @@
     "title": "Take-Home Exercise 4",
     "section": "7.2 Shiny layout and UI Design",
     "text": "7.2 Shiny layout and UI Design\n\n7.2.1 Shiny Layout Panels\nThe side panel can be used to select the year, month, region and dwelling types.\n\n\n\n7.2.2 Shiny UI\nThe side panel should consist of the following:\nYear - It can be a slicerinput/ dropdown box (selectInput)\nMonth - It can be a slicerinput/ dropdown box (selectInput)\nRegion - It can be a dropdown box (selectInput)\nDwelling types - It can be a dropdown box (selectInput)\n\n\n\n\n\n\nNote\n\n\n\nMight not need to include as this is for another tab\n\n\nSubmit button - To refresh the data after selecting the region\nOther features can be included in the main panel/Overview:\n\nMaximum (Average Household Electricity Consumption)\nMinimum(Average Household Electricity Consumption)\nMaximum Population\nMinimum Population\n\nIt should be linked with the other tabs of the different modules."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ISSS608 Visual Analytics and Applications",
+    "section": "",
+    "text": "Welcome to ISSS608 Visual Analytics and Application. I am Zhixuan! 😀\nIn this website, I will share my learning journey for this course. This website is made with the guidance from Prof Kam.\nCourse information is located here.\n\n\nImage obtained from here\n\n\n\nDate\nTopic\nHands-on Ex\nIn-class Ex\n\n\n\n\n13 Jan 2024\nIntroduction to Visual Analytics\nlink\nlink\n\n\n20 Jan 2024\nDesigning Graphs to Enlighten\nlink\nlink\n\n\n27 Jan 2024\nInteractivity in Visual Analytics\nlink and link\nlink\n\n\n3 Feb 2024\nFundamentals of Visual Analytics\nlink\nlink\n\n\n17 Feb 2024\nVisual Multivariate Analysis\nlink\nlink\n\n\n24 Feb 2024\nVisualising and Analysing Time-Oriented Data\nlink\nlink\n\n\n2 Mar 2024\nVisualising and Analysing Geographic Data\nlink\nlink\n\n\n9 Mar 2024\nNetwork Data Visualisation and Analysis\nlink\nlink\n\n\n16 Mar 2024\nVisualising and Analysing Text Data\nlink\nlink\n\n\n23 Mar 2024\nInformation Dashboard Design\nlink\nlink\n\n\n30 Mar 2024\nPoster Presentation\n\n\n\n\n\nProject: link"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "There is nothing here! Please go back to the main website :)"
   }
 ]
