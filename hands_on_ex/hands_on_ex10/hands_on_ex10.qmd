@@ -44,7 +44,9 @@ reactablefmtr, gt, gtExtras, tidyverse)
 In the code chunk below, `odbcConnectAccess()` of [**RODBC**](https://cran.r-project.org/web/packages/RODBC/) package is used used to import a database query table into R.
 
 ::: callout-important
-Before running the code chunk, you need to change the R system to 32bit version. This is because the `odbcConnectAccess()` is based on 32bit and not 64bit
+Before running the code chunk, you need to change the R system to 32bit version. This is because the `odbcConnectAccess()` is based on 32bit and not 64bit. However, I will not be changing to 32bit to prevent any system issue as I am doing the VAA project, Shiny.
+
+I will change to 32bit after the term ends. Below are screenshot from : [link](https://r4va.netlify.app/chap31)
 :::
 
 ```{r}
@@ -95,6 +97,8 @@ ggplot(product, aes(Product, current)) +
                 size = 1) +
   coord_flip()
 ```
+
+![](images/1.PNG)
 
 ## **Plotting sparklines using ggplot2**
 
@@ -160,6 +164,8 @@ ggplot(sales_report, aes(x=Month, y=Sales)) +
         axis.ticks = element_blank(), strip.text = element_blank())
 ```
 
+![](images/2.PNG)
+
 ## **Static Information Dashboard Design: gt and gtExtras methods**
 
 ### **Plotting a simple bullet chart**
@@ -175,6 +181,8 @@ product %>%
                           "black")) %>%
   gt_theme_538()
 ```
+
+![](images/3.PNG)
 
 ## **sparklines: gtExtras method**
 
@@ -262,6 +270,8 @@ sales_data %>%
                    same_limit = FALSE)
 ```
 
+![](images/4.PNG)
+
 ### **Combining bullet chart and sparklines**
 
 ```{r}
@@ -292,6 +302,8 @@ sales_data %>%
                           "black")) %>%
   gt_theme_538()
 ```
+
+![](images/5.PNG)
 
 ## **Interactive Information Dashboard Design: reactable and reactablefmtr methods**
 
@@ -327,6 +339,10 @@ reactable(
 )
 ```
 
+![](images/7-01.PNG)
+
+![]()
+
 ### **Changing the pagesize**
 
 ```{r}
@@ -342,6 +358,8 @@ reactable(
   )
 )
 ```
+
+![](images/7-02.PNG)
 
 ### **Adding points and labels**
 
@@ -364,6 +382,8 @@ reactable(
 )
 ```
 
+![](images/8-01.PNG)
+
 ### **Adding reference line**
 
 ```{r}
@@ -384,6 +404,8 @@ reactable(
   )
 )
 ```
+
+![](images/9-01.PNG)
 
 ### **Adding bandline**
 
@@ -408,6 +430,8 @@ reactable(
 )
 ```
 
+![](images/10-01.PNG)
+
 ### **Changing from sparkline to sparkbar**
 
 ```{r}
@@ -428,3 +452,9 @@ reactable(
   )
 )
 ```
+
+![](images/11-01.PNG)
+
+::: callout-important
+Will revisit this after the poster presentation!!
+:::

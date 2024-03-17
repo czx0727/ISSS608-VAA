@@ -341,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 4, 2024</p>
+      <p class="date-modified">March 17, 2024</p>
     </div>
   </div>
     
@@ -400,7 +400,8 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Before running the code chunk, you need to change the R system to 32bit version. This is because the&nbsp;<code>odbcConnectAccess()</code>&nbsp;is based on 32bit and not 64bit</p>
+<p>Before running the code chunk, you need to change the R system to 32bit version. This is because the&nbsp;<code>odbcConnectAccess()</code>&nbsp;is based on 32bit and not 64bit. However, I will not be changing to 32bit to prevent any system issue as I am doing the VAA project, Shiny.</p>
+<p>I will change to 32bit after the term ends. Below are screenshot from : <a href="https://r4va.netlify.app/chap31">link</a></p>
 </div>
 </div>
 <div class="cell">
@@ -446,6 +447,7 @@ Important
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/1.PNG" class="img-fluid"></p>
 </section>
 </section>
 <section id="plotting-sparklines-using-ggplot2" class="level2">
@@ -503,6 +505,7 @@ Important
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title=</span><span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), </span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">strip.text =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/2.PNG" class="img-fluid"></p>
 </section>
 </section>
 <section id="static-information-dashboard-design-gt-and-gtextras-methods" class="level2">
@@ -519,6 +522,7 @@ Important
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"black"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/3.PNG" class="img-fluid"></p>
 </section>
 </section>
 <section id="sparklines-gtextras-method" class="level2">
@@ -594,6 +598,7 @@ Important
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_plt_sparkline</span>(<span class="st">'Monthly Sales'</span>,</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">same_limit =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/4.PNG" class="img-fluid"></p>
 </section>
 <section id="combining-bullet-chart-and-sparklines" class="level3">
 <h3 class="anchored" data-anchor-id="combining-bullet-chart-and-sparklines"><strong>Combining bullet chart and sparklines</strong></h3>
@@ -620,6 +625,7 @@ Important
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"black"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/5.PNG" class="img-fluid"></p>
 </section>
 </section>
 <section id="interactive-information-dashboard-design-reactable-and-reactablefmtr-methods" class="level2">
@@ -648,6 +654,8 @@ Important
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/7-01.PNG" class="img-fluid"></p>
+<p><img src=".png" class="img-fluid"></p>
 </section>
 <section id="changing-the-pagesize" class="level3">
 <h3 class="anchored" data-anchor-id="changing-the-pagesize"><strong>Changing the pagesize</strong></h3>
@@ -663,6 +671,7 @@ Important
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/7-02.PNG" class="img-fluid"></p>
 </section>
 <section id="adding-points-and-labels" class="level3">
 <h3 class="anchored" data-anchor-id="adding-points-and-labels"><strong>Adding points and labels</strong></h3>
@@ -683,6 +692,7 @@ Important
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/8-01.PNG" class="img-fluid"></p>
 </section>
 <section id="adding-reference-line" class="level3">
 <h3 class="anchored" data-anchor-id="adding-reference-line"><strong>Adding reference line</strong></h3>
@@ -703,6 +713,7 @@ Important
 <span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/9-01.PNG" class="img-fluid"></p>
 </section>
 <section id="adding-bandline" class="level3">
 <h3 class="anchored" data-anchor-id="adding-bandline"><strong>Adding bandline</strong></h3>
@@ -725,6 +736,7 @@ Important
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/10-01.PNG" class="img-fluid"></p>
 </section>
 <section id="changing-from-sparkline-to-sparkbar" class="level3">
 <h3 class="anchored" data-anchor-id="changing-from-sparkline-to-sparkbar"><strong>Changing from sparkline to sparkbar</strong></h3>
@@ -744,6 +756,20 @@ Important
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/11-01.PNG" class="img-fluid"></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Will revisit this after the poster presentation!!</p>
+</div>
 </div>
 
 
