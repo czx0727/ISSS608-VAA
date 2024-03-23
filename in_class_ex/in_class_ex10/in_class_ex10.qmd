@@ -11,3 +11,7 @@ execute:
   warning: false
   message: false
 ---
+
+# Tableau Exercise 
+
+<https://public.tableau.com/app/profile/zhixuan.chai/viz/in-class-exercise10/Dashboard1?publish=yes>
